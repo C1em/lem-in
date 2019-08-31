@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:20:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/07/08 03:41:08 by coremart         ###   ########.fr       */
+/*   Updated: 2019/08/31 13:16:43 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 void	init_adj_edges(t_adj_edges *adj_edges)
 {
-	adj_edges->size_arr = 100;
-	adj_edges->adj_index = (int*)malloc(adj_edges->size_arr * sizeof(int));
+	adj_edges->size_arr = SIZE_ARR;
+	adj_edges->adj_index = (int*)malloc(SIZE_ARR * sizeof(int));
 	adj_edges->nb_edges = 0;
 }
 
@@ -27,7 +27,7 @@ void	push_back_adj_edges(t_adj_edges *adj_edges, int index_of_edge)
 	{
 		adj_edges->adj_index = (int*)ft_realloc(adj_edges->adj_index,
 								adj_edges->size_arr * sizeof(int),
-								(adj_edges->size_arr + 100) * sizeof(int));
+								(adj_edges->size_arr + SIZE_ARR) * sizeof(int));
 		adj_edges->size_arr += 100;
 	}
 	adj_edges->adj_index[adj_edges->nb_edges] = index_of_edge;

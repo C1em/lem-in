@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/07/08 04:45:18 by coremart         ###   ########.fr       */
+/*   Updated: 2019/08/31 14:49:28 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <limits.h>
 
 # define INF INT_MAX
+# define SIZE_ARR 100
 
 typedef struct	s_edge
 {
@@ -46,8 +47,8 @@ typedef struct	s_adj_edges
 **	adj_arr : all the adj_edges sort by vertex. ex : adj_arr[vertex]
 **
 **	edge_arr : all the edges order by the call to add_edge.
-**				have to used with adj_arr[vertex].adj_index[1] to get
-**				the index of the first adjancent edge of vertex in edge_arr
+**				have to be used with adj_arr[vertex].adj_index[1] to get
+**				the index of the first adjacent edge of vertex in edge_arr
 **
 **	level_arr : level of the vertex. ex: level_arr[vertex] = 3;
 **
@@ -72,7 +73,6 @@ typedef struct	s_queue_ptr
 {
 	t_queue	*start;
 	t_queue	*end;
-	int		size;
 }				t_queue_ptr;
 
 /*
@@ -104,9 +104,9 @@ int			get_max_flow(t_graph *graph, int s, int t);
 **	queue.c
 */
 void	free_queue(t_queue_ptr *queue);
-t_queue	*dequeue(t_queue_ptr *queue);
+int		dequeue(t_queue_ptr *queue);
 void	enqueue(t_queue_ptr *queue, int vertex);
-void	init_queue(t_queue_ptr *queue);
+void	init_queue(t_queue_ptr *queue, int vertex);
 
 /*
 **	simplify_graph.c

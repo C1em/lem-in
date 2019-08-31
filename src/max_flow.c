@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/07/08 06:12:52 by coremart         ###   ########.fr       */
+/*   Updated: 2019/08/31 14:52:27 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,15 @@ static int	bfs(t_graph *graph, int s, int t)
 	int			i;
 	int			tmp;
 	t_queue_ptr	queue;
-	t_queue		*tmp_elem;
 	t_edge		*edge;
 
 	ft_memset(graph->level_arr, -1, sizeof(int) * graph->nb_vertices);
 	graph->level_arr[s] = 0;
-	init_queue(&queue);
+	init_queue(&queue, s);
 	enqueue(&queue, s);
-	while (queue.size > 0)
+	while (queue.start != NULL)
 	{
-		tmp_elem = dequeue(&queue);
-		tmp = tmp_elem->value;
-		free(tmp_elem);
+		tmp = dequeue(&queue);
 		i = 0;
 		while (i < graph->adj_arr[tmp].nb_edges)
 		{
@@ -58,7 +55,7 @@ static int	bfs(t_graph *graph, int s, int t)
 }
 
 // cur_flow always equal to 1 ???????
-//	return 0 if cur_flow == 0 ???????
+// return 0 if cur_flow == 0 ???????
 // rm edge_index
 static int	dfs(t_graph *graph, int cur_vertex, int cur_flow, int t, int *visited)
 {

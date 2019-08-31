@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/07/08 07:16:28 by coremart         ###   ########.fr       */
+/*   Updated: 2019/08/31 16:03:52 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	print_path(t_graph *graph, t_edge *edge, int t)
 	int cur_vertex;
 	int i;
 
-	cur_vertex = edge->from_vertex;
-	if (cur_vertex >= graph->nb_vertices >> 1)
-		printf("vertex :%d out -> ", graph->nb_vertices - cur_vertex - 1);
+	cur_vertex = edge->to_vertex;
+	if (edge->from_vertex >= graph->nb_vertices >> 1)
+		printf("vertex :%d out -> ", graph->nb_vertices - edge->from_vertex - 1);
 	else
-		printf("vertex :%d in -> ", cur_vertex);
+		printf("vertex :%d in -> ", edge->from_vertex);
 	while (cur_vertex != t)
 	{
 		i = 0;
@@ -57,20 +57,16 @@ void	print_res(t_graph *graph, int s, int t)
 void	print_graph(t_graph *graph, int cur_vertex)
 {
 	t_queue_ptr	queue;
-	t_queue		*tmp_elem;
 	int			i;
 	t_edge		*edge;
 	int			cur_level;
 
 	printf("%d\n", cur_vertex);
-	init_queue(&queue);
-	enqueue(&queue, cur_vertex);
+	init_queue(&queue, cur_vertex);
 	cur_level = graph->level_arr[cur_vertex];
-	while (queue.size > 0)
+	while (queue.start != NULL)
 	{
-		tmp_elem = dequeue(&queue);
-		cur_vertex = tmp_elem->value;
-		free(tmp_elem);
+		cur_vertex = dequeue(&queue);
 		i = 0;
 		if (graph->level_arr[cur_vertex] == cur_level + 1)
 		{

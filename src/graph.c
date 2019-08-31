@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 19:48:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/07/08 04:55:48 by coremart         ###   ########.fr       */
+/*   Updated: 2019/08/31 15:25:33 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 void	init_graph(t_graph *graph, int nb_vertices, int nb_edges)
 {
-	nb_vertices <<= 1;
+	nb_vertices = (nb_vertices << 1) - 1;
 	graph->nb_vertices = nb_vertices;
-	graph->edge_arr = (t_edge*)malloc((nb_vertices + (nb_edges << 1)) * sizeof(t_edge));
+	graph->edge_arr = (t_edge*)malloc((nb_vertices - 1 + (nb_edges << 1))
+						* sizeof(t_edge));
 	graph->i = 0;
 	graph->adj_arr = (t_adj_edges*)malloc(nb_vertices * sizeof(t_adj_edges));
 	graph->level_arr = (int*)malloc(nb_vertices * sizeof(int));

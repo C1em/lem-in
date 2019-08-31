@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 00:32:22 by coremart          #+#    #+#             */
-/*   Updated: 2019/07/08 06:03:04 by coremart         ###   ########.fr       */
+/*   Updated: 2019/08/31 14:52:14 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,14 @@ void		simplify_graph(t_graph *graph, int s)
 	int			i;
 	int			tmp;
 	t_queue_ptr	queue;
-	t_queue		*tmp_elem;
 	t_edge		*edge;
 
 	ft_memset(graph->level_arr, -1, sizeof(int) * graph->nb_vertices);
 	graph->level_arr[s] = 0;
-	init_queue(&queue);
-	enqueue(&queue, s);
-	while (queue.size > 0)
+	init_queue(&queue, s);
+	while (queue.start != NULL)
 	{
-		tmp_elem = dequeue(&queue);
-		tmp = tmp_elem->value;
-		free(tmp_elem);
+		tmp = dequeue(&queue);
 		i = 0;
 		while (i < graph->adj_arr[tmp].nb_edges)
 		{
@@ -40,11 +36,6 @@ void		simplify_graph(t_graph *graph, int s)
 				graph->level_arr[edge->to_vertex] = graph->level_arr[tmp] + 1;
 				direct_edge(graph->edge_arr, graph->adj_arr[tmp].adj_index[i]);
 				enqueue(&queue, edge->to_vertex);
-			}
-			else if (graph->level_arr[edge->to_vertex] == graph->level_arr[tmp])
-			{
-				rm_edge(graph, tmp, edge->to_vertex);
-				--i;
 			}
 			else if (graph->level_arr[edge->to_vertex] == graph->level_arr[tmp] + 1)
 				direct_edge(graph->edge_arr, graph->adj_arr[tmp].adj_index[i]);
