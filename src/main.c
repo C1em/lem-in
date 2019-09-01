@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/08/31 16:03:52 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/01 21:36:40 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,26 @@ void	print_graph(t_graph *graph, int cur_vertex)
 }
 
 
+void	print_paths(t_paths *paths)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < paths->size)
+	{
+		j = 0;
+		printf("path :   ");
+		while (j < paths->paths[i].len)
+		{
+			printf("-> %d ", paths->paths[i].path[j]);
+			++j;
+		}
+		printf("\tants on it : %d\n", paths->paths[i].ants_on);
+		++i;
+	}
+}
+
 int main(void)
 {
 	int		nb_vertices;
@@ -123,29 +143,37 @@ int main(void)
 	scanf("%d", &u);
 	add_edge(&graph, u + 1, nb_vertices + 1, 1);
 	graph.nb_vertices = nb_vertices + 2;
-	printf("%d\n", get_max_flow(&graph, 0, nb_vertices + 1));*/
-
+	printf("%d\n", get_max_flow(&graph, 0, nb_vertices + 1));
+*/
 
 	init_graph(&graph, 12, 14);
-	add_edge(&graph, 1, 2, 1);
-	add_edge(&graph, 1, 3, 1);
-	add_edge(&graph, 2, 0, 0);
-	add_edge(&graph, 2, 4, 0);
-	add_edge(&graph, 3, 0, 0);
-	add_edge(&graph, 0, 8, 0);
-	add_edge(&graph, 4, 10, 0);
-	add_edge(&graph, 10, 6, 0);
-	add_edge(&graph, 8, 5, 0);
-	add_edge(&graph, 10, 5, 0);
-	add_edge(&graph, 6, 11, 0);
-	add_edge(&graph, 11, 7, 0);
-	add_edge(&graph, 5, 9, 0);
-	add_edge(&graph, 9, 7, 0);
+
+	add_edge(&graph, 1, 2);
+	add_edge(&graph, 1, 3);
+	add_edge(&graph, 2, 0);
+	add_edge(&graph, 2, 4);
+	add_edge(&graph, 3, 0);
+	add_edge(&graph, 0, 8);
+	add_edge(&graph, 4, 10);
+	add_edge(&graph, 10, 6);
+	add_edge(&graph, 8, 5);
+	add_edge(&graph, 10, 5);
+	add_edge(&graph, 6, 11);
+	add_edge(&graph, 11, 7);
+	add_edge(&graph, 5, 9);
+	add_edge(&graph, 9, 7);
+
+	make_sink(&graph, 1);
+
 
 	simplify_graph(&graph, 1);
 //	print_graph(&graph, 1);
-	printf("%d\n", get_max_flow(&graph, 1, 7));
-	print_res(&graph, 1, 7);
+	t_paths *paths;
+	if ((paths = get_max_flow(&graph, 1, 7, 1)) == NULL && printf("no path !!!\n"))
+		return (0);
+	print_paths(paths);
+//	print_res(&graph, 1, 7);
+
 /*	_____
    /  1	 \
   |	 / \ /

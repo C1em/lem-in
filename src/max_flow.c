@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/08/31 14:52:27 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/01 21:36:10 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,22 +89,36 @@ static int	dfs(t_graph *graph, int cur_vertex, int cur_flow, int t, int *visited
 	return (0);
 }
 
-int			get_max_flow(t_graph *graph, int s, int t)
+/*
+**	custom Dinic's algo
+*/
+t_paths		*get_max_flow(t_graph *graph, int s, int t, int ants)
 {
-	int flow;
-	int max_flow;
-	int *visited;
+	int		flow;
+	int		max_flow;
+	int		*visited;
+	t_paths	*current_paths;
+	t_paths	*new_paths;
+
 
 	if (s == t)
-		return -1;
+		return (NULL);
 	max_flow = 0;
-	if (!(visited = (int*)malloc((graph->nb_vertices + 1) * sizeof(int))))
+	new_paths = NULL;
+	current_paths = NULL;
+	if (!(visited = (int*)malloc(graph->nb_vertices * sizeof(int))))
 		exit(1);
 	while (bfs(graph, s, t))
 	{
 		ft_bzero(visited, sizeof(int) * graph->nb_vertices);
 		while ((flow = dfs(graph, s, INF, t, visited)))
 			max_flow += flow;
+		new_paths = get_new_paths(graph, max_flow, s, t);
+		dispatch_ants(new_paths, ants);
+		if (is_worse_path(current_paths, new_paths) && printf("\nStop, best paths found\n\n"))
+			break;
+		free_paths(current_paths);
+		current_paths = new_paths;
 	}
-	return (max_flow);
+	return (current_paths);
 }

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:37:03 by coremart          #+#    #+#             */
-/*   Updated: 2019/08/31 13:48:46 by coremart         ###   ########.fr       */
+/*   Updated: 2019/08/31 20:39:10 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,11 @@ void			new_vertex(t_graph *graph, int vertex)
 /*
 **	Add the index of the edge in adj_arr and put the edge in edge_arr
 */
-void			add_edge(t_graph *graph, int from, int to, int s)
+void			add_edge(t_graph *graph, int from, int to)
 {
-	if (!s)
-	{
-		if (graph->adj_arr[from].nb_edges == 0)
-			new_vertex(graph, from);
-		from = graph->nb_vertices - from - 1;
-	}
+	if (graph->adj_arr[from].nb_edges == 0)
+		new_vertex(graph, from);
+	from = graph->nb_vertices - from - 1;
 	if (graph->adj_arr[to].nb_edges == 0)
 		new_vertex(graph, to);
 	push_back_adj_edges(&graph->adj_arr[from], graph->i);

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/08/31 14:49:28 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/01 16:13:43 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,41 +76,70 @@ typedef struct	s_queue_ptr
 }				t_queue_ptr;
 
 /*
+**	path : array of the vertices forming the path (without s and t)
+**
+**	len : path's length or path's size
+**
+**	ants_on : nb of ants on the path for the best distribution
+*/
+typedef struct	s_path
+{
+	int	*path;
+	int	len;
+	int ants_on;
+}				t_path;
+
+typedef struct	s_paths
+{
+	t_path	*paths;
+	int		size;
+}				t_paths;
+
+/*
 **	graph.c
 */
-void	init_graph(t_graph *graph, int nb_vertices, int nb_edges);
-void	free_graph(t_graph *graph);
+void			init_graph(t_graph *graph, int nb_vertices, int nb_edges);
+void			free_graph(t_graph *graph);
+void			make_sink(t_graph *graph, int sink);
 
 /*
 **	adj_edges.c
 */
-void	init_adj_edges(t_adj_edges *adj_edges);
-void	push_back_adj_edges(t_adj_edges *adj_edges, int item);
-void	rm_adj_edge(t_graph *graph, t_adj_edges *adj_edge, int to);
+void			init_adj_edges(t_adj_edges *adj_edges);
+void			push_back_adj_edges(t_adj_edges *adj_edges, int item);
+void			rm_adj_edge(t_graph *graph, t_adj_edges *adj_edge, int to);
 
 /*
 **	edges.c
 */
-void			add_edge(t_graph *graph, int from, int to, int s_or_t);
+void			add_edge(t_graph *graph, int from, int to);
 void			rm_edge(t_graph *graph, int from, int to);
 void			direct_edge(t_edge *edge_arr, int index);
 
 /*
 **	max_flow.c
 */
-int			get_max_flow(t_graph *graph, int s, int t);
+t_paths			*get_max_flow(t_graph *graph, int s, int t, int ants);
 
 /*
 **	queue.c
 */
-void	free_queue(t_queue_ptr *queue);
-int		dequeue(t_queue_ptr *queue);
-void	enqueue(t_queue_ptr *queue, int vertex);
-void	init_queue(t_queue_ptr *queue, int vertex);
+void			free_queue(t_queue_ptr *queue);
+int				dequeue(t_queue_ptr *queue);
+void			enqueue(t_queue_ptr *queue, int vertex);
+void			init_queue(t_queue_ptr *queue, int vertex);
 
 /*
 **	simplify_graph.c
 */
-void	simplify_graph(t_graph *graph, int s);
+void			simplify_graph(t_graph *graph, int s);
+
+/*
+**	paths.c
+*/
+t_paths			*get_new_paths(t_graph *graph, int size, int s, int t);
+void			dispatch_ants(t_paths *paths, int ants);
+int				is_worse_path(t_paths *cur_paths,t_paths *new_paths);
+void			free_paths(t_paths *paths);
 
 #endif
