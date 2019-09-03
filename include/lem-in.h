@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/01 16:13:43 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/03 22:55:20 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void			direct_edge(t_edge *edge_arr, int index);
 /*
 **	max_flow.c
 */
-t_paths			*get_max_flow(t_graph *graph, int s, int t, int ants);
+t_paths			get_max_flow(t_graph *graph, int s, int t, int ants);
 
 /*
 **	queue.c
@@ -137,9 +137,14 @@ void			simplify_graph(t_graph *graph, int s);
 /*
 **	paths.c
 */
-t_paths			*get_new_paths(t_graph *graph, int size, int s, int t);
-void			dispatch_ants(t_paths *paths, int ants);
-int				is_worse_path(t_paths *cur_paths,t_paths *new_paths);
-void			free_paths(t_paths *paths);
+t_paths			get_new_paths(t_graph *graph, int size, int s, int t);
+void			dispatch_ants(t_paths paths, int ants);
+int				is_worse_path(t_paths cur_paths,t_paths new_paths);
+void			free_paths(t_paths paths);
+
+/*
+**	q_sort_paths.c
+*/
+void		q_sort_paths(t_paths paths);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/01 21:36:10 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/03 23:08:17 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	dfs(t_graph *graph, int cur_vertex, int cur_flow, int t, int *visited
 	int		edge_index;
 	t_edge	*edge;
 
-	if (cur_vertex == t)
+	if (cur_vertex == t && printf("end !!!\n"))
 		return (cur_flow);
 	if (cur_vertex >= graph->nb_vertices >> 1)
 		printf("vertex :%d out\n", graph->nb_vertices - cur_vertex - 1);
@@ -92,23 +92,22 @@ static int	dfs(t_graph *graph, int cur_vertex, int cur_flow, int t, int *visited
 /*
 **	custom Dinic's algo
 */
-t_paths		*get_max_flow(t_graph *graph, int s, int t, int ants)
+t_paths		get_max_flow(t_graph *graph, int s, int t, int ants)
 {
 	int		flow;
 	int		max_flow;
 	int		*visited;
-	t_paths	*current_paths;
-	t_paths	*new_paths;
+	t_paths	current_paths;
+	t_paths	new_paths;
 
 
 	if (s == t)
-		return (NULL);
+		return ((t_paths){NULL, 0});
 	max_flow = 0;
-	new_paths = NULL;
-	current_paths = NULL;
+	current_paths = (t_paths){NULL, 0};
 	if (!(visited = (int*)malloc(graph->nb_vertices * sizeof(int))))
 		exit(1);
-	while (bfs(graph, s, t))
+	while (bfs(graph, s, t) && printf("still a path !\n"))
 	{
 		ft_bzero(visited, sizeof(int) * graph->nb_vertices);
 		while ((flow = dfs(graph, s, INF, t, visited)))

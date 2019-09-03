@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/01 21:36:40 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/03 23:19:05 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,22 @@ void	print_graph(t_graph *graph, int cur_vertex)
 }
 
 
-void	print_paths(t_paths *paths)
+void	print_paths(t_paths paths)
 {
 	int i;
 	int j;
 
 	i = 0;
-	while (i < paths->size)
+	while (i < paths.size)
 	{
 		j = 0;
 		printf("path :   ");
-		while (j < paths->paths[i].len)
+		while (j < paths.paths[i].len)
 		{
-			printf("-> %d ", paths->paths[i].path[j]);
+			printf("-> %d ", paths.paths[i].path[j]);
 			++j;
 		}
-		printf("\tants on it : %d\n", paths->paths[i].ants_on);
+		printf("\tants on it : %d\n", paths.paths[i].ants_on);
 		++i;
 	}
 }
@@ -146,9 +146,16 @@ int main(void)
 	printf("%d\n", get_max_flow(&graph, 0, nb_vertices + 1));
 */
 
-	init_graph(&graph, 12, 14);
+//	init_graph(&graph, 12, 14);
+
+	init_graph(&graph, 13, 16);
 
 	add_edge(&graph, 1, 2);
+
+	add_edge(&graph, 1, 12);
+	add_edge(&graph, 12, 7);
+
+
 	add_edge(&graph, 1, 3);
 	add_edge(&graph, 2, 0);
 	add_edge(&graph, 2, 4);
@@ -166,27 +173,27 @@ int main(void)
 	make_sink(&graph, 1);
 
 
-	simplify_graph(&graph, 1);
+//	simplify_graph(&graph, 1);
 //	print_graph(&graph, 1);
-	t_paths *paths;
-	if ((paths = get_max_flow(&graph, 1, 7, 1)) == NULL && printf("no path !!!\n"))
+	t_paths paths;
+	if ((paths = get_max_flow(&graph, 1, 7, 101)).paths == NULL && printf("no path !!!\n"))
 		return (0);
 	print_paths(paths);
 //	print_res(&graph, 1, 7);
 
-/*	_____
-   /  1	 \
-  |	 / \ /
-  |	2	3
-   \|\
-	0 4
-	| |
-	8 10
-	|/|
-	5 6
-	| |
-	9 11
-	 \|
+/*	,――――、
+   /  1 ― 3
+  |	 / \
+  |	2	12
+   \|\	 |
+	0 4	 |
+	| |	 |
+	8 10 |
+	|/|	 |
+	5 6	 |
+	| |	 |
+	9 11 |
+	 \|	/
 	  7
 */
 
