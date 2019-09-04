@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/03 22:55:20 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/04 19:49:12 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 
 #include <limits.h>
 
-# define INF INT_MAX
+# define INF UINT_MAX
 # define SIZE_ARR 100
 
 typedef struct	s_edge
 {
-	int	from_vertex;
-	int	to_vertex;
-	int	capacity; // always equal to 1 or INF ????????????
-	int	flow;
+	unsigned int	from_vertex;
+	unsigned int	to_vertex;
+	int				flow;
 }				t_edge;
 
 /*
@@ -38,9 +37,9 @@ typedef struct	s_edge
 */
 typedef struct	s_adj_edges
 {
-	int	*adj_index;
-	int	size_arr;	// ???????
-	int	nb_edges;
+	unsigned int	*adj_index;
+	unsigned int	size_arr;	// ???????
+	unsigned int	nb_edges;
 }				t_adj_edges;
 
 /*
@@ -56,16 +55,16 @@ typedef struct	s_adj_edges
 */
 typedef struct	s_gragh
 {
-	t_adj_edges	*adj_arr;
-	t_edge		*edge_arr;
-	int			*level_arr;
-	int			nb_vertices;
-	int			i;
+	t_adj_edges		*adj_arr;
+	t_edge			*edge_arr;
+	unsigned int	*level_arr;
+	unsigned int	nb_vertices;
+	unsigned int	i;
 }				t_graph;
 
 typedef struct	s_queue
 {
-	int				value;
+	unsigned int	value;
 	struct s_queue	*next;
 }				t_queue;
 
@@ -84,61 +83,60 @@ typedef struct	s_queue_ptr
 */
 typedef struct	s_path
 {
-	int	*path;
-	int	len;
-	int ants_on;
+	unsigned int	*path;
+	unsigned int	len;
+	unsigned int	ants_on;
 }				t_path;
 
 typedef struct	s_paths
 {
-	t_path	*paths;
-	int		size;
+	t_path			*paths;
+	unsigned int	size;
 }				t_paths;
 
 /*
 **	graph.c
 */
-void			init_graph(t_graph *graph, int nb_vertices, int nb_edges);
+void			init_graph(t_graph *graph, unsigned int nb_vertices, unsigned int nb_edges);
 void			free_graph(t_graph *graph);
-void			make_sink(t_graph *graph, int sink);
+void			make_sink(t_graph *graph, unsigned int sink);
 
 /*
 **	adj_edges.c
 */
 void			init_adj_edges(t_adj_edges *adj_edges);
-void			push_back_adj_edges(t_adj_edges *adj_edges, int item);
-void			rm_adj_edge(t_graph *graph, t_adj_edges *adj_edge, int to);
+void			push_back_adj_edges(t_adj_edges *adj_edges, unsigned int item);
+void			rm_adj_edge(t_graph *graph, t_adj_edges *adj_edge, unsigned int to);
 
 /*
 **	edges.c
 */
-void			add_edge(t_graph *graph, int from, int to);
-void			rm_edge(t_graph *graph, int from, int to);
-void			direct_edge(t_edge *edge_arr, int index);
+void			add_edge(t_graph *graph, unsigned int from, unsigned int to);
+void			rm_edge(t_graph *graph, unsigned int from, unsigned int to);
 
 /*
 **	max_flow.c
 */
-t_paths			get_max_flow(t_graph *graph, int s, int t, int ants);
+t_paths			get_max_flow(t_graph *graph, unsigned int s, unsigned int t, unsigned int ants);
 
 /*
 **	queue.c
 */
 void			free_queue(t_queue_ptr *queue);
-int				dequeue(t_queue_ptr *queue);
-void			enqueue(t_queue_ptr *queue, int vertex);
-void			init_queue(t_queue_ptr *queue, int vertex);
+unsigned int	dequeue(t_queue_ptr *queue);
+void			enqueue(t_queue_ptr *queue, unsigned int vertex);
+void			init_queue(t_queue_ptr *queue, unsigned int vertex);
 
 /*
 **	simplify_graph.c
 */
-void			simplify_graph(t_graph *graph, int s);
+void			simplify_graph(t_graph *graph, unsigned int s);
 
 /*
 **	paths.c
 */
-t_paths			get_new_paths(t_graph *graph, int size, int s, int t);
-void			dispatch_ants(t_paths paths, int ants);
+t_paths			get_new_paths(t_graph *graph, unsigned int size, unsigned int s, unsigned int t);
+void			dispatch_ants(t_paths paths, unsigned int ants);
 int				is_worse_path(t_paths cur_paths,t_paths new_paths);
 void			free_paths(t_paths paths);
 

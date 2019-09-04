@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/04 17:04:26 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/04 20:07:09 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void	print_path(t_graph *graph, t_edge *edge, int t)
+void	print_path(t_graph *graph, t_edge *edge, unsigned int t)
 {
-	int cur_vertex;
-	int i;
+	unsigned int cur_vertex;
+	unsigned int i;
 
 	cur_vertex = edge->to_vertex;
 	if (edge->from_vertex >= graph->nb_vertices >> 1)
@@ -28,7 +28,7 @@ void	print_path(t_graph *graph, t_edge *edge, int t)
 	while (cur_vertex != t)
 	{
 		i = 0;
-		while (graph->edge_arr[graph->adj_arr[cur_vertex].adj_index[i]].flow <= 0)
+		while (graph->edge_arr[graph->adj_arr[cur_vertex].adj_index[i]].flow == 0)
 			i++;
 		cur_vertex = graph->edge_arr[graph->adj_arr[cur_vertex].adj_index[i]].to_vertex;
 		if (cur_vertex >= graph->nb_vertices >> 1)
@@ -38,28 +38,28 @@ void	print_path(t_graph *graph, t_edge *edge, int t)
 	}
 }
 
-void	print_res(t_graph *graph, int s, int t)
+void	print_res(t_graph *graph, unsigned int s, unsigned int t)
 {
-	int i;
-	t_edge *edge;
+	unsigned int	i;
+	t_edge			*edge;
 
 	i = 0;
 	while (i < graph->adj_arr[s].nb_edges)
 	{
 		edge = &graph->edge_arr[graph->adj_arr[s].adj_index[i]];
-		if (edge->flow > 0)
+		if (edge->flow == 1)
 			print_path(graph, edge, t);
 		printf("\n");
 		++i;
 	}
 }
 
-void	print_graph(t_graph *graph, int cur_vertex)
+void	print_graph(t_graph *graph, unsigned int cur_vertex)
 {
-	t_queue_ptr	queue;
-	int			i;
-	t_edge		*edge;
-	int			cur_level;
+	t_queue_ptr		queue;
+	unsigned int	i;
+	t_edge			*edge;
+	unsigned int	cur_level;
 
 	printf("%d\n", cur_vertex);
 	init_queue(&queue, cur_vertex);
@@ -95,8 +95,8 @@ void	print_graph(t_graph *graph, int cur_vertex)
 
 void	print_paths(t_paths paths)
 {
-	int i;
-	int j;
+	unsigned int i;
+	unsigned int j;
 
 	i = 0;
 	while (i < paths.size)
@@ -115,12 +115,12 @@ void	print_paths(t_paths paths)
 
 int main(void)
 {
-	int		nb_vertices;
-	int		nb_edges;
+//	int		nb_vertices;
+//	int		nb_edges;
 	t_graph	graph;
-	int		i;
-	int		u;
-	int		v;
+//	int		i;
+//	int		u;
+//	int		v;
 
 /*	i = 0;
 	printf("nb of vertices nb of edges\n");

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 19:48:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/01 19:39:33 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/04 20:04:42 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include <stdio.h>
 
-void	init_graph(t_graph *graph, int nb_vertices, int nb_edges)
+void	init_graph(t_graph *graph, unsigned int nb_vertices, unsigned int nb_edges)
 {
 	nb_vertices = (nb_vertices << 1);
 	graph->nb_vertices = nb_vertices;
@@ -26,7 +26,7 @@ void	init_graph(t_graph *graph, int nb_vertices, int nb_edges)
 	graph->i = 0;
 	if (!(graph->adj_arr = (t_adj_edges*)malloc(nb_vertices * sizeof(t_adj_edges))))
 		exit(1);
-	if (!(graph->level_arr = (int*)malloc(nb_vertices * sizeof(int))))
+	if (!(graph->level_arr = (unsigned int*)malloc(nb_vertices * sizeof(unsigned int))))
 		exit(1);
 	while (nb_vertices--)
 		init_adj_edges(&graph->adj_arr[nb_vertices]);
@@ -34,8 +34,8 @@ void	init_graph(t_graph *graph, int nb_vertices, int nb_edges)
 
 void	free_graph(t_graph *graph)
 {
-	int			i;
-	t_adj_edges	adj_array;
+	unsigned int	i;
+	t_adj_edges		adj_array;
 
 	free(graph->level_arr);
 	free(graph->edge_arr);
@@ -58,11 +58,11 @@ void	free_graph(t_graph *graph)
 **				sink_out			/	\
 **				/		\
 */
-void	make_sink(t_graph *graph, int sink)
+void	make_sink(t_graph *graph, unsigned int sink)
 {
-	int			i;
-	t_adj_edges	*sink_out;
-	t_adj_edges	*sink_in;
+	unsigned int	i;
+	t_adj_edges		*sink_out;
+	t_adj_edges		*sink_in;
 
 	i = 0;
 	sink_out = &graph->adj_arr[graph->nb_vertices - sink - 1];

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/03 23:08:17 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/04 19:30:36 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 **
 **	return 1 if t i reached else return 0.
 */
-static int	bfs(t_graph *graph, int s, int t)
+static int			bfs(t_graph *graph, unsigned int s, unsigned int t)
 {
-	int			i;
-	int			tmp;
-	t_queue_ptr	queue;
-	t_edge		*edge;
+	unsigned int	i;
+	unsigned int	tmp;
+	t_queue_ptr		queue;
+	t_edge			*edge;
 
-	ft_memset(graph->level_arr, -1, sizeof(int) * graph->nb_vertices);
+	ft_memset(graph->level_arr, -1, sizeof(unsigned int) * graph->nb_vertices);
 	graph->level_arr[s] = 0;
 	init_queue(&queue, s);
 	enqueue(&queue, s);
@@ -42,7 +42,7 @@ static int	bfs(t_graph *graph, int s, int t)
 			edge = &graph->edge_arr[graph->adj_arr[tmp].adj_index[i]];
 			// If the edge has still no level and it can has more flow,
 			// put its level in level's array and enqueue
-			if (graph->level_arr[edge->to_vertex] < 0 && edge->flow < edge->capacity)
+			if (graph->level_arr[edge->to_vertex] == INF && edge->flow == 0)
 			{
 				graph->level_arr[edge->to_vertex] = graph->level_arr[tmp] + 1;
 				enqueue(&queue, edge->to_vertex);
@@ -51,19 +51,17 @@ static int	bfs(t_graph *graph, int s, int t)
 		}
 	}
 	free_queue(&queue);
-	return (graph->level_arr[t] != -1);
+	return (graph->level_arr[t] != INF);
 }
 
-// cur_flow always equal to 1 ???????
-// return 0 if cur_flow == 0 ???????
-// rm edge_index
-static int	dfs(t_graph *graph, int cur_vertex, int cur_flow, int t, int *visited)
+// rm edge_index ??????
+static unsigned int	dfs(t_graph *graph, unsigned int cur_vertex, unsigned int t, unsigned int *visited)
 {
-	int		edge_index;
-	t_edge	*edge;
+	unsigned int	edge_index;
+	t_edge			*edge;
 
 	if (cur_vertex == t && printf("end !!!\n"))
-		return (cur_flow);
+		return (1);
 	if (cur_vertex >= graph->nb_vertices >> 1)
 		printf("vertex :%d out\n", graph->nb_vertices - cur_vertex - 1);
 	else
@@ -77,10 +75,10 @@ static int	dfs(t_graph *graph, int cur_vertex, int cur_flow, int t, int *visited
 		else
 			printf("\tedge :%d in\n", edge->to_vertex);
 		if (graph->level_arr[edge->to_vertex] == graph->level_arr[cur_vertex] + 1
-			&& edge->flow < edge->capacity)
-			if (dfs(graph, edge->to_vertex, edge->capacity - edge->flow, t, visited))
+			&& edge->flow == 0)
+			if (dfs(graph, edge->to_vertex, t, visited))
 			{
-				--graph->edge_arr[edge_index ^ 1].flow;
+				graph->edge_arr[edge_index ^ 1].flow = 0;
 				return ((edge->flow = 1));
 			}
 		visited[cur_vertex]++;
@@ -92,25 +90,25 @@ static int	dfs(t_graph *graph, int cur_vertex, int cur_flow, int t, int *visited
 /*
 **	custom Dinic's algo
 */
-t_paths		get_max_flow(t_graph *graph, int s, int t, int ants)
+t_paths				get_max_flow(t_graph *graph, unsigned int s, unsigned int t, unsigned int ants)
 {
-	int		flow;
-	int		max_flow;
-	int		*visited;
-	t_paths	current_paths;
-	t_paths	new_paths;
+	unsigned int	flow;
+	unsigned int	max_flow;
+	unsigned int	*visited;
+	t_paths			current_paths;
+	t_paths			new_paths;
 
 
 	if (s == t)
 		return ((t_paths){NULL, 0});
 	max_flow = 0;
 	current_paths = (t_paths){NULL, 0};
-	if (!(visited = (int*)malloc(graph->nb_vertices * sizeof(int))))
+	if (!(visited = (unsigned int*)malloc(graph->nb_vertices * sizeof(unsigned int))))
 		exit(1);
 	while (bfs(graph, s, t) && printf("still a path !\n"))
 	{
-		ft_bzero(visited, sizeof(int) * graph->nb_vertices);
-		while ((flow = dfs(graph, s, INF, t, visited)))
+		ft_bzero(visited, sizeof(unsigned int) * graph->nb_vertices);
+		while ((flow = dfs(graph, s, t, visited)))
 			max_flow += flow;
 		new_paths = get_new_paths(graph, max_flow, s, t);
 		dispatch_ants(new_paths, ants);

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/03 23:19:21 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/04 19:43:16 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 #include <stdio.h>
 
-t_path	get_path(t_graph *graph, t_edge *edge, int t)
+t_path	get_path(t_graph *graph, t_edge *edge, unsigned int t)
 {
-	int		cur_vertex;
-	int		i;
-	int		j;
-	t_path	path;
+	unsigned int	cur_vertex;
+	unsigned int	i;
+	unsigned int	j;
+	t_path			path;
 
 	cur_vertex = edge->to_vertex;
 	j = 0;
-	if (!(path.path = (int*)malloc(sizeof(int) * graph->nb_vertices)))
+	if (!(path.path = (unsigned int*)malloc(sizeof(unsigned int) * graph->nb_vertices)))
 		exit(1);
 	while (cur_vertex != t)
 	{
@@ -34,7 +34,7 @@ t_path	get_path(t_graph *graph, t_edge *edge, int t)
 			path.path[j] = cur_vertex;
 			++j;
 		}
-		while (graph->edge_arr[graph->adj_arr[cur_vertex].adj_index[i]].flow <= 0)
+		while (graph->edge_arr[graph->adj_arr[cur_vertex].adj_index[i]].flow == 0)
 			i++;
 		cur_vertex = graph->edge_arr[graph->adj_arr[cur_vertex].adj_index[i]].to_vertex;
 	}
@@ -42,12 +42,12 @@ t_path	get_path(t_graph *graph, t_edge *edge, int t)
 	return (path);
 }
 
-t_paths	get_new_paths(t_graph *graph, int size, int s, int t)
+t_paths	get_new_paths(t_graph *graph, unsigned int size, unsigned int s, unsigned int t)
 {
-	t_edge 	*edge;
-	t_paths	paths;
-	int		i;
-	int		j;
+	t_edge			*edge;
+	t_paths			paths;
+	unsigned int	i;
+	unsigned int	j;
 
 	if (!(paths.paths = (t_path*)malloc(sizeof(t_path) * size)))
 		exit(1);
@@ -57,7 +57,7 @@ t_paths	get_new_paths(t_graph *graph, int size, int s, int t)
 	while (i < graph->adj_arr[s].nb_edges)
 	{
 		edge = &graph->edge_arr[graph->adj_arr[s].adj_index[i]];
-		if (edge->flow > 0)
+		if (edge->flow == 1)
 		{
 			paths.paths[j] = get_path(graph, edge, t);
 			++j;
@@ -69,10 +69,10 @@ t_paths	get_new_paths(t_graph *graph, int size, int s, int t)
 }
 
 
-void	dispatch_ants(t_paths paths, int ants)
+void	dispatch_ants(t_paths paths, unsigned int ants)
 {
-	int	i;
-	int	remainder;
+	unsigned int	i;
+	unsigned int	remainder;
 
 	if (paths.size == 0)
 		return ;
@@ -80,11 +80,14 @@ void	dispatch_ants(t_paths paths, int ants)
 	printf("paths size : %d\n", paths.size);
 	while (++i < paths.size)
 	{
-		if ((ants -= (paths.paths[i].len - paths.paths[i - 1].len) * i) <= 0)
+		if (ants <= (paths.paths[i].len - paths.paths[i - 1].len) * i)
 		{
 			paths.size = i;
 			return (dispatch_ants(paths, ants));
 		}
+		else
+			 ants -= (paths.paths[i].len - paths.paths[i - 1].len) * i;
+
 	}
 	remainder = ants % paths.size;
 	ants /= paths.size;
