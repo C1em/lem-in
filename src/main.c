@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/03 23:19:05 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/04 17:04:26 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,10 +173,9 @@ int main(void)
 	make_sink(&graph, 1);
 
 
-//	simplify_graph(&graph, 1);
 //	print_graph(&graph, 1);
 	t_paths paths;
-	if ((paths = get_max_flow(&graph, 1, 7, 101)).paths == NULL && printf("no path !!!\n"))
+	if ((paths = get_max_flow(&graph, 1, 7, 102)).paths == NULL && printf("no path !!!\n"))
 		return (0);
 	print_paths(paths);
 //	print_res(&graph, 1, 7);
