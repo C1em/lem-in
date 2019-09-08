@@ -6,14 +6,14 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:34:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/04 19:21:06 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/07 07:42:02 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 #include <stdlib.h>
 
-void			init_queue(t_queue_ptr *queue, unsigned int vertex)
+void			init_queue(t_queue_ptr *queue, int vertex)
 {
 	t_queue *queue_elem;
 
@@ -25,7 +25,7 @@ void			init_queue(t_queue_ptr *queue, unsigned int vertex)
 	queue_elem->next = NULL;
 }
 
-void			enqueue(t_queue_ptr *queue, unsigned int vertex)
+void			enqueue(t_queue_ptr *queue, int vertex)
 {
 	t_queue *queue_elem;
 
@@ -40,9 +40,9 @@ void			enqueue(t_queue_ptr *queue, unsigned int vertex)
 	queue->end = queue_elem;
 }
 
-unsigned int	dequeue(t_queue_ptr *queue)
+int				dequeue(t_queue_ptr *queue)
 {
-	unsigned int	value;
+	int	value;
 	t_queue			*tmp;
 
 	value = queue->start->value;

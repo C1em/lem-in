@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/04 19:49:12 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/08 04:55:27 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,56 +15,38 @@
 
 #include <limits.h>
 
-# define INF UINT_MAX
-# define SIZE_ARR 100
+#include <stdio.h>
 
-typedef struct	s_edge
-{
-	unsigned int	from_vertex;
-	unsigned int	to_vertex;
-	int				flow;
-}				t_edge;
+# define FLOW 2
+# define NO_FLOW 1
+# define EDGE 0x3
+# define STDIN 0
+# define SAME 0
 
-/*
-**	adj_index : the index of adjacents edge in edge_arr. ex : adj_index[1]
-**				to take the index of the first adjacent edge
-**
-**	size_arr : size of the alloced adj_index. always greater than nb_edges
-**				with the aim of have the space for all the edges.
-**				only used during parsing
-**
-**	nb_edges : nb_of edges stored in adj_index
-*/
-typedef struct	s_adj_edges
-{
-	unsigned int	*adj_index;
-	unsigned int	size_arr;	// ???????
-	unsigned int	nb_edges;
-}				t_adj_edges;
+void	print_matrix(int **matrix, int size);
 
-/*
-**	adj_arr : all the adj_edges sort by vertex. ex : adj_arr[vertex]
-**
-**	edge_arr : all the edges order by the call to add_edge.
-**				have to be used with adj_arr[vertex].adj_index[1] to get
-**				the index of the first adjacent edge of vertex in edge_arr
-**
-**	level_arr : level of the vertex. ex: level_arr[vertex] = 3;
-**
-**	nb_vertices : nb of vertices in the graph
-*/
-typedef struct	s_gragh
+
+
+typedef struct	s_source_end
 {
-	t_adj_edges		*adj_arr;
-	t_edge			*edge_arr;
-	unsigned int	*level_arr;
-	unsigned int	nb_vertices;
-	unsigned int	i;
+	int	s;
+	int	t;
+}				t_source_end;
+
+typedef struct	s_graph
+{
+	int				*flow_arr; //0:no flow, 1:flow, 2:blocking flow
+	int				*adj_edges_arr;
+	int				*level_arr;
+	int				**adj_matrix;
+	int				size;
+	int				ants;
+	t_source_end	s_t;
 }				t_graph;
 
 typedef struct	s_queue
 {
-	unsigned int	value;
+	int				value;
 	struct s_queue	*next;
 }				t_queue;
 
@@ -74,75 +56,95 @@ typedef struct	s_queue_ptr
 	t_queue	*end;
 }				t_queue_ptr;
 
-/*
-**	path : array of the vertices forming the path (without s and t)
-**
-**	len : path's length or path's size
-**
-**	ants_on : nb of ants on the path for the best distribution
-*/
 typedef struct	s_path
 {
-	unsigned int	*path;
-	unsigned int	len;
-	unsigned int	ants_on;
+int	*path;
+int	len;
+int	ants_on;
 }				t_path;
 
 typedef struct	s_paths
 {
-	t_path			*paths;
-	unsigned int	size;
+t_path			*paths;
+int	size;
 }				t_paths;
 
-/*
-**	graph.c
-*/
-void			init_graph(t_graph *graph, unsigned int nb_vertices, unsigned int nb_edges);
-void			free_graph(t_graph *graph);
-void			make_sink(t_graph *graph, unsigned int sink);
+typedef struct	s_parser_vertex
+{
+char*	name;
+int		nb;
+}				t_parser_vertex;
+
+typedef struct	s_vertex_list
+{
+t_parser_vertex			vertex;
+struct s_vertex_list	*next;
+}				t_vertex_list;
+
+typedef struct	s_parser_graph
+{
+int				**matrix;
+int				*adj_edges_count;
+t_source_end	commands;
+t_vertex_list	*start;
+t_vertex_list	*end;
+int				ants;
+}				t_parser_graph;
+
+#endif
 
 /*
-**	adj_edges.c
+**	parser.c
 */
-void			init_adj_edges(t_adj_edges *adj_edges);
-void			push_back_adj_edges(t_adj_edges *adj_edges, unsigned int item);
-void			rm_adj_edge(t_graph *graph, t_adj_edges *adj_edge, unsigned int to);
+t_graph			*parser(void);
 
 /*
-**	edges.c
+**	vertices_utils.c
 */
-void			add_edge(t_graph *graph, unsigned int from, unsigned int to);
-void			rm_edge(t_graph *graph, unsigned int from, unsigned int to);
+t_parser_graph	*pars_vertices(void);
+int				get_vertex(char *str, t_vertex_list *start);
+void			add_comment(char line[]);
+char			*get_name(char *line);
 
 /*
-**	max_flow.c
+**	list_utils.c
 */
-t_paths			get_max_flow(t_graph *graph, unsigned int s, unsigned int t, unsigned int ants);
+void			add_elem(t_vertex_list **end, char line[]);
+t_vertex_list	*init_list(void);
+
+/*
+**	edges_utils.c
+*/
+void			pars_edges(t_parser_graph *p_graph, char *line);
+
+/*
+**	get_max_flow.c
+*/
+t_paths				get_max_flow(t_graph *graph);
+int				get_next_vertex(int *vertex_arr, int index);
 
 /*
 **	queue.c
 */
+void			init_queue(t_queue_ptr *queue, int vertex);
+void			enqueue(t_queue_ptr *queue, int vertex);
+int				dequeue(t_queue_ptr *queue);
 void			free_queue(t_queue_ptr *queue);
-unsigned int	dequeue(t_queue_ptr *queue);
-void			enqueue(t_queue_ptr *queue, unsigned int vertex);
-void			init_queue(t_queue_ptr *queue, unsigned int vertex);
-
-/*
-**	simplify_graph.c
-*/
-void			simplify_graph(t_graph *graph, unsigned int s);
 
 /*
 **	paths.c
 */
-t_paths			get_new_paths(t_graph *graph, unsigned int size, unsigned int s, unsigned int t);
-void			dispatch_ants(t_paths paths, unsigned int ants);
-int				is_worse_path(t_paths cur_paths,t_paths new_paths);
-void			free_paths(t_paths paths);
+t_paths	get_new_paths(t_graph *graph, int size);
+void	dispatch_ants(t_paths paths, int ants);
+int		is_worse_path(t_paths cur_paths,t_paths new_paths);
+void	free_paths(t_paths paths);
+
+/*
+**	make_graph.c
+*/
+t_graph		*make_graph(t_parser_graph *p_graph);
 
 /*
 **	q_sort_paths.c
 */
 void		q_sort_paths(t_paths paths);
-
-#endif

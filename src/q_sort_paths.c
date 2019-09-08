@@ -6,19 +6,19 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 21:46:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/04 20:18:37 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/07 23:22:50 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-void		qsort_paths(t_path paths[], unsigned int end)
+static void		qsort_paths(t_path paths[], int end)
 {
 	unsigned int	swapable;
 	unsigned int	i;
 	t_path			tmp;
 
-	if(end == INF)
+	if (end == -1)
 		return ;
 	swapable = 0;
 	i = 0;

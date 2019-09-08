@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/04 20:07:09 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/08 05:28:18 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,53 +15,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void	print_path(t_graph *graph, t_edge *edge, unsigned int t)
+void	print_path(t_graph *graph, int cur_vertex, int t)
 {
-	unsigned int cur_vertex;
-	unsigned int i;
+	int next_vertex;
+	int i;
 
-	cur_vertex = edge->to_vertex;
-	if (edge->from_vertex >= graph->nb_vertices >> 1)
-		printf("vertex :%d out -> ", graph->nb_vertices - edge->from_vertex - 1);
-	else
-		printf("vertex :%d in -> ", edge->from_vertex);
+	printf("vertex :%d -> ", cur_vertex);
 	while (cur_vertex != t)
 	{
 		i = 0;
-		while (graph->edge_arr[graph->adj_arr[cur_vertex].adj_index[i]].flow == 0)
+		while (graph->adj_matrix[cur_vertex][get_next_vertex(graph->adj_matrix[cur_vertex], i)] == NO_FLOW)
 			i++;
-		cur_vertex = graph->edge_arr[graph->adj_arr[cur_vertex].adj_index[i]].to_vertex;
-		if (cur_vertex >= graph->nb_vertices >> 1)
-			printf("vertex :%d out -> ", graph->nb_vertices - cur_vertex - 1);
-		else
-			printf("vertex :%d in -> ", cur_vertex);
+		cur_vertex = get_next_vertex(graph->adj_matrix[cur_vertex], i);
+		printf("vertex :%d -> ", cur_vertex);
 	}
 }
 
-void	print_res(t_graph *graph, unsigned int s, unsigned int t)
+void	print_res(t_graph *graph)
 {
-	unsigned int	i;
-	t_edge			*edge;
+	int	i;
+	int	next_vertex;
 
 	i = 0;
-	while (i < graph->adj_arr[s].nb_edges)
+	while (i < graph->adj_edges_arr[graph->s_t.s])
 	{
-		edge = &graph->edge_arr[graph->adj_arr[s].adj_index[i]];
-		if (edge->flow == 1)
-			print_path(graph, edge, t);
+		next_vertex = get_next_vertex(graph->adj_matrix[graph->s_t.s], i);
+		if (graph->adj_matrix[graph->s_t.s][next_vertex] == FLOW)
+			print_path(graph, next_vertex, graph->s_t.t);
 		printf("\n");
 		++i;
 	}
 }
 
-void	print_graph(t_graph *graph, unsigned int cur_vertex)
+void	print_graph(t_graph *graph, int cur_vertex)
 {
-	t_queue_ptr		queue;
-	unsigned int	i;
-	t_edge			*edge;
-	unsigned int	cur_level;
+	t_queue_ptr	queue;
+	int			i;
+	int			cur_level;
+	int			next_vertex;
 
-	printf("%d\n", cur_vertex);
 	init_queue(&queue, cur_vertex);
 	cur_level = graph->level_arr[cur_vertex];
 	while (queue.start != NULL)
@@ -73,18 +65,15 @@ void	print_graph(t_graph *graph, unsigned int cur_vertex)
 			printf("\n");
 			++cur_level;
 		}
-		while (i < graph->adj_arr[cur_vertex].nb_edges)
+		while (i < graph->adj_edges_arr[cur_vertex])
 		{
-			edge = &graph->edge_arr[graph->adj_arr[cur_vertex].adj_index[i]];
+			next_vertex = get_next_vertex(graph->adj_matrix[cur_vertex], i);
 //			printf("level of %d :%d\n", edge->from_vertex, graph->level_arr[edge->from_vertex]);
 //			printf("level of %d :%d\n", edge->to_vertex, graph->level_arr[edge->to_vertex]);
-			if (graph->level_arr[edge->to_vertex] == cur_level + 1)
+			if (graph->level_arr[next_vertex] == cur_level + 1)
 			{
-				if (edge->to_vertex >= graph->nb_vertices >> 1)
-					printf("|%d out", graph->nb_vertices - edge->to_vertex - 1);
-				else
-					printf("|%d in", edge->to_vertex);
-				enqueue(&queue, edge->to_vertex);
+					printf("|%d", next_vertex);
+				enqueue(&queue, next_vertex);
 			}
 			++i;
 		}
@@ -95,8 +84,8 @@ void	print_graph(t_graph *graph, unsigned int cur_vertex)
 
 void	print_paths(t_paths paths)
 {
-	unsigned int i;
-	unsigned int j;
+	int i;
+	int j;
 
 	i = 0;
 	while (i < paths.size)
@@ -117,7 +106,7 @@ int main(void)
 {
 //	int		nb_vertices;
 //	int		nb_edges;
-	t_graph	graph;
+	t_graph	*graph;
 //	int		i;
 //	int		u;
 //	int		v;
@@ -146,9 +135,9 @@ int main(void)
 	printf("%d\n", get_max_flow(&graph, 0, nb_vertices + 1));
 */
 
-//	init_graph(&graph, 12, 14);
+	graph = parser();
 
-	init_graph(&graph, 13, 16);
+/*	init_graph(&graph, 13, 16);
 
 	add_edge(&graph, 1, 2);
 
@@ -164,18 +153,19 @@ int main(void)
 	add_edge(&graph, 4, 10);
 	add_edge(&graph, 10, 6);
 	add_edge(&graph, 8, 5);
-	add_edge(&graph, 10, 5);
+	add_edge(&graph, 0, 10);
 	add_edge(&graph, 6, 11);
 	add_edge(&graph, 11, 7);
 	add_edge(&graph, 5, 9);
 	add_edge(&graph, 9, 7);
 
-	make_sink(&graph, 1);
+	make_source(&graph, 1);
+*/
 
-
-//	print_graph(&graph, 1);
+//	print_graph(graph, graph->s_t.s);
 	t_paths paths;
-	if ((paths = get_max_flow(&graph, 1, 7, 102)).paths == NULL && printf("no path !!!\n"))
+//		print_matrix(graph->adj_matrix, graph->size);
+	if ((paths = get_max_flow(graph)).paths == NULL && printf("no path !!!\n"))
 		return (0);
 	print_paths(paths);
 //	print_res(&graph, 1, 7);
@@ -184,11 +174,11 @@ int main(void)
    /  1 ― 3
   |	 / \
   |	2	12
-   \|\	 |
-	0 4	 |
-	| |	 |
+  | |\	 |
+  | 0 4	 |
+   \| |	 |
 	8 10 |
-	|/|	 |
+	|\|	 |
 	5 6	 |
 	| |	 |
 	9 11 |
@@ -196,6 +186,29 @@ int main(void)
 	  7
 */
 
-	free_graph(&graph);
+
+//	free_graph(&graph);
 	return (0);
+}
+
+void	print_matrix(int **matrix, int size)
+{
+	int i;
+	int j;
+
+	i = 0;
+	printf("\t| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11| 12|\n\n");
+	while (i < size)
+	{
+		j = 0;
+		printf("%d\t| ", i);
+		while (j < size)
+		{
+			printf("%d | ", matrix[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+	printf("\n\n");
 }

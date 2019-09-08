@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:20:49 by coremart          #+#    #+#             */
-/*   Updated: 2019/02/06 16:49:20 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/08 01:10:35 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,15 @@ static t_fd		*ft_get_fd(t_fd **lst, const int fd)
 static char		*ft_cpyfromcr(char *str)
 {
 	char	*tmp;
+	char	*strchr;
 
 	tmp = str;
-	if (!(str = ft_strdup(ft_strchr(tmp, '\n') + 1)))
+	if (!(strchr = ft_strchr(tmp, '\n')))
+	{
+		free(str);
+		return (NULL);
+	}
+	if (!(str = ft_strdup(strchr + 1)))
 		return (NULL);
 	free(tmp);
 	return (str);
@@ -84,16 +90,14 @@ int				get_next_line(const int fd, char **line)
 	while (!ft_strchr(cur->content, '\n') && (rd = read(fd, buff, BUFF_SIZE)))
 	{
 		buff[rd] = '\0';
-		if (!((cur->content = ft_join_n_free(cur->content, buff))))
+		if (!(cur->content = ft_join_n_free(cur->content, buff)))
 			return (-1);
 	}
 	if (!cur->content[0])
 		return (0);
-	if (!((*line = ft_strndup(cur->content, ft_strclen(cur->content, '\n')))))
+	if (!(*line = ft_strndup(cur->content, ft_strclen(cur->content, '\n'))))
 		return (-1);
-	if (!rd)
-		ft_strdel(&cur->content);
-	else if (!((cur->content = ft_cpyfromcr(cur->content))))
+	if (!(cur->content = ft_cpyfromcr(cur->content)))
 		return (-1);
 	return (1);
 }
