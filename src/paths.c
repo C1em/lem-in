@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/08 05:15:30 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/09 01:44:29 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,44 +57,46 @@ t_paths	get_new_paths(t_graph *graph, int size)
 		if (graph->adj_matrix[graph->s_t.s]
 		[(next_vertex = get_next_vertex(graph->adj_matrix[graph->s_t.s], i))] == FLOW)
 		{
+//			printf("WAW !!! next vertex : %d\n", next_vertex);
 			paths.paths[j] = get_path(graph, next_vertex);
 			++j;
 		}
 		++i;
 	}
 	q_sort_paths(paths);
+//	printf("path len :%d\n", paths.paths[0].len);
 	return (paths);
 }
 
 
-void	dispatch_ants(t_paths paths, int ants)
+void	dispatch_ants(t_paths paths, const int ants)
 {
 	int	i;
 	int	remainder;
+	int	ants_tmp;
 
 	if (paths.size == 0)
 		return ;
 	i = 0;
-//	printf("paths size : %d\n", paths.size);
+	ants_tmp = ants;
+//	printf("more :paths size : %d\npath[0] len : %d\n", paths.size, paths.paths[0].len);
 	while (++i < paths.size)
 	{
-		if (ants <= (paths.paths[i].len - paths.paths[i - 1].len) * i)
+		if ((ants_tmp -= (paths.paths[i].len - paths.paths[i - 1].len) * i) < paths.size)
 		{
 			paths.size = i;
+//			printf("less !!!!!\n");
 			return (dispatch_ants(paths, ants));
 		}
-		else
-			 ants -= (paths.paths[i].len - paths.paths[i - 1].len) * i;
-
 	}
-	remainder = ants % paths.size;
-	ants /= paths.size;
+	remainder = ants_tmp % paths.size;
+	ants_tmp /= paths.size;
 	while (--i)
 	{
-		paths.paths[i].ants_on = ants;
-		ants += paths.paths[i].len - paths.paths[i - 1].len;
+		paths.paths[i].ants_on = ants_tmp;
+		ants_tmp += paths.paths[i].len - paths.paths[i - 1].len;
 	}
-	paths.paths[i].ants_on = ants;
+	paths.paths[i].ants_on = ants_tmp;
 	while (remainder--)
 	{
 		++paths.paths[i].ants_on;
@@ -106,6 +108,8 @@ int		is_worse_path(t_paths cur_paths,t_paths new_paths)
 {
 	if (cur_paths.paths == NULL)
 		return (0);
+	if (cur_paths.paths[0].len == 0)
+		return (1);
 //	printf("cur op :%d, new op :%d\n", cur_paths.paths[0].len + cur_paths.paths[0].ants_on, new_paths.paths[0].len + new_paths.paths[0].ants_on);
 	if (cur_paths.paths[0].len + cur_paths.paths[0].ants_on
 	<= new_paths.paths[0].len + new_paths.paths[0].ants_on)

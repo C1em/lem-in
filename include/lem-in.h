@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/08 04:55:27 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/09 04:28:59 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # define SAME 0
 
 void	print_matrix(int **matrix, int size);
-
 
 
 typedef struct	s_source_end
@@ -91,12 +90,10 @@ t_vertex_list	*end;
 int				ants;
 }				t_parser_graph;
 
-#endif
-
 /*
 **	parser.c
 */
-t_graph			*parser(void);
+t_parser_graph		*parser(void);
 
 /*
 **	vertices_utils.c
@@ -104,7 +101,7 @@ t_graph			*parser(void);
 t_parser_graph	*pars_vertices(void);
 int				get_vertex(char *str, t_vertex_list *start);
 void			add_comment(char line[]);
-char			*get_name(char *line);
+char			*pars_name(char *line);
 
 /*
 **	list_utils.c
@@ -148,3 +145,10 @@ t_graph		*make_graph(t_parser_graph *p_graph);
 **	q_sort_paths.c
 */
 void		q_sort_paths(t_paths paths);
+
+/*
+**	printer.c
+*/
+void	print_res(t_parser_graph *p_graph, t_paths *paths);
+
+#endif

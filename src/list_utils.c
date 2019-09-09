@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:56:06 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/07 22:52:26 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/09 02:09:10 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void			add_elem(t_vertex_list **end, char line[])
 		exit(1);
 	(*end)->next->vertex.nb = (*end)->vertex.nb + 1;
 	*end = (*end)->next;
-	(*end)->vertex.name = get_name(line);
+	(*end)->vertex.name = pars_name(line);
 	(*end)->next = NULL;
 }

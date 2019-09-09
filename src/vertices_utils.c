@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/08 05:26:05 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/09 02:08:47 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int				add_command(char line[])
 	return (i);
 }
 
-char				*get_name(char *line)
+char				*pars_name(char *line)
 {
 	int i;
 
@@ -43,7 +43,7 @@ char				*get_name(char *line)
 static int				add_vertex(char line[], t_parser_graph *graph, int *command_nb)
 {
 	if (graph->start->vertex.name == NULL)
-		graph->start->vertex.name = get_name(line);
+		graph->start->vertex.name = pars_name(line);
 	else
 		add_elem(&graph->end, line);
 	if (*command_nb == 0)
