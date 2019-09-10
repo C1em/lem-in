@@ -6,17 +6,47 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:29:22 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/10 17:41:34 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/10 18:45:34 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
+# include <stdarg.h> //transfer on lem-in.h ?
 
-int				fill_option(char **av)
+int				set_msg(int return_value, t_parser_graph *graph, char *msg)
+{
+	graph->msg = msg;
+	return (return_value);
+}
+
+int		ft_break(int return_value, int n, ...)
+{
+	va_list		msg;
+
+	va_start(msg, n);
+	while (n--)
+		ft_putstr(va_arg(msg, char*));
+	ft_putchar('\n');
+	va_end(msg);
+	return (return_value);
+}
+
+static int		*setup_zero(int *to_init, size_t size, int value)
+{
+	size_t i;
+
+	i = 0;
+	while (i < size)
+		to_init[i++] = value;
+	return (to_init);
+}
+
+int				fill_option(t_parser_graph *graph, char **av)
 {
 	int		i;
 	int		j;
 
+	setup_zero(graph->flag, 6, 0); //verif size
 	i = 0;
 	while (++i < 4 && av[i])
 	{
@@ -26,23 +56,23 @@ int				fill_option(char **av)
 			while (av[i][++j])
 			{
 				if (av[i][j] == 'c')
-					main->flag[0] = 1;
-				else if (av[i][j] == 'v')
-					main->flag[1] = 1;
+					graph->flag[0] = 1;
+				else if (av[i][j] == 'd')
+					graph->flag[1] = 1;
+				else if (av[i][j] == 'm')
+					graph->flag[2] = 1;
 				else if (av[i][j] == 'n')
-					main->flag[2] = 1;
-				else if (av[i][j] == 'a')
-					main->flag[3] = 1;
-				else if (av[i][j] == 's')
-					main->flag[4] = 1;
+					graph->flag[3] = 1;
 				else if (av[i][j] == 'p')
-					main->flag[5] = 1;
+					graph->flag[4] = 1;
+				else if (av[i][j] == 'v')
+					graph->flag[5] = 1;
 				else
-					return (set_msg(FAILURE, main, "Error: wrong argument"));
+					return (FAILURE);
 			}
 		}
 		else
-			return (set_msg(FAILURE, main, "Error: wrong argument"));
+			return (FAILURE);
 	}
 	return (SUCCESS);
 }

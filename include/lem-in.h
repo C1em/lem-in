@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 17:41:40 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/10 18:40:29 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define STDIN 0
 # define SAME 0
 # define LEM_IN_BUFF_SIZE 2048
+# define SUCCESS 0
+# define FAILURE 1
 
 void	print_matrix(int **matrix, int size);
 
@@ -100,6 +102,8 @@ typedef struct	s_parser_graph
 	int				ants;
 	t_parsing_list	*parsing_list_start;
 	t_parsing_list	*parsing_list_end;
+	char			*msg;
+	int				flag[6];//verif number of flag
 }				t_parser_graph;
 
 typedef struct	s_buff_printer
@@ -112,12 +116,15 @@ int		index;
 /*
 **	bonus.c
 */
-int				fill_option(char **av);
+int				fill_option(t_parser_graph *graph, char **av);
+int				set_msg(int return_value, t_parser_graph *graph, char *msg);
+int				ft_break(int return_value, int n, ...);
 
 /*
 **	parser.c
 */
-t_parser_graph		*parser(void);
+void			parser(t_parser_graph *graph);
+t_parser_graph	*init_pars_graph(void);
 
 /*
 **	vertices_utils.c

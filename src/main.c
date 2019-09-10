@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 17:31:27 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/10 18:50:31 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,10 @@ int 	main(int ac, char **av)
 	t_graph			*graph;
 	t_parser_graph	*p_graph;
 
-	p_graph = parser();
+	p_graph = init_pars_graph();
+	if (ac >= 1 && fill_option(p_graph, av) == FAILURE)
+		return (ft_break(0, 1, "usage: ./lem-in [-cdmnpv]\n")); //-> free p_graph before return
+	parser(p_graph);
 	check_graph(p_graph);
 	print_parsing_list(p_graph->parsing_list_start);
 	graph = make_graph(p_graph);
@@ -100,7 +103,7 @@ int 	main(int ac, char **av)
 //	print_matrix(graph->adj_matrix, graph->size);
 //	if (is_s_t_edge(graph))
 
-	if ((paths = get_max_flow(graph)).paths == NULL)//>leeks on this line
+	if ((paths = get_max_flow(graph)).paths == NULL)
 		return (0);
 
 //	print_paths(paths);
@@ -134,8 +137,13 @@ void	print_matrix(int **matrix, int size)
 }
 
 // check malloc ??????
-// parser option -v -l ??????
 // parser instructions ?????
-// parser errors cases ????
-// bonus ?????????
+
+// bonus -c color ???????
+// bonus -v {verbose} parser errors cases ??????
+// bonus -n number of line on solution ??????
+// bonus -p path used ????????
+// maybe bonus -d -> display number of ant on start, on the algo, on end ?????????????
+// maybe bonus -m -> map checker ???????????????
+
 // check hardly ????????

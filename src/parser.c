@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 16:34:49 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/10 18:37:23 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_parser_graph	*init_pars_graph(void)
 	graph->commands.s = -1;
 	graph->commands.t = -1;
 	graph->ants = -1;
+	graph->msg = "OK";
 	return (graph);
 }
 
@@ -95,15 +96,12 @@ void			init_pars_arrays(t_parser_graph *p_graph)
 	}
 }
 
-t_parser_graph	*parser(void)
+void			parser(t_parser_graph *graph)
 {
-	t_parser_graph	*graph;
 	char			*line_tmp;
 
-	graph = init_pars_graph();
 	pars_ants(graph);
 	line_tmp = pars_vertices(graph);
 	init_pars_arrays(graph);
 	pars_edges(graph, line_tmp);
-	return (graph);
 }
