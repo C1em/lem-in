@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 17:11:53 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/10 17:26:42 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int 	main(void)
 	t_parser_graph	*p_graph;
 
 	p_graph = parser();
-	while (1);
 	check_graph(p_graph);
 	print_parsing_list(p_graph->parsing_list_start);
 	graph = make_graph(p_graph);
@@ -101,7 +100,7 @@ int 	main(void)
 //	print_matrix(graph->adj_matrix, graph->size);
 //	if (is_s_t_edge(graph))
 
-	if ((paths = get_max_flow(graph)).paths == NULL)
+	if ((paths = get_max_flow(graph)).paths == NULL)//>leeks on this line
 		return (0);
 
 //	print_paths(paths);

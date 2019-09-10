@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 16:54:13 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/10 17:24:00 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,10 @@ t_paths				get_max_flow(t_graph *graph)
 		new_paths = get_new_paths(graph, max_flow);
 		dispatch_ants(new_paths, graph->ants);
 		if (is_worse_path(current_paths, new_paths)/* && printf("\nStop, best paths found\n\n")*/)
+		{
+			free_paths(new_paths);
 			break;
+		}
 		free_paths(current_paths);
 		current_paths = new_paths;
 
@@ -188,5 +191,6 @@ t_paths				get_max_flow(t_graph *graph)
 	printf("\n");
 
 */
+	free(visited);
 	return (current_paths);
 }
