@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 16:34:04 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/10 16:59:45 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	print_paths(t_paths paths)
 		printf("%d lines\n", paths.paths[0].ants_on + paths.paths[0].len);
 }
 
-int main(void)
+int 	main(void)
 {
 	t_paths			paths;
 	t_graph			*graph;
@@ -102,11 +102,12 @@ int main(void)
 
 	if ((paths = get_max_flow(graph)).paths == NULL)
 		return (0);
+
 //	print_paths(paths);
 	print_res(p_graph, &paths);
 
 //	free_graph(&graph);
-	while (1);
+	// while (1);
 	return (0);
 }
 

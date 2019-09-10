@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 16:35:40 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/10 17:06:28 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths)
 	int j;
 	int k;
 	int *offset_arr;
+	char *tmp;
 	t_buff_printer	buff;
 
 	i = 0;
@@ -85,22 +86,17 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths)
 						add_offset(offset_arr, paths->size * (i - k) + j);
 					continue;
 				}
+				if (!(tmp = ft_itoa(paths->size * (i - k) + j + 1 - get_offset(offset_arr, paths->size * (i - k) + j))))
+					error_sys();
+				add_str(&buff, "L");
+				add_str(&buff, tmp);
+				add_str(&buff, "-");
 				if (k == paths->paths[j].len)
-				{
-					add_str(&buff, "L");
-					add_str(&buff, ft_itoa(paths->size * (i - k) + j + 1 - get_offset(offset_arr, paths->size * (i - k) + j)));
-					add_str(&buff, "-");
 					add_str(&buff, get_name(p_graph->start, p_graph->commands.t));
-					add_str(&buff, " ");
-				}
 				else
-				{
-					add_str(&buff, "L");
-					add_str(&buff, ft_itoa(paths->size * (i - k) + j + 1 - get_offset(offset_arr, paths->size * (i - k) + j)));
-					add_str(&buff, "-");
 					add_str(&buff, get_name(p_graph->start, paths->paths[j].path[k]));
-					add_str(&buff, " ");
-				}
+				add_str(&buff, " ");
+				free(tmp);
 			}
 //			printf("\t\t");
 		}

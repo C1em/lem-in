@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 16:34:35 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/10 16:54:13 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ t_paths				get_max_flow(t_graph *graph)
 	// 		graph->flow_arr[i] = 1;
 	// 	i++;
 	// }
-}
+	}
 
 /*	int j = 0;
 	printf("flow arr :\t");
@@ -186,5 +186,7 @@ t_paths				get_max_flow(t_graph *graph)
 		j++;
 	}
 	printf("\n");
-*/	return (current_paths);
+
+*/
+	return (current_paths);
 }
