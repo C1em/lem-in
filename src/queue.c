@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   queue.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:34:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/07 07:42:02 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:35:58 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
-#include <stdlib.h>
+#include "../include/lem-in.h"
+// #include <stdlib.h>
 
 void			init_queue(t_queue_ptr *queue, int vertex)
 {

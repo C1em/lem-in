@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 12:10:07 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:34:49 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
-#include "libft.h"
-#include <stdlib.h>
+#include "../include/lem-in.h"
+// #include "libft.h"
+// #include <stdlib.h>
 
 void			pars_ants(t_parser_graph *graph)
 {

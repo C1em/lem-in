@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 05:13:11 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 07:49:00 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:33:42 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
+#include "../include/lem-in.h"
+// #include <unistd.h>
+// #include <stdlib.h>
 
 void	error_sys(void)
 {

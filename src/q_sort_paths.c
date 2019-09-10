@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   q_sort_paths.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 21:46:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/09 00:15:09 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:21:10 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "../include/lem-in.h"
 
 static void		qsort_paths(t_path paths[], int end)
 {
@@ -22,7 +22,7 @@ static void		qsort_paths(t_path paths[], int end)
 		return ;
 	swapable = 0;
 	i = 0;
-	while (i < end)
+	while (i < (unsigned int)end)
 	{
 		if (paths[i].len < paths[end].len)
 		{
@@ -37,7 +37,7 @@ static void		qsort_paths(t_path paths[], int end)
 	paths[i] = paths[swapable];
 	paths[swapable] = tmp;
 	qsort_paths(paths, swapable - 1);
-	if (swapable + 1 < end)
+	if (swapable + 1 < (unsigned int)end)
 		qsort_paths(&paths[swapable + 1], end - swapable - 1);
 }
 

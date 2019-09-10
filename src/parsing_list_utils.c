@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_list_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 03:19:29 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 07:23:03 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:35:01 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
-#include "libft.h"
-#include <stdlib.h>
-#include <libft.h>
-#include <unistd.h>
+#include "../include/lem-in.h"
+// #include "libft.h"
+// #include <stdlib.h>
+// #include <libft.h>
+// #include <unistd.h>
 
 t_parsing_list	*init_pars_list(char *line)
 {

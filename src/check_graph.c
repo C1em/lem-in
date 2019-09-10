@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_graph.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 07:41:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 07:47:59 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:16:53 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "../include/lem-in.h"
 
 void		check_graph(t_parser_graph *graph)
 {

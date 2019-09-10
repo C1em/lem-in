@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 09:56:12 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:20:27 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 # define LEM_IN_H
 
 #include <limits.h>
-
 #include <stdio.h>
+#include "../libft/include/libft.h"
+#include "stdlib.h"
+#include "stdio.h"
+#include "unistd.h"
 
 # define FLOW 2
 # define NO_FLOW 1

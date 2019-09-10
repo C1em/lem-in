@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   check_duplicates.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 06:09:31 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 08:22:42 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:33:13 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
-#include "libft.h"
+#include "../include/lem-in.h"
+// #include "libft.h"
 
 int		check_vertex_dup(t_vertex_list *list, char *last)
 {

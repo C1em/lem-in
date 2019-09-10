@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 12:44:11 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:34:04 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
-
-#include <stdio.h>
-#include <stdlib.h>
+#include "../include/lem-in.h"
+// #include <stdio.h>
+// #include <stdlib.h>
 
 void	print_path(t_graph *graph, int cur_vertex, int t)
 {
-	int next_vertex;
 	int i;
 
 	printf("vertex :%d -> ", cur_vertex);
@@ -108,6 +106,7 @@ int main(void)
 	print_res(p_graph, &paths);
 
 //	free_graph(&graph);
+	while (1);
 	return (0);
 }
 

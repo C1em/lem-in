@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/09 01:44:29 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 16:35:26 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "lem-in.h"
-
-#include <stdio.h>
+#include "../include/lem-in.h"
+// #include <stdlib.h>
+// #include <stdio.h>
 
 static t_path	get_path(t_graph *graph, int cur_vertex)
 {
