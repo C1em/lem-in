@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 16:20:27 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/10 17:41:40 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,12 @@ typedef struct	s_buff_printer
 char	buff[LEM_IN_BUFF_SIZE];
 int		index;
 }				t_buff_printer;
+
+
+/*
+**	bonus.c
+*/
+int				fill_option(char **av);
 
 /*
 **	parser.c

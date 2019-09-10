@@ -6,7 +6,7 @@
 #    By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/29 15:27:06 by cbenoit           #+#    #+#              #
-#    Updated: 2019/09/10 16:21:47 by cbenoit          ###   ########.fr        #
+#    Updated: 2019/09/10 17:29:42 by cbenoit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC		=	src/main.c src/check_duplicates.c src/check_graph.c src/edges_utils.c \
 			src/error.c src/list_utils.c src/make_graph.c \
 			src/max_flow.c src/parser.c src/parsing_list_utils.c \
 			src/paths.c src/printer.c src/q_sort_paths.c src/queue.c \
-			src/vertices_utils.c \
+			src/vertices_utils.c src/bonus.c \
 
 all:		$(NAME)
 $(NAME):	$(OBJ)
