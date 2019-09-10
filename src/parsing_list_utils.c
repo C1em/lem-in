@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 03:19:29 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 03:48:29 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 07:23:03 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ t_parsing_list	*init_pars_list(char *line)
 	t_parsing_list *list;
 
 	if (!(list = (t_parsing_list*)malloc(sizeof(t_parsing_list))))
-		exit(1);
+		error_sys();
 	list->next = NULL;
-	list->line = ft_strdup(line);
+	if (!(list->line = ft_strdup(line)))
+		error_sys();
 	return (list);
 }
 
@@ -32,9 +33,10 @@ t_parsing_list	*add_pars_elem(t_parsing_list *end, char *line)
 	t_parsing_list *new;
 
 	if (!(new = (t_parsing_list*)malloc(sizeof(t_parsing_list))))
-		exit(1);
+		error_sys();
 	new->next = NULL;
-	new->line = ft_strdup(line);
+	if (!(new->line = ft_strdup(line)))
+		error_sys();
 	return ((end->next = new));
 }
 

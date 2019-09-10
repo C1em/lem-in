@@ -6,18 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 03:40:23 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 12:10:57 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 #include "libft.h"
 #include <stdlib.h>
-
-void			add_comment(char line[])
-{
-	return ;
-}
 
 static int				add_command(char line[])
 {
@@ -32,11 +27,24 @@ static int				add_command(char line[])
 char				*pars_name(char *line)
 {
 	int i;
+	int j;
 
 	i = 0;
 	while (line[i] && line[i] != ' ')
 		if (line[i++] == '-')
 			return (NULL);
+	if (line[i] == '\0')
+		return (NULL);
+	j = i + 1;
+	while (ft_isdigit(line[j]))
+		j++;
+	if (line[j] != ' ')
+		return (NULL);
+	j++;
+	while (ft_isdigit(line[j]))
+		j++;
+	if (line[j] != '\0')
+		return (NULL);
 	return (ft_strndup(line, i));
 }
 
@@ -53,51 +61,53 @@ static int				add_vertex(char line[], t_parser_graph *graph, int *command_nb)
 	*command_nb = 2;
 	if (graph->end->vertex.name == NULL)
 		return (0);
+	if (check_vertex_dup(graph->start, graph->end->vertex.name))
+	{
+		free(graph->end->vertex.name);
+		graph->end->vertex.name = NULL;
+		return (0);
+	}
 	return (1);
 }
 
 int				get_vertex(char *str, t_vertex_list *start)
 {
-	while (start && ft_strcmp(start->vertex.name, str) != SAME)
+
+	while (start->vertex.name && ft_strcmp(start->vertex.name, str) != SAME)
 		start = start->next;
-/*	if (!start)
-		error();
-*/	return (start->vertex.nb);
+	if (start->vertex.name == NULL)
+		return (-1);
+	return (start->vertex.nb);
 
 }
 
-t_parser_graph	*pars_vertices(void)
+char		*pars_vertices(t_parser_graph *graph)
 {
-	char			*line;
-	t_parser_graph	*graph;
-	int				command_nb;
+	char	*line;
+	int		command_nb;
+	int		gnl_ret;
 
-	if (!(graph = (t_parser_graph*)malloc(sizeof(t_parser_graph))))
-		exit(1);
-	graph->start = init_list();
-	graph->end = graph->start;
 	command_nb = 2;
-	if (get_next_line(STDIN, &line) != 1)
-		return (NULL);
-	graph->ants = ft_atoi(line);
-	graph->parsing_list_start = init_pars_list(line);
-	graph->parsing_list_end = graph->parsing_list_start;
-	while (get_next_line(STDIN, &line) == 1)
+	while ((gnl_ret = get_next_line(STDIN, &line) == 1))
 	{
 		if (line[0] == '#')
 		{
 			if (line[1] == '#')
-				command_nb = add_command(&line[2]);
-			graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line);
+			{
+				if ((command_nb = add_command(&line[2])) < 2)
+					graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line);
+			}
+			else
+				graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line);
 		}
 		else if (add_vertex(line, graph, &command_nb) == 0)
-		{
-			pars_edges(graph, line);
-			break;
-		}
+			return(line);
 		else
 			graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line);
 		free(line);
+		line = NULL;
 	}
-	return (graph);
+	if (gnl_ret == -1)
+		error_sys();
+	return (line);
 }

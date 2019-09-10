@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:54:26 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 03:54:03 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 12:02:39 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-static void		add_edge(t_parser_graph *p_graph, char *line)
+static int		add_edge(t_parser_graph *p_graph, char *line)
 {
 	char	*str;
 	int		vertex;
@@ -23,45 +23,52 @@ static void		add_edge(t_parser_graph *p_graph, char *line)
 	str = line;
 	while (str[0] && str[0] != '-')
 		str++;
+	if (str[0] == '\0' || str[1] == '\0')
+		return (0);
 	str[0] = '\0';
 	vertex = get_vertex(line, p_graph->start);
 	vertex_2 = get_vertex(&str[1], p_graph->start);
+	if (vertex == -1 || vertex_2 == -1 || vertex == vertex_2
+	|| p_graph->matrix[vertex][vertex_2] == NO_FLOW
+	|| p_graph->matrix[vertex_2][vertex] == NO_FLOW)
+		return (0);
 	p_graph->matrix[vertex][vertex_2] = NO_FLOW;
 	p_graph->matrix[vertex_2][vertex] = NO_FLOW;
 	p_graph->adj_edges_count[vertex]++;
 	p_graph->adj_edges_count[vertex_2]++;
 	str[0] = '-';
+	return (1);
 }
 
 void			pars_edges(t_parser_graph *p_graph, char *line)
 {
-	int		size;
+	int		gnl_ret;
 
-	size = p_graph->end->vertex.nb;
-	if (!(p_graph->matrix = (int**)malloc(sizeof(int*) * size)))
-		exit(1);
-	if (!(p_graph->adj_edges_count = (int*)malloc(sizeof(int) * size)))
-		exit(1);
-	ft_bzero(p_graph->adj_edges_count, sizeof(int) * size);
-	while (size--)
+	if (line == NULL)
+		return ;
+	if (add_edge(p_graph, line) == 0)
 	{
-		if (!(p_graph->matrix[size] = (int*)malloc(sizeof(int) * p_graph->end->vertex.nb)))
-			exit(1);
-		ft_bzero(p_graph->matrix[size], sizeof(int) * p_graph->end->vertex.nb);
+		free(line);
+		return ;
 	}
-	add_edge(p_graph, line);
 	p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line);
 	free(line);
-	while (get_next_line(STDIN, &line) == 1)
+	while ((gnl_ret = get_next_line(STDIN, &line) == 1))
 	{
 		if (line[0] == '#')
 		{
-			if (line[1] == '#')
-				continue ;
+			if (line[1] != '#')
+				p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line);
 		}
+		else if (add_edge(p_graph, line))
+			p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line);
 		else
-			add_edge(p_graph, line);
-		p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line);
+		{
+			free(line);
+			return ;
+		}
 		free(line);
 	}
+	if (gnl_ret == -1)
+		error_sys();
 }

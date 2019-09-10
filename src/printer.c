@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 02:46:44 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 10:48:13 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths)
 	* ((paths->paths[0].ants_on + paths->paths[0].len) >> 1))))
 		exit(1);
 	offset_arr[0] = INT_MAX;
-	while (i < paths->paths[0].ants_on + paths->paths[0].len) // 2
+	while (i < paths->paths[0].ants_on + paths->paths[0].len)
 	{
 		k = i + 1;
-		while (k--) //
+		while (k--)
 		{
 			j = -1;
 			while (++j < paths->size)

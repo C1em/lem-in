@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 03:37:59 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 09:56:12 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,8 @@ t_parser_graph		*parser(void);
 /*
 **	vertices_utils.c
 */
-t_parser_graph	*pars_vertices(void);
+char			*pars_vertices(t_parser_graph *graph);
 int				get_vertex(char *str, t_vertex_list *start);
-void			add_comment(char line[]);
 char			*pars_name(char *line);
 
 /*
@@ -172,5 +171,21 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths);
 t_parsing_list	*init_pars_list(char *line);
 t_parsing_list	*add_pars_elem(t_parsing_list *end, char *line);
 void			print_parsing_list(t_parsing_list *list);
+
+/*
+**	check_duplicates.c
+*/
+int		check_vertex_dup(t_vertex_list *list, char *last);
+
+/*
+**	error.c
+*/
+void	error_sys(void);
+void	error_input(void);
+
+/*
+**	check_graph.c
+*/
+void		check_graph(t_parser_graph *graph);
 
 #endif
