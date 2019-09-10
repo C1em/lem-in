@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/09 02:08:47 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 03:40:23 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,23 @@ t_parser_graph	*pars_vertices(void)
 	if (get_next_line(STDIN, &line) != 1)
 		return (NULL);
 	graph->ants = ft_atoi(line);
+	graph->parsing_list_start = init_pars_list(line);
+	graph->parsing_list_end = graph->parsing_list_start;
 	while (get_next_line(STDIN, &line) == 1)
 	{
 		if (line[0] == '#')
 		{
 			if (line[1] == '#')
 				command_nb = add_command(&line[2]);
-			else
-				add_comment(line);
+			graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line);
 		}
 		else if (add_vertex(line, graph, &command_nb) == 0)
 		{
 			pars_edges(graph, line);
 			break;
 		}
+		else
+			graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line);
 		free(line);
 	}
 	return (graph);

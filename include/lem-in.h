@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/09 04:28:59 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 03:37:59 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define EDGE 0x3
 # define STDIN 0
 # define SAME 0
+# define LEM_IN_BUFF_SIZE 2048
 
 void	print_matrix(int **matrix, int size);
 
@@ -57,38 +58,52 @@ typedef struct	s_queue_ptr
 
 typedef struct	s_path
 {
-int	*path;
-int	len;
-int	ants_on;
+	int	*path;
+	int	len;
+	int	ants_on;
 }				t_path;
 
 typedef struct	s_paths
 {
-t_path			*paths;
-int	size;
+	t_path			*paths;
+	int	size;
 }				t_paths;
 
 typedef struct	s_parser_vertex
 {
-char*	name;
-int		nb;
+	char*	name;
+	int		nb;
 }				t_parser_vertex;
 
 typedef struct	s_vertex_list
 {
-t_parser_vertex			vertex;
-struct s_vertex_list	*next;
+	t_parser_vertex			vertex;
+	struct s_vertex_list	*next;
 }				t_vertex_list;
+
+typedef struct	s_parsing_list
+{
+	char					*line;
+	struct s_parsing_list	*next;
+}				t_parsing_list;
 
 typedef struct	s_parser_graph
 {
-int				**matrix;
-int				*adj_edges_count;
-t_source_end	commands;
-t_vertex_list	*start;
-t_vertex_list	*end;
-int				ants;
+	int				**matrix;
+	int				*adj_edges_count;
+	t_source_end	commands;
+	t_vertex_list	*start;
+	t_vertex_list	*end;
+	int				ants;
+	t_parsing_list	*parsing_list_start;
+	t_parsing_list	*parsing_list_end;
 }				t_parser_graph;
+
+typedef struct	s_buff_printer
+{
+char	buff[LEM_IN_BUFF_SIZE];
+int		index;
+}				t_buff_printer;
 
 /*
 **	parser.c
@@ -150,5 +165,12 @@ void		q_sort_paths(t_paths paths);
 **	printer.c
 */
 void	print_res(t_parser_graph *p_graph, t_paths *paths);
+
+/*
+**	parsing_list_utils.c
+*/
+t_parsing_list	*init_pars_list(char *line);
+t_parsing_list	*add_pars_elem(t_parsing_list *end, char *line);
+void			print_parsing_list(t_parsing_list *list);
 
 #endif

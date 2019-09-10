@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/09 04:41:54 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 03:32:49 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int main(void)
 	t_parser_graph	*p_graph;
 
 	p_graph = parser();
+	print_parsing_list(p_graph->parsing_list_start);
 	graph = make_graph(p_graph);
 //	print_graph(graph, graph->s_t.s);
 //	print_matrix(graph->adj_matrix, graph->size);
@@ -102,7 +103,7 @@ int main(void)
 
 	if ((paths = get_max_flow(graph)).paths == NULL && printf("no path !!!\n"))
 		return (0);
-	print_paths(paths);
+//	print_paths(paths);
 	print_res(p_graph, &paths);
 
 //	free_graph(&graph);

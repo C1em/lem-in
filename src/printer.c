@@ -6,13 +6,28 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/09 06:24:04 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 02:46:44 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
+#include "libft.h"
+#include <unistd.h>
 #include <limits.h>
 #include <stdlib.h>
+
+static void	add_str(t_buff_printer *buff, char *str)
+{
+	int	len;
+//	printf("%s", str);
+	if ((len = ft_strlen(str)) >= LEM_IN_BUFF_SIZE - buff->index)
+	{
+		write(1, buff->buff, buff->index);
+		buff->index = 0;
+	}
+	ft_strcpy(&buff->buff[buff->index], str);
+	buff->index += len;
+}
 
 static char	*get_name(t_vertex_list *list, int vertex)
 {
@@ -45,13 +60,13 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths)
 	int j;
 	int k;
 	int *offset_arr;
-
-// i = position in path && nb of ants on path
-// k = counter that go from 0 to i at each
-// j = path nb
+	t_buff_printer	buff;
 
 	i = 0;
-	if (!(offset_arr = (int*)malloc(sizeof(int) * p_graph->ants)))
+	buff.index = 0;
+	if (!(offset_arr = (int*)malloc(sizeof(int)
+	* (paths->paths[0].ants_on + paths->paths[0].len + 1)
+	* ((paths->paths[0].ants_on + paths->paths[0].len) >> 1))))
 		exit(1);
 	offset_arr[0] = INT_MAX;
 	while (i < paths->paths[0].ants_on + paths->paths[0].len) // 2
@@ -63,10 +78,7 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths)
 			while (++j < paths->size)
 			{
 				if (k > paths->paths[j].len)
-				{
-					printf("\t\t");
 					continue ;
-				}
 				else if (i - k >= paths->paths[j].ants_on)
 				{
 					if (k == 0)
@@ -74,18 +86,32 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths)
 					continue;
 				}
 				if (k == paths->paths[j].len)
-					printf("L%2d-%s\t", paths->size * (i - k) + j + 1 - get_offset(offset_arr, paths->size * (i - k) + j), get_name(p_graph->start, p_graph->commands.t));
+				{
+					add_str(&buff, "L");
+					add_str(&buff, ft_itoa(paths->size * (i - k) + j + 1 - get_offset(offset_arr, paths->size * (i - k) + j)));
+					add_str(&buff, "-");
+					add_str(&buff, get_name(p_graph->start, p_graph->commands.t));
+					add_str(&buff, " ");
+				}
 				else
-					printf("L%2d-%s", paths->size * (i - k) + j + 1 - get_offset(offset_arr, paths->size * (i - k) + j), get_name(p_graph->start, paths->paths[j].path[k]));
-				if (j < paths->size)
-					printf("\t");
+				{
+					add_str(&buff, "L");
+					add_str(&buff, ft_itoa(paths->size * (i - k) + j + 1 - get_offset(offset_arr, paths->size * (i - k) + j)));
+					add_str(&buff, "-");
+					add_str(&buff, get_name(p_graph->start, paths->paths[j].path[k]));
+					add_str(&buff, " ");
+				}
 			}
-			printf("\t\t");
+//			printf("\t\t");
 		}
 		i++;
-		printf("\n");
+		if (buff.index > 0 && buff.buff[buff.index - 1] == ' ')
+			buff.index--;
+		add_str(&buff, "\n");
 	}
+	write(1, buff.buff, buff.index);
 	free(offset_arr);
+//	printf("nb lines for me : %d\n", paths->paths[0].ants_on + paths->paths[0].len);
 }
 
 /*

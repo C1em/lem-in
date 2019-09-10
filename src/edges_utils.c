@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:54:26 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/08 04:19:25 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 03:54:03 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static void		add_edge(t_parser_graph *p_graph, char *line)
 	while (str[0] && str[0] != '-')
 		str++;
 	str[0] = '\0';
-	str++;
 	vertex = get_vertex(line, p_graph->start);
-	vertex_2 = get_vertex(str, p_graph->start);
+	vertex_2 = get_vertex(&str[1], p_graph->start);
 	p_graph->matrix[vertex][vertex_2] = NO_FLOW;
 	p_graph->matrix[vertex_2][vertex] = NO_FLOW;
 	p_graph->adj_edges_count[vertex]++;
 	p_graph->adj_edges_count[vertex_2]++;
+	str[0] = '-';
 }
 
 void			pars_edges(t_parser_graph *p_graph, char *line)
@@ -50,13 +50,18 @@ void			pars_edges(t_parser_graph *p_graph, char *line)
 		ft_bzero(p_graph->matrix[size], sizeof(int) * p_graph->end->vertex.nb);
 	}
 	add_edge(p_graph, line);
+	p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line);
 	free(line);
 	while (get_next_line(STDIN, &line) == 1)
 	{
 		if (line[0] == '#')
-			add_comment(line);
+		{
+			if (line[1] == '#')
+				continue ;
+		}
 		else
 			add_edge(p_graph, line);
+		p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line);
 		free(line);
 	}
 }
