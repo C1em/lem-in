@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 16:21:23 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:10:04 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ void	print_path(t_graph *graph, int cur_vertex, int t)
 }
 
 
-void	print_graph(t_graph *graph, int cur_vertex)
+int		print_graph(t_parser_graph *p_graph, t_graph *graph, int cur_vertex)
 {
 	t_queue_ptr	queue;
 	int			i;
 	int			cur_level;
 	int			next_vertex;
 
-	init_queue(&queue, cur_vertex);
+	if (init_queue(&queue, cur_vertex) == FAILURE)
+		return (set_msg(FAILURE, p_graph, "Error : malloc"));
 	cur_level = graph->level_arr[cur_vertex];
 	while (queue.start != NULL)
 	{
@@ -54,12 +55,14 @@ void	print_graph(t_graph *graph, int cur_vertex)
 			if (graph->level_arr[next_vertex] == cur_level + 1)
 			{
 					printf("|%d", next_vertex);
-				enqueue(&queue, next_vertex);
+				if (enqueue(&queue, next_vertex) == FAILURE)
+					return (set_msg(FAILURE, p_graph, "Error : malloc"));
 			}
 			++i;
 		}
 	}
 	free_queue(&queue);
+	return (SUCCESS);
 }
 
 void	print_paths(t_paths paths)
@@ -114,7 +117,7 @@ int			 	main(int ac, char **av)
 	if (!(graph = make_graph(p_graph)))
 		return (disp_error(p_graph)); //free p_graph
 
-//	print_graph(graph, graph->s_t.s);
+//	print_graph(p_graph, graph, graph->s_t.s);
 //	print_matrix(graph->adj_matrix, graph->size);
 //	if (is_s_t_edge(graph))
 
@@ -128,7 +131,7 @@ int			 	main(int ac, char **av)
 	if (print_res(p_graph, &paths) == FAILURE || p_graph->flag[BONUS_V])
 		return (disp_error(p_graph));//free p_graph
 
-	print_paths(paths);
+	// print_paths(paths);
 //	free_graph(&graph);
 
 	//free p_graph
@@ -157,7 +160,7 @@ void	print_matrix(int **matrix, int size)
 	printf("\n\n");
 }
 
-// free all properly before exit / error_sys / error_input ?????????
+// free all properly before exit, free all properly when exit get_max_flow ?????????
 // parser instructions ?????
 
 // bonus -c color ???????

@@ -6,37 +6,32 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:34:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 13:44:42 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 16:55:35 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 // #include <stdlib.h>
 
-void			init_queue(t_queue_ptr *queue, int vertex)
+int			init_queue(t_queue_ptr *queue, int vertex)
 {
 	t_queue *queue_elem;
 
 	if (!(queue_elem = (t_queue*)malloc(sizeof(t_queue))))
-	{
-		//set msg
-		error_sys();
-	}
+		return (FAILURE);
 	queue->start = queue_elem;
 	queue->end = queue_elem;
 	queue_elem->value = vertex;
 	queue_elem->next = NULL;
+	return (SUCCESS);
 }
 
-void			enqueue(t_queue_ptr *queue, int vertex)
+int				enqueue(t_queue_ptr *queue, int vertex)
 {
 	t_queue *queue_elem;
 
 	if (!(queue_elem = (t_queue*)malloc(sizeof(t_queue))))
-	{
-		//set msg
-		error_sys();
-	}
+		return (FAILURE);
 	if (queue->start == NULL)
 		queue->start = queue_elem;
 	else
@@ -44,6 +39,7 @@ void			enqueue(t_queue_ptr *queue, int vertex)
 	queue_elem->value = vertex;
 	queue_elem->next = NULL;
 	queue->end = queue_elem;
+	return (SUCCESS);
 }
 
 int				dequeue(t_queue_ptr *queue)

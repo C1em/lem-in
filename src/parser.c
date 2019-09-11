@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 15:29:19 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 16:39:42 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ static int		pars_ants(t_parser_graph *graph)
 			{
 				if (graph->parsing_list_start == NULL)
 				{
-					graph->parsing_list_start = init_pars_list(line);
+					if (!(graph->parsing_list_start = init_pars_list(line)))
+						return (set_msg(FAILURE, graph, "Error : malloc"));
 					graph->parsing_list_end = graph->parsing_list_start;
 				}
-				else
-					graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line);
+				else if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
+					return (set_msg(FAILURE, graph, "Error : malloc"));
 			}
 		}
 		else
@@ -63,11 +64,12 @@ static int		pars_ants(t_parser_graph *graph)
 				return (set_msg(FAILURE, graph, "Error : wrong ant number"));
 			if (graph->parsing_list_start == NULL)
 			{
-				graph->parsing_list_start = init_pars_list(line);
+				if (!(graph->parsing_list_start = init_pars_list(line)))
+					return (set_msg(FAILURE, graph, "Error : malloc"));
 				graph->parsing_list_end = graph->parsing_list_start;
 			}
-			else
-				graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line);
+			else if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
+				return (set_msg(FAILURE, graph, "Error : malloc"));
 		}
 		free(line);
 	}
@@ -78,9 +80,12 @@ t_parser_graph	*init_pars_graph(void)
 {
 	t_parser_graph *graph;
 
-	if (!(graph = (t_parser_graph*)malloc(sizeof(t_parser_graph))))
-		error_sys();
-	graph->start = init_list();
+	if (!(graph = (t_parser_graph*)malloc(sizeof(t_parser_graph)))
+	|| !(graph->start = init_list()))
+	{
+		ft_putendl("Error");
+		exit (0);
+	}
 	graph->end = graph->start;
 	graph->parsing_list_end = NULL;
 	graph->parsing_list_start = NULL;

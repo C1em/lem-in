@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 15:21:28 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 16:46:12 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,12 @@ static int				add_vertex(char line[], t_parser_graph *graph, int *command_nb)
 {
 	if (graph->start->vertex.name == NULL)
 		graph->start->vertex.name = pars_name(line);
-	else
-		add_elem(&graph->end, line);
+	else if (add_elem(&graph->end, line) == FAILURE)
+	{
+		free(line);
+		line = NULL;
+		return (set_msg(FAILURE, graph, "Error : malloc"));
+	}
 	if (*command_nb == 0)
 		graph->commands.s = graph->end->vertex.nb;
 	else if (*command_nb == 1)
@@ -94,16 +98,28 @@ char		*pars_vertices(t_parser_graph *graph)
 		{
 			if (line[1] == '#')
 			{
-				if ((command_nb = add_command(&line[2])) < 2)
-					graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line);
+				if ((command_nb = add_command(&line[2])) < 2 && !(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
+				{
+					free(line);
+					set_msg(FAILURE, graph, "Error : malloc");
+					return (NULL);
+				}
 			}
-			else
-				graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line);
+			else if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
+			{
+				free(line);
+				set_msg(FAILURE, graph, "Error : malloc");
+				return (NULL);
+			}
 		}
 		else if (add_vertex(line, graph, &command_nb) == 0)
 			return(line);
-		else
-			graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line);
+		else if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
+		{
+			free(line);
+			set_msg(FAILURE, graph, "Error : malloc");
+			return (NULL);
+		}
 		free(line);
 		line = NULL;
 	}

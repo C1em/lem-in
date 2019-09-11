@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 15:56:27 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:02:41 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int			bfs(t_graph *graph)
 
 	ft_memset(graph->level_arr, -1, sizeof(int) * graph->size);
 	graph->level_arr[graph->s_t.s] = 0;
-	init_queue(&queue, graph->s_t.s);
+	init_queue(&queue, graph->s_t.s); //<- gerer valeur retour if == failure -> sortir du bfs et retourner au main
 	while (queue.start != NULL)
 	{
 		cur_vertex = dequeue(&queue);
@@ -77,7 +77,7 @@ static int			bfs(t_graph *graph)
 */				if (graph->flow_arr[cur_vertex] == 0 && graph->flow_arr[next_vertex] == 1 && cur_vertex != graph->s_t.s)
 					graph->flow_arr[next_vertex] = 2;
 				graph->level_arr[next_vertex] = graph->level_arr[cur_vertex] + 1;
-				enqueue(&queue, next_vertex);
+				enqueue(&queue, next_vertex); // idem gerer valeur retour if == failure -> sortir du bfs et retourner au main
 			}
 		}
 	}
@@ -165,7 +165,12 @@ t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 */		ft_bzero(visited, sizeof(int) * graph->size);
 		while (dfs(graph, graph->s_t.s, visited))
 			max_flow++;
-		new_paths = get_new_paths(graph, max_flow);
+		if (!(new_paths = get_new_paths(graph, max_flow)).paths)
+		{
+			free_paths(current_paths);
+			free(visited);
+			return (new_paths);
+		}
 		dispatch_ants(new_paths, graph->ants);
 		if (is_worse_path(current_paths, new_paths)/* && printf("\nStop, best paths found\n\n")*/)
 		{

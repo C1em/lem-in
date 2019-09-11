@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 13:43:36 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:07:05 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ static t_path	get_path(t_graph *graph, int cur_vertex)
 	t_path	path;
 
 	if (!(path.path = (int*)malloc(sizeof(int) * graph->size)))
-	{
-		//set msg;
-		error_sys();
-	}
+		return ((t_path){NULL, 0, 0});
 	path.len = 0;
 	while (cur_vertex != graph->s_t.t)
 	{
@@ -50,10 +47,7 @@ t_paths	get_new_paths(t_graph *graph, int size)
 	int		next_vertex;
 
 	if (!(paths.paths = (t_path*)malloc(sizeof(t_path) * size)))
-	{
-		//set msg
-		error_sys();
-	}
+		return ((t_paths){NULL, 0});
 	paths.size = size;
 	i = 0;
 	j = 0;
@@ -63,7 +57,11 @@ t_paths	get_new_paths(t_graph *graph, int size)
 		[(next_vertex = get_next_vertex(graph->adj_matrix[graph->s_t.s], i))] == FLOW)
 		{
 //			printf("WAW !!! next vertex : %d\n", next_vertex);
-			paths.paths[j] = get_path(graph, next_vertex);
+			if (!(paths.paths[j] = get_path(graph, next_vertex)).path)
+			{
+				//free paths.paths
+				return ((t_paths){NULL, 0});
+			}
 			++j;
 		}
 		++i;

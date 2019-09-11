@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 16:03:21 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 16:27:09 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,17 @@ int			get_offset(int *offset_arr, int nb)
 	return (i);
 }
 
-static void		add_nb_lines(t_parser_graph *p_graph, t_buff_printer *buff)
+static int		add_nb_lines(t_parser_graph *p_graph, t_buff_printer *buff)
 {
 	char	*tmp;
 
 	add_str(buff, "\nTotal lines: ");
 	if (!(tmp = ft_itoa(p_graph->nb_lines)))
-	{
-		p_graph->msg = "Error : malloc";
-		error_sys();
-	}
+		return (set_msg(FAILURE, p_graph, "Error : malloc"));
 	add_str(buff, tmp);
 	free(tmp);
 	add_str(buff, "\n\n");
+	return (SUCCESS);
 }
 
 int		print_res(t_parser_graph *p_graph, t_paths *paths)
@@ -124,8 +122,8 @@ int		print_res(t_parser_graph *p_graph, t_paths *paths)
 		add_str(&buff, "\n");
 		p_graph->nb_lines += 1;
 	}
-	if (p_graph->flag[BONUS_N])
-		add_nb_lines(p_graph, &buff);
+	if (p_graph->flag[BONUS_N] && add_nb_lines(p_graph, &buff) == FAILURE)
+		return (FAILURE);
 	write(1, buff.buff, buff.index);
 	free(offset_arr);
 	return (SUCCESS);

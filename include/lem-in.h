@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 15:59:20 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 16:55:15 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ char			*pars_name(char *line);
 /*
 **	list_utils.c
 */
-void			add_elem(t_vertex_list **end, char line[]);
+int				add_elem(t_vertex_list **end, char line[]);
 t_vertex_list	*init_list(void);
 
 /*
@@ -167,8 +167,8 @@ int				get_next_vertex(int *vertex_arr, int index);
 /*
 **	queue.c
 */
-void			init_queue(t_queue_ptr *queue, int vertex);
-void			enqueue(t_queue_ptr *queue, int vertex);
+int				init_queue(t_queue_ptr *queue, int vertex);
+int				enqueue(t_queue_ptr *queue, int vertex);
 int				dequeue(t_queue_ptr *queue);
 void			free_queue(t_queue_ptr *queue);
 

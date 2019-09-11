@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:54:26 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 15:27:28 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 16:43:01 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,21 @@ int			pars_edges(t_parser_graph *p_graph, char *line)
 		free(line);
 		return (SUCCESS);
 	}
-	p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line);
+	if (!(p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line)))
+		return (set_msg(FAILURE, p_graph, "Error : malloc"));
 	free(line);
 	while ((gnl_ret = get_next_line(STDIN, &line) == 1))
 	{
 		if (line[0] == '#')
 		{
-			if (line[1] != '#')
-				p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line);
+			if (line[1] != '#' && !(p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line)))
+				return (set_msg(FAILURE, p_graph, "Error : malloc"));//free line
 		}
 		else if (add_edge(p_graph, line))
-			p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line);
+		{
+			if (!(p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line)))
+				return (set_msg(FAILURE, p_graph, "Error : malloc"));//free line
+		}
 		else
 		{
 			free(line);
