@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 16:27:09 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 18:09:58 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // #include <limits.h>
 // #include <stdlib.h>
 
-static void	add_str(t_buff_printer *buff, char *str)
+void	add_str(t_buff_printer *buff, char *str)
 {
 	int	len;
 //	printf("%s", str);
@@ -29,7 +29,7 @@ static void	add_str(t_buff_printer *buff, char *str)
 	buff->index += len;
 }
 
-static char	*get_name(t_vertex_list *list, int vertex)
+char	*get_name(t_vertex_list *list, int vertex)
 {
 	while (vertex--)
 		list = list->next;
@@ -122,10 +122,12 @@ int		print_res(t_parser_graph *p_graph, t_paths *paths)
 		add_str(&buff, "\n");
 		p_graph->nb_lines += 1;
 	}
+	free(offset_arr);
+	if (p_graph->flag[BONUS_P] && print_paths(p_graph, *paths, &buff) == FAILURE)
+		return (FAILURE);
 	if (p_graph->flag[BONUS_N] && add_nb_lines(p_graph, &buff) == FAILURE)
 		return (FAILURE);
 	write(1, buff.buff, buff.index);
-	free(offset_arr);
 	return (SUCCESS);
 //	printf("nb lines for me : %d\n", paths->paths[0].ants_on + paths->paths[0].len);
 }

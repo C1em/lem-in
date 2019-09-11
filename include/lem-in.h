@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 16:55:15 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 18:09:19 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,9 @@ void		q_sort_paths(t_paths paths);
 **	printer.c
 */
 int		print_res(t_parser_graph *p_graph, t_paths *paths);
+char	*get_name(t_vertex_list *list, int vertex);
+void	add_str(t_buff_printer *buff, char *str);
+
 
 /*
 **	parsing_list_utils.c
@@ -212,5 +215,10 @@ int		check_vertex_dup(t_vertex_list *list, char *last);
 */
 void	error_sys(void);
 void	error_input(void);
+
+/*
+**	main.c
+*/
+int		print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 17:10:04 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 18:09:10 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,28 +65,38 @@ int		print_graph(t_parser_graph *p_graph, t_graph *graph, int cur_vertex)
 	return (SUCCESS);
 }
 
-void	print_paths(t_paths paths)
+int			print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff)
 {
-	int i;
-	int j;
-
+	int		i;
+	int		j;
+	char	*tmp;
 	i = 0;
 	while (i < paths.size)
 	{
 		j = 0;
-		printf("path :   ");
-		while (j < paths.paths[i].len)
+		add_str(buff, "\nPath ");
+		if (!(tmp = ft_itoa(i + 1)))
+			return (set_msg(FAILURE, p_graph, "Error : malloc"));
+		add_str(buff, tmp);
+		free(tmp);
+		add_str(buff, " :  ");
+		add_str(buff, get_name(p_graph->start, 0));
+		add_str(buff, " ");
+		while (j <= paths.paths[i].len)
 		{
-			printf("-> %d ", paths.paths[i].path[j]);
+			add_str(buff, "-> ");
+			if (j == paths.paths[i].len)
+				add_str(buff, get_name(p_graph->start, p_graph->commands.t));
+			else
+				add_str(buff, get_name(p_graph->start, paths.paths[i].path[j]));
+			add_str(buff, " ");
 			++j;
 		}
-		printf("\tants on it : %d, path size :%d\n", paths.paths[i].ants_on, paths.paths[i].len);
+		// printf("\tants on it : %d, path size :%d\n", paths.paths[i].ants_on, paths.paths[i].len);
 		++i;
 	}
-	if (paths.paths[0].len == 0)
-		printf("1 line\n");
-	else
-		printf("%d lines\n", paths.paths[0].ants_on + paths.paths[0].len);
+	add_str(buff, "\n");
+	return (SUCCESS);
 }
 
 static int		disp_error(t_parser_graph *p_graph)
@@ -130,8 +140,6 @@ int			 	main(int ac, char **av)
 
 	if (print_res(p_graph, &paths) == FAILURE || p_graph->flag[BONUS_V])
 		return (disp_error(p_graph));//free p_graph
-
-	// print_paths(paths);
 //	free_graph(&graph);
 
 	//free p_graph
@@ -174,3 +182,8 @@ void	print_matrix(int **matrix, int size)
 // bonus -v verbose -> done
 // bonus -m map checker -> done
 
+//bug -> maps/test_s_direct_3sortie -> 5 lignes distinct au lieu d'une ??????
+
+//suppr tous les printf du programme ????????????/
+
+//faire define error malloc  ??????????
