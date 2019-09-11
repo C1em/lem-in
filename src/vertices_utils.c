@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 16:46:12 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 18:18:22 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int				add_vertex(char line[], t_parser_graph *graph, int *command_nb)
 	{
 		free(line);
 		line = NULL;
-		return (set_msg(FAILURE, graph, "Error : malloc"));
+		return (set_msg(FAILURE, graph, MALLOC_ERROR));
 	}
 	if (*command_nb == 0)
 		graph->commands.s = graph->end->vertex.nb;
@@ -101,14 +101,14 @@ char		*pars_vertices(t_parser_graph *graph)
 				if ((command_nb = add_command(&line[2])) < 2 && !(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
 				{
 					free(line);
-					set_msg(FAILURE, graph, "Error : malloc");
+					set_msg(FAILURE, graph, MALLOC_ERROR);
 					return (NULL);
 				}
 			}
 			else if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
 			{
 				free(line);
-				set_msg(FAILURE, graph, "Error : malloc");
+				set_msg(FAILURE, graph, MALLOC_ERROR);
 				return (NULL);
 			}
 		}
@@ -117,7 +117,7 @@ char		*pars_vertices(t_parser_graph *graph)
 		else if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
 		{
 			free(line);
-			set_msg(FAILURE, graph, "Error : malloc");
+			set_msg(FAILURE, graph, MALLOC_ERROR);
 			return (NULL);
 		}
 		free(line);

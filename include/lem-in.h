@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 18:09:19 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 18:17:27 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define LEM_IN_BUFF_SIZE 2048
 # define SUCCESS 0
 # define FAILURE 1
-
+# define MALLOC_ERROR "Error : malloc"
 # define BONUS_C 0
 # define BONUS_V 1
 # define BONUS_N 2

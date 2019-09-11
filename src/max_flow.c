@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 17:02:41 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 18:18:08 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 	current_paths = (t_paths){NULL, 0};
 	if (!(visited = (int*)malloc(graph->size * sizeof(int))))
 	{
-		p_graph->msg = "Error : malloc";
+		p_graph->msg = MALLOC_ERROR;
 		return (current_paths);
 	}
 	while (bfs(graph)/* && printf("still a path !\n")*/)

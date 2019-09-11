@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:54:26 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 16:43:01 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 18:17:54 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,19 @@ int			pars_edges(t_parser_graph *p_graph, char *line)
 		return (SUCCESS);
 	}
 	if (!(p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line)))
-		return (set_msg(FAILURE, p_graph, "Error : malloc"));
+		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 	free(line);
 	while ((gnl_ret = get_next_line(STDIN, &line) == 1))
 	{
 		if (line[0] == '#')
 		{
 			if (line[1] != '#' && !(p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line)))
-				return (set_msg(FAILURE, p_graph, "Error : malloc"));//free line
+				return (set_msg(FAILURE, p_graph, MALLOC_ERROR));//free line
 		}
 		else if (add_edge(p_graph, line))
 		{
 			if (!(p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line)))
-				return (set_msg(FAILURE, p_graph, "Error : malloc"));//free line
+				return (set_msg(FAILURE, p_graph, MALLOC_ERROR));//free line
 		}
 		else
 		{

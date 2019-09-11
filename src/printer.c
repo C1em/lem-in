@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 18:09:58 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 18:18:18 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int		add_nb_lines(t_parser_graph *p_graph, t_buff_printer *buff)
 
 	add_str(buff, "\nTotal lines: ");
 	if (!(tmp = ft_itoa(p_graph->nb_lines)))
-		return (set_msg(FAILURE, p_graph, "Error : malloc"));
+		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 	add_str(buff, tmp);
 	free(tmp);
 	add_str(buff, "\n\n");
@@ -81,7 +81,7 @@ int		print_res(t_parser_graph *p_graph, t_paths *paths)
 	if (!(offset_arr = (int*)malloc(sizeof(int)
 	* (paths->paths[0].ants_on + paths->paths[0].len + 1)
 	* ((paths->paths[0].ants_on + paths->paths[0].len) >> 1))))
-		return (set_msg(FAILURE, p_graph, "Error : malloc"));
+		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 	offset_arr[0] = INT_MAX;
 	while (i < paths->paths[0].ants_on + paths->paths[0].len)
 	{
@@ -102,7 +102,7 @@ int		print_res(t_parser_graph *p_graph, t_paths *paths)
 				if (!(tmp = ft_itoa(paths->size * (i - k) + j + 1 - get_offset(offset_arr, paths->size * (i - k) + j))))
 				{
 					free(offset_arr);
-					return (set_msg(FAILURE, p_graph, "Error : malloc"));
+					return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 				}
 				add_str(&buff, "L");
 				add_str(&buff, tmp);

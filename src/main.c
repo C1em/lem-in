@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 18:09:10 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 18:18:47 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		print_graph(t_parser_graph *p_graph, t_graph *graph, int cur_vertex)
 	int			next_vertex;
 
 	if (init_queue(&queue, cur_vertex) == FAILURE)
-		return (set_msg(FAILURE, p_graph, "Error : malloc"));
+		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 	cur_level = graph->level_arr[cur_vertex];
 	while (queue.start != NULL)
 	{
@@ -56,7 +56,7 @@ int		print_graph(t_parser_graph *p_graph, t_graph *graph, int cur_vertex)
 			{
 					printf("|%d", next_vertex);
 				if (enqueue(&queue, next_vertex) == FAILURE)
-					return (set_msg(FAILURE, p_graph, "Error : malloc"));
+					return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 			}
 			++i;
 		}
@@ -76,7 +76,7 @@ int			print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff)
 		j = 0;
 		add_str(buff, "\nPath ");
 		if (!(tmp = ft_itoa(i + 1)))
-			return (set_msg(FAILURE, p_graph, "Error : malloc"));
+			return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 		add_str(buff, tmp);
 		free(tmp);
 		add_str(buff, " :  ");
@@ -168,22 +168,20 @@ void	print_matrix(int **matrix, int size)
 	printf("\n\n");
 }
 
-// free all properly before exit, free all properly when exit get_max_flow ?????????
+// free all properly in get_max_flow ?????????
 // parser instructions ?????
 
-// bonus -c color ???????
-// bonus -p path used ????????
-// maybe bonus -d -> display number of ant on start, on the algo, on end ?????????????
+//bug -> maps/test_s_direct_3sortie -> 5 lignes distinct au lieu d'une ??????
+
+//suppr tous les printf du programme ????????????/
 // change return 0 to return 1 if error ???????????
+
+// bonus -c color ???????
+// maybe bonus -d -> display number of ant on start, on the algo, on end ?????????????
 
 // check hardly ????????
 
 // bonus -n number of solution line -> done
 // bonus -v verbose -> done
 // bonus -m map checker -> done
-
-//bug -> maps/test_s_direct_3sortie -> 5 lignes distinct au lieu d'une ??????
-
-//suppr tous les printf du programme ????????????/
-
-//faire define error malloc  ??????????
+// bonus -p path used -> done
