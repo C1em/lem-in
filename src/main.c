@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 16:10:26 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 16:21:23 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int			 	main(int ac, char **av)
 	if (print_res(p_graph, &paths) == FAILURE || p_graph->flag[BONUS_V])
 		return (disp_error(p_graph));//free p_graph
 
-//	print_paths(paths);
+	print_paths(paths);
 //	free_graph(&graph);
 
 	//free p_graph
