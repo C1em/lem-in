@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 14:33:04 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 15:59:20 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int				ft_break(int return_value, int n, ...);
 /*
 **	parser.c
 */
-void			parser(t_parser_graph *graph);
+int				parser(t_parser_graph *graph);
 t_parser_graph	*init_pars_graph(void);
 
 /*
@@ -156,12 +156,12 @@ t_vertex_list	*init_list(void);
 /*
 **	edges_utils.c
 */
-void			pars_edges(t_parser_graph *p_graph, char *line);
+int				pars_edges(t_parser_graph *p_graph, char *line);
 
 /*
 **	get_max_flow.c
 */
-t_paths				get_max_flow(t_graph *graph);
+t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph);
 int				get_next_vertex(int *vertex_arr, int index);
 
 /*
@@ -193,7 +193,7 @@ void		q_sort_paths(t_paths paths);
 /*
 **	printer.c
 */
-void	print_res(t_parser_graph *p_graph, t_paths *paths);
+int		print_res(t_parser_graph *p_graph, t_paths *paths);
 
 /*
 **	parsing_list_utils.c
@@ -212,10 +212,5 @@ int		check_vertex_dup(t_vertex_list *list, char *last);
 */
 void	error_sys(void);
 void	error_input(void);
-
-/*
-**	check_graph.c
-*/
-void		check_graph(t_parser_graph *graph);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 14:33:28 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 15:29:19 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,20 @@
 // #include "libft.h"
 // #include <stdlib.h>
 
-void			pars_ants(t_parser_graph *graph)
+static int		parse_graph(t_parser_graph *graph)
+{
+	if (graph->ants <= 0)
+		graph->msg = "Error : wrong ant number";
+	else if (graph->commands.s < 0)
+		graph->msg = "Error : room start not define";
+	else if (graph->commands.t < 0)
+		graph->msg = "Error : room end not define";
+	else
+		return (SUCCESS);
+	return (FAILURE);
+}
+
+static int		pars_ants(t_parser_graph *graph)
 {
 	char	*line;
 	int		gnl_ret;
@@ -23,15 +36,9 @@ void			pars_ants(t_parser_graph *graph)
 	while (graph->ants < 0)
 	{
 		if ((gnl_ret = get_next_line(STDIN, &line)) == -1)
-		{
-			graph->msg = "Error : read";
-			error_sys();
-		}
+			return (set_msg(FAILURE, graph, "Error : read"));
 		else if (gnl_ret == 0)
-		{
-			graph->msg = "Error : ants not set";
-			error_input();
-		}
+			return (set_msg(FAILURE, graph, "Error : ants not set"));
 		if (line[0] == '#')
 		{
 			if (line[1] != '#')
@@ -51,15 +58,9 @@ void			pars_ants(t_parser_graph *graph)
 			while (ft_isdigit(line[i]))
 				i++;
 			if (line[i] != '\0')
-			{
-				graph->msg = "Error : invalid position";
-				error_input();
-			}
+				return (set_msg(FAILURE, graph, "Error : invalid position"));
 			if ((graph->ants = ft_atoi(line)) < 0)
-			{
-				graph->msg = "Error : wrong ant number";
-				error_input();
-			}
+				return (set_msg(FAILURE, graph, "Error : wrong ant number"));
 			if (graph->parsing_list_start == NULL)
 			{
 				graph->parsing_list_start = init_pars_list(line);
@@ -70,6 +71,7 @@ void			pars_ants(t_parser_graph *graph)
 		}
 		free(line);
 	}
+	return (SUCCESS);
 }
 
 t_parser_graph	*init_pars_graph(void)
@@ -90,43 +92,39 @@ t_parser_graph	*init_pars_graph(void)
 	return (graph);
 }
 
-void			init_pars_arrays(t_parser_graph *p_graph)
+static int			init_pars_arrays(t_parser_graph *p_graph)
 {
 	int		size;
 
 	if ((size = p_graph->end->vertex.nb) <= 0)
-	{
-		p_graph->msg = "Error : no room set"; //<- Verify error msg
-		error_input();
-	}
+		return (set_msg(FAILURE, p_graph, "Error : no room set")); //<- Verify error msg
 	if (!(p_graph->matrix = (int**)malloc(sizeof(int*) * size)))
-	{
-		p_graph->msg = "Error : malloc";
-		error_sys();
-	}
+		return (set_msg(FAILURE, p_graph, "Error : malloc"));
 	if (!(p_graph->adj_edges_count = (int*)malloc(sizeof(int) * size)))
-	{
-		p_graph->msg = "Error : malloc";
-		error_sys();
-	}
+		return (set_msg(FAILURE, p_graph, "Error : malloc"));
 	ft_bzero(p_graph->adj_edges_count, sizeof(int) * size);
 	while (size--)
 	{
 		if (!(p_graph->matrix[size] = (int*)malloc(sizeof(int) * p_graph->end->vertex.nb)))
-		{
-			p_graph->msg = "Error : malloc";
-			error_sys();
-		}
+			return (set_msg(FAILURE, p_graph, "Error : malloc"));
 		ft_bzero(p_graph->matrix[size], sizeof(int) * p_graph->end->vertex.nb);
 	}
+	return (SUCCESS);
 }
 
-void			parser(t_parser_graph *graph)
+int			parser(t_parser_graph *graph)
 {
 	char			*line_tmp;
 
-	pars_ants(graph);
-	line_tmp = pars_vertices(graph);
-	init_pars_arrays(graph);
-	pars_edges(graph, line_tmp);
+	if (pars_ants(graph) == FAILURE)
+		return (FAILURE);
+	if (!(line_tmp = pars_vertices(graph)))
+		return (FAILURE);
+	if (init_pars_arrays(graph) == FAILURE)
+		return (FAILURE);
+	if (pars_edges(graph, line_tmp) == FAILURE)
+		return (FAILURE);
+	if (parse_graph(graph) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
 }

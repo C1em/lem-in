@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 14:54:31 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 16:03:21 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,11 @@ static void		add_nb_lines(t_parser_graph *p_graph, t_buff_printer *buff)
 		error_sys();
 	}
 	add_str(buff, tmp);
+	free(tmp);
 	add_str(buff, "\n\n");
 }
 
-void	print_res(t_parser_graph *p_graph, t_paths *paths)
+int		print_res(t_parser_graph *p_graph, t_paths *paths)
 {
 	int i;
 	int j;
@@ -82,10 +83,7 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths)
 	if (!(offset_arr = (int*)malloc(sizeof(int)
 	* (paths->paths[0].ants_on + paths->paths[0].len + 1)
 	* ((paths->paths[0].ants_on + paths->paths[0].len) >> 1))))
-	{
-		p_graph->msg = "Error : malloc";
-		error_sys();
-	}
+		return (set_msg(FAILURE, p_graph, "Error : malloc"));
 	offset_arr[0] = INT_MAX;
 	while (i < paths->paths[0].ants_on + paths->paths[0].len)
 	{
@@ -105,18 +103,18 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths)
 				}
 				if (!(tmp = ft_itoa(paths->size * (i - k) + j + 1 - get_offset(offset_arr, paths->size * (i - k) + j))))
 				{
-					p_graph->msg = "Error : malloc";
-					error_sys();
+					free(offset_arr);
+					return (set_msg(FAILURE, p_graph, "Error : malloc"));
 				}
 				add_str(&buff, "L");
 				add_str(&buff, tmp);
+				free(tmp);
 				add_str(&buff, "-");
 				if (k == paths->paths[j].len)
 					add_str(&buff, get_name(p_graph->start, p_graph->commands.t));
 				else
 					add_str(&buff, get_name(p_graph->start, paths->paths[j].path[k]));
 				add_str(&buff, " ");
-				free(tmp);
 			}
 //			printf("\t\t");
 		}
@@ -130,6 +128,7 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths)
 		add_nb_lines(p_graph, &buff);
 	write(1, buff.buff, buff.index);
 	free(offset_arr);
+	return (SUCCESS);
 //	printf("nb lines for me : %d\n", paths->paths[0].ants_on + paths->paths[0].len);
 }
 

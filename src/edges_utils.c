@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:54:26 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 13:14:52 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 15:27:28 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ static int		add_edge(t_parser_graph *p_graph, char *line)
 	return (1);
 }
 
-void			pars_edges(t_parser_graph *p_graph, char *line)
+int			pars_edges(t_parser_graph *p_graph, char *line)
 {
 	int		gnl_ret;
 
 	if (line == NULL)
-		return ;
+		return (SUCCESS);
 	if (add_edge(p_graph, line) == 0)
 	{
 		free(line);
-		return ;
+		return (SUCCESS);
 	}
 	p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line);
 	free(line);
@@ -65,13 +65,11 @@ void			pars_edges(t_parser_graph *p_graph, char *line)
 		else
 		{
 			free(line);
-			return ;
+			return (SUCCESS);
 		}
 		free(line);
 	}
 	if (gnl_ret == -1)
-	{
-		p_graph->msg = "Read : error";
-		error_sys();
-	}
+		return (set_msg(FAILURE, p_graph, "Error : read"));
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 13:42:56 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 15:56:27 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ static int	dfs(t_graph *graph, int cur_vertex, int *visited)
 /*
 **	custom Dinic's algo
 */
-t_paths				get_max_flow(t_graph *graph)
+t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 {
 	int		max_flow;
 	int		*visited;
@@ -149,8 +149,8 @@ t_paths				get_max_flow(t_graph *graph)
 	current_paths = (t_paths){NULL, 0};
 	if (!(visited = (int*)malloc(graph->size * sizeof(int))))
 	{
-		//set msg;
-		error_sys();
+		p_graph->msg = "Error : malloc";
+		return (current_paths);
 	}
 	while (bfs(graph)/* && printf("still a path !\n")*/)
 	{

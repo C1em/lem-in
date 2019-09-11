@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 14:31:54 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 16:10:26 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,18 @@ void	print_paths(t_paths paths)
 		printf("%d lines\n", paths.paths[0].ants_on + paths.paths[0].len);
 }
 
-int 	main(int ac, char **av)
+static int		disp_error(t_parser_graph *p_graph)
+{
+	if (ft_strcmp("OK", p_graph->msg) == SAME)
+		ft_putendl("OK\n");
+	else if (p_graph->flag[BONUS_V])
+		ft_putendl(p_graph->msg);
+	else
+		ft_putendl("Error");
+	return (0);
+}
+
+int			 	main(int ac, char **av)
 {
 	t_paths			paths;
 	t_graph			*graph;
@@ -94,24 +105,33 @@ int 	main(int ac, char **av)
 
 	p_graph = init_pars_graph();
 	if (ac >= 1 && fill_option(p_graph, av) == FAILURE)
-		return (ft_break(0, 1, "usage: ./lem-in [-cvnpdm]\n")); //-> free p_graph before return
-	parser(p_graph);
-	check_graph(p_graph);
+		return (ft_break(0, 1, "usage: ./lem-in [-cvnpdm]\n")); //-> free p_graph
+	if (parser(p_graph) == FAILURE)
+		return (disp_error(p_graph));//free p_graph
+	if (p_graph->flag[BONUS_M])
+		return (0); //free p_graph
 	print_parsing_list(p_graph->parsing_list_start);
-	graph = make_graph(p_graph);
+	if (!(graph = make_graph(p_graph)))
+		return (disp_error(p_graph)); //free p_graph
+
 //	print_graph(graph, graph->s_t.s);
 //	print_matrix(graph->adj_matrix, graph->size);
 //	if (is_s_t_edge(graph))
 
-	if ((paths = get_max_flow(graph)).paths != NULL)
-		print_res(p_graph, &paths);
-	else
-		p_graph->msg = "Error : there's no valid path";
+	if ((paths = get_max_flow(p_graph, graph)).paths == NULL)
+	{
+		if (ft_strcmp("OK", p_graph->msg) == SAME)
+			p_graph->msg = "Error : there's no valid path";
+		return (disp_error(p_graph)); //free p_graph
+	}
+
+	if (print_res(p_graph, &paths) == FAILURE || p_graph->flag[BONUS_V])
+		return (disp_error(p_graph));//free p_graph
 
 //	print_paths(paths);
 //	free_graph(&graph);
 
-	// while (1);
+	//free p_graph
 	return (0);
 }
 
@@ -141,10 +161,13 @@ void	print_matrix(int **matrix, int size)
 // parser instructions ?????
 
 // bonus -c color ???????
-// bonus -v {verbose} parser errors cases ??????
-// bonus -n number of line on solution ??????
 // bonus -p path used ????????
 // maybe bonus -d -> display number of ant on start, on the algo, on end ?????????????
-// maybe bonus -m -> map checker ???????????????
+// change return 0 to return 1 if error ???????????
 
 // check hardly ????????
+
+// bonus -n number of solution line -> done
+// bonus -v verbose -> done
+// bonus -m map checker -> done
+
