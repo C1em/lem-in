@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 18:50:31 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 13:48:49 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int 	main(int ac, char **av)
 
 	p_graph = init_pars_graph();
 	if (ac >= 1 && fill_option(p_graph, av) == FAILURE)
-		return (ft_break(0, 1, "usage: ./lem-in [-cdmnpv]\n")); //-> free p_graph before return
+		return (ft_break(0, 1, "usage: ./lem-in [-cvnpdm]\n")); //-> free p_graph before return
 	parser(p_graph);
 	check_graph(p_graph);
 	print_parsing_list(p_graph->parsing_list_start);
@@ -103,11 +103,12 @@ int 	main(int ac, char **av)
 //	print_matrix(graph->adj_matrix, graph->size);
 //	if (is_s_t_edge(graph))
 
-	if ((paths = get_max_flow(graph)).paths == NULL)
-		return (0);
+	if ((paths = get_max_flow(graph)).paths != NULL)
+		print_res(p_graph, &paths);
+	else
+		;//set msg error ???????????
 
 //	print_paths(paths);
-	print_res(p_graph, &paths);
 //	free_graph(&graph);
 
 	// while (1);
@@ -136,7 +137,7 @@ void	print_matrix(int **matrix, int size)
 	printf("\n\n");
 }
 
-// check malloc ??????
+// free all properly before exit / error_sys / error_input ?????????
 // parser instructions ?????
 
 // bonus -c color ???????

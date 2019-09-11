@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 18:37:23 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 13:39:54 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,15 @@ void			pars_ants(t_parser_graph *graph)
 	while (graph->ants < 0)
 	{
 		if ((gnl_ret = get_next_line(STDIN, &line)) == -1)
+		{
+			graph->msg = "Error : read";
 			error_sys();
+		}
 		else if (gnl_ret == 0)
+		{
+			graph->msg = "Error : ants not set";
 			error_input();
+		}
 		if (line[0] == '#')
 		{
 			if (line[1] != '#')
@@ -45,9 +51,15 @@ void			pars_ants(t_parser_graph *graph)
 			while (ft_isdigit(line[i]))
 				i++;
 			if (line[i] != '\0')
+			{
+				graph->msg = "Error : invalid position";
 				error_input();
+			}
 			if ((graph->ants = ft_atoi(line)) < 0)
+			{
+				graph->msg = "Error : wrong ant number";
 				error_input();
+			}
 			if (graph->parsing_list_start == NULL)
 			{
 				graph->parsing_list_start = init_pars_list(line);
@@ -82,16 +94,28 @@ void			init_pars_arrays(t_parser_graph *p_graph)
 	int		size;
 
 	if ((size = p_graph->end->vertex.nb) <= 0)
+	{
+		p_graph->msg = "Error : no room set"; //<- Verify error msg
 		error_input();
+	}
 	if (!(p_graph->matrix = (int**)malloc(sizeof(int*) * size)))
+	{
+		p_graph->msg = "Error : malloc";
 		error_sys();
+	}
 	if (!(p_graph->adj_edges_count = (int*)malloc(sizeof(int) * size)))
+	{
+		p_graph->msg = "Error : malloc";
 		error_sys();
+	}
 	ft_bzero(p_graph->adj_edges_count, sizeof(int) * size);
 	while (size--)
 	{
 		if (!(p_graph->matrix[size] = (int*)malloc(sizeof(int) * p_graph->end->vertex.nb)))
+		{
+			p_graph->msg = "Error : malloc";
 			error_sys();
+		}
 		ft_bzero(p_graph->matrix[size], sizeof(int) * p_graph->end->vertex.nb);
 	}
 }

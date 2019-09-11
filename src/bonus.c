@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:29:22 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/10 18:45:34 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 13:02:27 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,17 @@ int				fill_option(t_parser_graph *graph, char **av)
 			while (av[i][++j])
 			{
 				if (av[i][j] == 'c')
-					graph->flag[0] = 1;
-				else if (av[i][j] == 'd')
-					graph->flag[1] = 1;
-				else if (av[i][j] == 'm')
-					graph->flag[2] = 1;
-				else if (av[i][j] == 'n')
-					graph->flag[3] = 1;
-				else if (av[i][j] == 'p')
-					graph->flag[4] = 1;
+					graph->flag[BONUS_C] = 1;
 				else if (av[i][j] == 'v')
-					graph->flag[5] = 1;
+					graph->flag[BONUS_V] = 1;
+				else if (av[i][j] == 'n')
+					graph->flag[BONUS_N] = 1;
+				else if (av[i][j] == 'p')
+					graph->flag[BONUS_P] = 1;
+				else if (av[i][j] == 'd')
+					graph->flag[BONUS_D] = 1;
+				else if (av[i][j] == 'm')
+					graph->flag[BONUS_M] = 1;
 				else
 					return (FAILURE);
 			}

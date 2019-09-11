@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 18:40:29 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 13:14:47 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@
 # define LEM_IN_BUFF_SIZE 2048
 # define SUCCESS 0
 # define FAILURE 1
+
+# define BONUS_C 0
+# define BONUS_V 1
+# define BONUS_N 2
+# define BONUS_P 3
+# define BONUS_D 4
+# define BONUS_M 5
+# define COLOR_RESET "\033[0m"
+# define COLOR_V "\033[1;31m"
+# define COLOR_N "\033[1;31m"
+# define COLOR_P "\033[1;31m"
+# define COLOR_D "\033[1;31m"
+# define COLOR_M "\033[1;31m"
 
 void	print_matrix(int **matrix, int size);
 

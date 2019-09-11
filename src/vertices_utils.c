@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 16:36:11 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 13:42:04 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,9 @@ char		*pars_vertices(t_parser_graph *graph)
 		line = NULL;
 	}
 	if (gnl_ret == -1)
+	{
+		graph->msg = "Read : error";
 		error_sys();
+	}
 	return (line);
 }

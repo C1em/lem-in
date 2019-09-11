@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 16:35:26 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 13:43:36 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ static t_path	get_path(t_graph *graph, int cur_vertex)
 	t_path	path;
 
 	if (!(path.path = (int*)malloc(sizeof(int) * graph->size)))
-		exit(1);
+	{
+		//set msg;
+		error_sys();
+	}
 	path.len = 0;
 	while (cur_vertex != graph->s_t.t)
 	{
@@ -47,7 +50,10 @@ t_paths	get_new_paths(t_graph *graph, int size)
 	int		next_vertex;
 
 	if (!(paths.paths = (t_path*)malloc(sizeof(t_path) * size)))
-		exit(1);
+	{
+		//set msg
+		error_sys();
+	}
 	paths.size = size;
 	i = 0;
 	j = 0;

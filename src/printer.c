@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 17:06:28 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 13:44:05 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths)
 	if (!(offset_arr = (int*)malloc(sizeof(int)
 	* (paths->paths[0].ants_on + paths->paths[0].len + 1)
 	* ((paths->paths[0].ants_on + paths->paths[0].len) >> 1))))
-		exit(1);
+	{
+		p_graph->msg = "Error : malloc";
+		error_sys();
+	}
 	offset_arr[0] = INT_MAX;
 	while (i < paths->paths[0].ants_on + paths->paths[0].len)
 	{
@@ -87,7 +90,10 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths)
 					continue;
 				}
 				if (!(tmp = ft_itoa(paths->size * (i - k) + j + 1 - get_offset(offset_arr, paths->size * (i - k) + j))))
+				{
+					p_graph->msg = "Error : malloc";
 					error_sys();
+				}
 				add_str(&buff, "L");
 				add_str(&buff, tmp);
 				add_str(&buff, "-");

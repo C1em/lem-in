@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:54:26 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 16:33:30 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 13:14:52 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,8 @@ void			pars_edges(t_parser_graph *p_graph, char *line)
 		free(line);
 	}
 	if (gnl_ret == -1)
+	{
+		p_graph->msg = "Read : error";
 		error_sys();
+	}
 }

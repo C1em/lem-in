@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:34:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/10 16:35:58 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 13:44:42 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void			init_queue(t_queue_ptr *queue, int vertex)
 	t_queue *queue_elem;
 
 	if (!(queue_elem = (t_queue*)malloc(sizeof(t_queue))))
-		exit(1);
+	{
+		//set msg
+		error_sys();
+	}
 	queue->start = queue_elem;
 	queue->end = queue_elem;
 	queue_elem->value = vertex;
@@ -30,7 +33,10 @@ void			enqueue(t_queue_ptr *queue, int vertex)
 	t_queue *queue_elem;
 
 	if (!(queue_elem = (t_queue*)malloc(sizeof(t_queue))))
-		exit(1);
+	{
+		//set msg
+		error_sys();
+	}
 	if (queue->start == NULL)
 		queue->start = queue_elem;
 	else
