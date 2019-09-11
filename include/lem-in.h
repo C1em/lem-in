@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 13:14:47 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 14:33:04 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ typedef struct	s_parser_graph
 	t_parsing_list	*parsing_list_start;
 	t_parsing_list	*parsing_list_end;
 	char			*msg;
-	int				flag[6];//verif number of flag
+	int				flag[6];
+	int				nb_lines;
 }				t_parser_graph;
 
 typedef struct	s_buff_printer

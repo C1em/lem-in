@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 13:39:54 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 14:33:28 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_parser_graph	*init_pars_graph(void)
 	graph->commands.t = -1;
 	graph->ants = -1;
 	graph->msg = "OK";
+	graph->nb_lines = 0;
 	return (graph);
 }
 

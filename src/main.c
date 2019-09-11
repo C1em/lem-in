@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 13:48:49 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 14:31:54 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int 	main(int ac, char **av)
 	if ((paths = get_max_flow(graph)).paths != NULL)
 		print_res(p_graph, &paths);
 	else
-		;//set msg error ???????????
+		p_graph->msg = "Error : there's no valid path";
 
 //	print_paths(paths);
 //	free_graph(&graph);

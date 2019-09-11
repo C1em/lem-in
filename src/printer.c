@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 13:44:05 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/11 14:54:31 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,20 @@ int			get_offset(int *offset_arr, int nb)
 	while (nb > offset_arr[i])
 		i++;
 	return (i);
+}
+
+static void		add_nb_lines(t_parser_graph *p_graph, t_buff_printer *buff)
+{
+	char	*tmp;
+
+	add_str(buff, "\nTotal lines: ");
+	if (!(tmp = ft_itoa(p_graph->nb_lines)))
+	{
+		p_graph->msg = "Error : malloc";
+		error_sys();
+	}
+	add_str(buff, tmp);
+	add_str(buff, "\n\n");
 }
 
 void	print_res(t_parser_graph *p_graph, t_paths *paths)
@@ -110,7 +124,10 @@ void	print_res(t_parser_graph *p_graph, t_paths *paths)
 		if (buff.index > 0 && buff.buff[buff.index - 1] == ' ')
 			buff.index--;
 		add_str(&buff, "\n");
+		p_graph->nb_lines += 1;
 	}
+	if (p_graph->flag[BONUS_N])
+		add_nb_lines(p_graph, &buff);
 	write(1, buff.buff, buff.index);
 	free(offset_arr);
 //	printf("nb lines for me : %d\n", paths->paths[0].ants_on + paths->paths[0].len);
