@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 17:02:58 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/12 18:28:27 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,12 +180,10 @@ void	print_matrix(int **matrix, int size)
 	printf("\n\n");
 }
 
-//bug -> maps/test_s_direct_3sortie -> 5 lignes distinct au lieu d'une ??????
+// bug -> maps/test_s_direct_3sortie -> 5 lignes distinct au lieu d'une ??????
 
-// create function -> free all
-//suppr tous les printf du programme + norme code ????????????/
-
-// maybe bonus -d -> display number of ant on start, on the algo, on end ?????????????
+// need function -> free all
+// suppr tous les printf du programme + norme code ????????????/
 
 // check hardly ????????
 
@@ -194,3 +192,4 @@ void	print_matrix(int **matrix, int size)
 // bonus -m map checker -> done
 // bonus -p path used -> done
 // bonus -c color -> done
+// bonus -d -> done

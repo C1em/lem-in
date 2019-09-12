@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 16:54:02 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/12 18:27:07 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,36 @@ static int		add_nb_lines(t_parser_graph *p_graph, t_buff_printer *buff)
 	add_str(buff, "\n");
 	return (SUCCESS);
 }
+static int		print_ants_state(t_parser_graph *p_graph, t_buff_printer *buff)
+{
+	char	*tmp;
+
+	add_str(buff, COLOR_RED);
+	add_str(buff, "Line ");
+	if (!(tmp = ft_itoa(p_graph->nb_lines + 1)))
+		return (FAILURE);
+	add_str(buff, tmp);
+	free(tmp);
+	add_str(buff, " : ");
+	add_str(buff, COLOR_YELLOW);
+	add_str(buff, "ants_waiting ");
+	if (!(tmp = ft_itoa(p_graph->ants - p_graph->ants_on_rooms)))
+		return (FAILURE);
+	add_str(buff, tmp);
+	free(tmp);
+	add_str(buff, ", ants_on ");
+	if (!(tmp = ft_itoa(p_graph->ants_on_rooms - p_graph->ants_at_end)))
+		return (FAILURE);
+	add_str(buff, tmp);
+	free(tmp);
+	add_str(buff, ", ants_end ");
+	if (!(tmp = ft_itoa(p_graph->ants_at_end)))
+		return (FAILURE);
+	add_str(buff, tmp);
+	free(tmp);
+	add_str(buff, "\n");
+	return (SUCCESS);
+}
 
 int		print_res(t_parser_graph *p_graph, t_paths *paths)
 {
@@ -78,16 +108,21 @@ int		print_res(t_parser_graph *p_graph, t_paths *paths)
 	char *tmp;
 	t_buff_printer	buff;
 
-	i = 0;
 	buff.index = 0;
 	if (!(offset_arr = (int*)malloc(sizeof(int)
 	* (paths->paths[0].ants_on + paths->paths[0].len + 1)
 	* ((paths->paths[0].ants_on + paths->paths[0].len) >> 1))))
 		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 	offset_arr[0] = INT_MAX;
+	i = 0;
 	while (i < paths->paths[0].ants_on + paths->paths[0].len)
 	{
 		k = i + 1;
+		if (p_graph->flag[BONUS_D] && print_ants_state(p_graph, &buff) == FAILURE)
+		{
+			free(offset_arr);
+			return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
+		}
 		while (k--)
 		{
 			j = -1;
@@ -111,9 +146,14 @@ int		print_res(t_parser_graph *p_graph, t_paths *paths)
 				free(tmp);
 				add_str(&buff, "-");
 				if (k == paths->paths[j].len)
+				{
 					add_str(&buff, get_name(p_graph->start, p_graph->commands.t));
+					p_graph->ants_at_end += 1;
+				}
 				else
 					add_str(&buff, get_name(p_graph->start, paths->paths[j].path[k]));
+				if (k == 0)
+					p_graph->ants_on_rooms += 1;
 				add_str(&buff, " ");
 			}
 		}
