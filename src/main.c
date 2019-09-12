@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 11:12:16 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/12 12:48:46 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,12 +169,16 @@ void	print_matrix(int **matrix, int size)
 	printf("\n\n");
 }
 
-// free all properly in get_max_flow ?????????
-// parser instructions ?????
-
+//maps/checker/map.error18 -> fix parser disp ok instead of error idem 3 -> check if there's tube and/or path
+//map error 8 -> un lien relié a lui meme = erreur ?
+//maps/checker/map.error20 -> fix parser -> "error : malloc"
 //bug -> maps/test_s_direct_3sortie -> 5 lignes distinct au lieu d'une ??????
 
+// free all properly in get_max_flow ?????????
+// parser instructions ?????
 //suppr tous les printf du programme ????????????/
+
+
 // change return 0 to return 1 if error ???????????
 
 // bonus -c color ???????

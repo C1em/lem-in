@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertices_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 11:08:17 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/12 12:38:55 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,12 @@ char		*pars_vertices(t_parser_graph *graph)
 				set_msg(FAILURE, graph, MALLOC_ERROR);
 				return (NULL);
 			}
+		}
+		else if (line[0] == 'L')
+		{
+			free(line);
+			set_msg(FAILURE, graph, "Error : illegal room name");
+			return (NULL);
 		}
 		else if (add_vertex(line, graph, &command_nb) == 0)
 			return(line);
