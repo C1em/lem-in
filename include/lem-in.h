@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 06:25:17 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/12 09:13:13 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define COLOR_D "\033[1;31m"
 # define COLOR_M "\033[1;31m"
 
-void	print_matrix(int **matrix, int size); // del when project is over
+void	print_matrix(int **matrix, int size); // del when project is over ?????
 
 
 typedef struct	s_source_end

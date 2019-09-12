@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 04:40:15 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/12 09:53:53 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int			print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff)
 		++i;
 	}
 	add_str(buff, "\n");
+	write(1, buff->buff, buff->index);
 	return (SUCCESS);
 }
 
@@ -138,6 +139,9 @@ int			 	main(int ac, char **av)
 		return (disp_error(p_graph)); //free p_graph
 	}
 
+	// t_buff_printer buff;
+	// buff.index = 0;
+	// print_paths(p_graph, paths, &buff);
 	// add the case where paths.paths[0].size == 0 (send all the ants in one line)
 	if (print_res(p_graph, &paths) == FAILURE || p_graph->flag[BONUS_V])
 		return (disp_error(p_graph));//free p_graph

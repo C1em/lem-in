@@ -1,7 +1,0 @@
-{
-	"files.associations": {
-		"unistd.h": "c",
-		"lem-in.h": "c",
-		"stdlib.h": "c"
-	}
-}
