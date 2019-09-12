@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 12:48:46 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/12 16:32:22 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,15 @@ int			print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff)
 static int		disp_error(t_parser_graph *p_graph)
 {
 	if (ft_strcmp("OK", p_graph->msg) == SAME)
+	{
 		ft_putendl("OK\n");
+		return (EXIT_SUCCESS);
+	}
 	else if (p_graph->flag[BONUS_V])
 		ft_putendl(p_graph->msg);
 	else
 		ft_putendl("Error");
-	return (0);
+	return (EXIT_FAILURE);
 }
 
 int			 	main(int ac, char **av)
@@ -119,21 +122,20 @@ int			 	main(int ac, char **av)
 
 	p_graph = init_pars_graph();
 	if (ac >= 1 && fill_option(p_graph, av) == FAILURE)
-		return (ft_break(0, 1, "usage: ./lem-in [-cvnpdm]\n")); //-> free p_graph
+		return (ft_break(EXIT_FAILURE, 1, "usage: ./lem-in [-cvnpdm]\n"));
 	if (parser(p_graph) == FAILURE)
-		return (disp_error(p_graph));//free p_graph
+		return (disp_error(p_graph));
 	if (p_graph->flag[BONUS_M])
-		return (0); //free p_graph
+		return (EXIT_SUCCESS);
 	print_parsing_list(p_graph->parsing_list_start);
 	if (!(graph = make_graph(p_graph)))
-		return (disp_error(p_graph)); //free p_graph
+		return (disp_error(p_graph));
 	if ((paths = get_max_flow(p_graph, graph)).paths == NULL)
 	{
 		if (ft_strcmp("OK", p_graph->msg) == SAME)
 			p_graph->msg = "Error : there's no valid path";
-		return (disp_error(p_graph)); //free p_graph
+		return (disp_error(p_graph));
 	}
-
 	// t_buff_printer buff;
 	// buff.index = 0;
 	// print_paths(p_graph, paths, &buff);
@@ -144,7 +146,7 @@ int			 	main(int ac, char **av)
 //	free_graph(&graph);
 
 	//free p_graph
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 void	print_matrix(int **matrix, int size)
@@ -169,17 +171,10 @@ void	print_matrix(int **matrix, int size)
 	printf("\n\n");
 }
 
-//maps/checker/map.error18 -> fix parser disp ok instead of error idem 3 -> check if there's tube and/or path
-//map error 8 -> un lien relié a lui meme = erreur ?
-//maps/checker/map.error20 -> fix parser -> "error : malloc"
 //bug -> maps/test_s_direct_3sortie -> 5 lignes distinct au lieu d'une ??????
 
-// free all properly in get_max_flow ?????????
-// parser instructions ?????
-//suppr tous les printf du programme ????????????/
-
-
-// change return 0 to return 1 if error ???????????
+// create function -> free all
+//suppr tous les printf du programme + norme code ????????????/
 
 // bonus -c color ???????
 // maybe bonus -d -> display number of ant on start, on the algo, on end ?????????????
