@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertices_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 18:18:22 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/12 06:11:11 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ char				*pars_name(char *line)
 	j = i + 1;
 	while (ft_isdigit(line[j]))
 		j++;
-	if (line[j] != ' ')
+	if (line[j] != ' ' || !ft_isdigit(line[j - 1]))
 		return (NULL);
 	j++;
 	while (ft_isdigit(line[j]))
 		j++;
-	if (line[j] != '\0')
+	if (line[j] != '\0' || !ft_isdigit(line[j - 1]))
 		return (NULL);
 	return (ft_strndup(line, i));
 }
@@ -58,11 +58,6 @@ static int				add_vertex(char line[], t_parser_graph *graph, int *command_nb)
 		line = NULL;
 		return (set_msg(FAILURE, graph, MALLOC_ERROR));
 	}
-	if (*command_nb == 0)
-		graph->commands.s = graph->end->vertex.nb;
-	else if (*command_nb == 1)
-		graph->commands.t = graph->end->vertex.nb;
-	*command_nb = 2;
 	if (graph->end->vertex.name == NULL)
 		return (0);
 	if (check_vertex_dup(graph->start, graph->end->vertex.name))
@@ -71,6 +66,11 @@ static int				add_vertex(char line[], t_parser_graph *graph, int *command_nb)
 		graph->end->vertex.name = NULL;
 		return (0);
 	}
+	if (*command_nb == 0)
+		graph->commands.s = graph->end->vertex.nb;
+	else if (*command_nb == 1)
+		graph->commands.t = graph->end->vertex.nb;
+	*command_nb = 2;
 	return (1);
 }
 
@@ -89,6 +89,7 @@ char		*pars_vertices(t_parser_graph *graph)
 {
 	char	*line;
 	int		command_nb;
+	int		command_nb_tmp;
 	int		gnl_ret;
 
 	command_nb = 2;
@@ -98,11 +99,21 @@ char		*pars_vertices(t_parser_graph *graph)
 		{
 			if (line[1] == '#')
 			{
-				if ((command_nb = add_command(&line[2])) < 2 && !(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
+				if ((command_nb_tmp = add_command(&line[2])) < 2)
 				{
-					free(line);
-					set_msg(FAILURE, graph, MALLOC_ERROR);
-					return (NULL);
+					if (command_nb < 2)
+					{
+						free(line);
+						set_msg(FAILURE, graph, MALLOC_ERROR);
+						return (NULL);
+					}
+					command_nb = command_nb_tmp;
+					if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
+					{
+						free(line);
+						set_msg(FAILURE, graph, MALLOC_ERROR);
+						return (NULL);
+					}
 				}
 			}
 			else if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
@@ -128,5 +139,7 @@ char		*pars_vertices(t_parser_graph *graph)
 		set_msg(FAILURE, graph, "Error : read");
 		return (NULL);
 	}
+	// else if (gnl_ret == 0)
+//		add_elem(&graph->end, "");
 	return (line);
 }

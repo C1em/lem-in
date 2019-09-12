@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edges_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:54:26 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 18:17:54 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/12 05:16:55 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int			pars_edges(t_parser_graph *p_graph, char *line)
 	{
 		if (line[0] == '#')
 		{
+			// the command has to be ignored ???????
 			if (line[1] != '#' && !(p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line)))
 				return (set_msg(FAILURE, p_graph, MALLOC_ERROR));//free line
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   max_flow.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 18:18:08 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/12 04:11:47 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 	t_paths	current_paths;
 	t_paths	new_paths;
 
-	printf("%d\n", graph->size);
+//	printf("%d\n", graph->size);
 	if (graph->s_t.s == graph->s_t.t)
 		return ((t_paths){NULL, 0});
 	max_flow = 0;

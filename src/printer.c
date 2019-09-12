@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 18:18:18 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/12 04:09:43 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int		print_res(t_parser_graph *p_graph, t_paths *paths)
 					add_str(&buff, get_name(p_graph->start, paths->paths[j].path[k]));
 				add_str(&buff, " ");
 			}
-//			printf("\t\t");
 		}
 		i++;
 		if (buff.index > 0 && buff.buff[buff.index - 1] == ' ')

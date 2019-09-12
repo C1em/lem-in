@@ -3,34 +3,63 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: coremart <coremart@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/07/29 15:27:06 by cbenoit           #+#    #+#              #
-#    Updated: 2019/09/11 16:07:37 by cbenoit          ###   ########.fr        #
+#    Created: 2019/04/11 17:33:24 by coremart          #+#    #+#              #
+#    Updated: 2019/09/12 06:24:21 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	lem-in
-CC		=	clang
-CFLAGS	=	-Werror -Wextra -Wall
-LIB_DIR	=	libft/
-LIB		=	$(LIB_DIR)libft.a
-OBJ		=	$(SRC:.c=.o)
-SRC		=	src/main.c src/check_duplicates.c src/edges_utils.c \
-			src/list_utils.c src/make_graph.c \
-			src/max_flow.c src/parser.c src/parsing_list_utils.c \
-			src/paths.c src/printer.c src/q_sort_paths.c src/queue.c \
-			src/vertices_utils.c src/bonus.c \
+##COMPILATION ##
+NAME = lem-in
+CFLAGS = -Werror -Wall -Wextra
+DFLAGS = -MT $@ -MMD -MP -MF $(DDIR)/$*.d
 
-all:		$(NAME)
-$(NAME):	$(OBJ)
-			@make -j 8 -C $(LIB_DIR)
-			@make -j 8 -C $(LIB_DIR)
-			$(CC) $(CFLAGS) -Iinclude -o $(NAME) $(OBJ) $(LIB)
+## INCLUDES ##
+LIB = libft
+LIBH = $(LIB)/include
+HDIR = include
+LIBA = $(LIB)/libft.a
+
+## SOURCES ##
+SDIR = src
+_SRCS = bonus.c check_duplicates.c edges_utils.c list_utils.c main.c make_graph.c \
+max_flow.c parser.c parsing_list_utils.c paths.c printer.c q_sort_paths.c queue.c \
+vertices_utils.c 
+SRCS = $(patsubst %,$(SDIR)/%,$(_SRCS))
+
+## OBJECTS ##
+ODIR = obj
+_OBJS = $(_SRCS:.c=.o)
+OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
+
+## DEPENDENCIES ##
+DDIR = deps
+_DEPS = $(_OBJS:.o=.d)
+DEPS = $(patsubst %,$(DDIR)/%,$(_DEPS))
+
+### RULES ###
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	make -C $(LIB)
+	gcc -g -o $(NAME) $(LIBA) $(OBJS) $(CFLAGS)
+
+$(ODIR)/%.o: $(SDIR)/%.c
+	gcc $(CFLAGS) -g $(DFLAGS) -o $@ -c $< -I $(HDIR) -I $(LIBH)
+
+-include $(DEPS)
+
 clean:
-			@make -j 8 -C $(LIB_DIR) clean
-			rm -f $(OBJ)
-fclean:		clean
-			@make -j 8 -C $(LIB_DIR) fclean
-			rm -f $(NAME)
-re:			fclean all
+	@make -C $(LIB) clean
+	@rm -f $(OBJS)
+
+fclean: clean
+	@make -C $(LIB) fclean
+	@rm -f $(NAME)
+
+re: fclean all
+
+.PRECIOUS: $(DDIR)/%.d
+.PHONY: all clean fclean re $(NAME)
