@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 09:13:13 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/12 16:50:54 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@
 # define BONUS_P 3
 # define BONUS_D 4
 # define BONUS_M 5
+# define COLOR_RED "\033[0;31m"
+# define COLOR_LIGHT_RED "\033[1;31m"
+# define COLOR_GREEN "\033[0;32m"
+# define COLOR_YELLOW "\033[0;33m"
 # define COLOR_RESET "\033[0m"
-# define COLOR_V "\033[1;31m"
-# define COLOR_N "\033[1;31m"
-# define COLOR_P "\033[1;31m"
-# define COLOR_D "\033[1;31m"
-# define COLOR_M "\033[1;31m"
 
 void	print_matrix(int **matrix, int size); // del when project is over ?????
 

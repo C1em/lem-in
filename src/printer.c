@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 04:09:43 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/12 16:54:02 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,14 @@ static int		add_nb_lines(t_parser_graph *p_graph, t_buff_printer *buff)
 {
 	char	*tmp;
 
+	if (p_graph->flag[BONUS_C])
+		add_str(buff, COLOR_GREEN);
 	add_str(buff, "\nTotal lines: ");
 	if (!(tmp = ft_itoa(p_graph->nb_lines)))
 		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 	add_str(buff, tmp);
 	free(tmp);
-	add_str(buff, "\n\n");
+	add_str(buff, "\n");
 	return (SUCCESS);
 }
 

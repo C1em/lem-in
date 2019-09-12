@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 16:32:22 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/12 17:02:58 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,16 @@ int			print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff)
 	while (i < paths.size)
 	{
 		j = 0;
+		if (p_graph->flag[BONUS_C])
+			add_str(buff, COLOR_RED);
 		add_str(buff, "\nPath ");
 		if (!(tmp = ft_itoa(i + 1)))
 			return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 		add_str(buff, tmp);
 		free(tmp);
 		add_str(buff, " :  ");
+		if (p_graph->flag[BONUS_C])
+			add_str(buff, COLOR_YELLOW);
 		add_str(buff, get_name(p_graph->start, 0));
 		add_str(buff, " ");
 		while (j <= paths.paths[i].len)
@@ -102,15 +106,19 @@ int			print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff)
 
 static int		disp_error(t_parser_graph *p_graph)
 {
+	if (p_graph->flag[BONUS_C])
+		write(1, COLOR_LIGHT_RED, 8);
 	if (ft_strcmp("OK", p_graph->msg) == SAME)
 	{
-		ft_putendl("OK\n");
+		ft_putendl("OK");
+		write(1, COLOR_RESET, 5);
 		return (EXIT_SUCCESS);
 	}
 	else if (p_graph->flag[BONUS_V])
 		ft_putendl(p_graph->msg);
 	else
 		ft_putendl("Error");
+	write(1, COLOR_RESET, 5);
 	return (EXIT_FAILURE);
 }
 
@@ -127,6 +135,8 @@ int			 	main(int ac, char **av)
 		return (disp_error(p_graph));
 	if (p_graph->flag[BONUS_M])
 		return (EXIT_SUCCESS);
+	if (p_graph->flag[BONUS_C])
+		write(1, COLOR_YELLOW, 8);
 	print_parsing_list(p_graph->parsing_list_start);
 	if (!(graph = make_graph(p_graph)))
 		return (disp_error(p_graph));
@@ -138,7 +148,6 @@ int			 	main(int ac, char **av)
 	}
 	// t_buff_printer buff;
 	// buff.index = 0;
-	// print_paths(p_graph, paths, &buff);
 
 	// add the case where paths.paths[0].size == 0 (send all the ants in one line)
 	if (print_res(p_graph, &paths) == FAILURE || p_graph->flag[BONUS_V])
@@ -176,7 +185,6 @@ void	print_matrix(int **matrix, int size)
 // create function -> free all
 //suppr tous les printf du programme + norme code ????????????/
 
-// bonus -c color ???????
 // maybe bonus -d -> display number of ant on start, on the algo, on end ?????????????
 
 // check hardly ????????
@@ -185,3 +193,4 @@ void	print_matrix(int **matrix, int size)
 // bonus -v verbose -> done
 // bonus -m map checker -> done
 // bonus -p path used -> done
+// bonus -c color -> done
