@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 17:07:05 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/12 11:15:27 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,19 @@ void	dispatch_ants(t_paths paths, const int ants)
 
 	if (paths.size == 0)
 		return ;
+	if (paths.paths[0].len == 0)
+	{
+		paths.paths[0].ants_on = ants;
+		return ;
+	}
 	i = 0;
 	ants_tmp = ants;
-//	printf("more :paths size : %d\npath[0] len : %d\n", paths.size, paths.paths[0].len);
 	while (++i < paths.size)
 	{
 		if ((ants_tmp -= (paths.paths[i].len - paths.paths[i - 1].len) * i) < paths.size)
 		{
+			// free the paths from i + 1 to paths.size - 1 ????
 			paths.size = i;
-//			printf("less !!!!!\n");
 			return (dispatch_ants(paths, ants));
 		}
 	}

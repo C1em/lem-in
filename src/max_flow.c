@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 10:22:18 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/12 10:56:49 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,25 +165,25 @@ t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 		free_paths(current_paths);
 		current_paths = new_paths;
 
-	int i = 0;
-	while (i < graph->size)
-	{
-		if (graph->flow_arr[i] == 2)
-			graph->flow_arr[i] = 1;
-		i++;
-	}
+	// int i = 0;
+	// while (i < graph->size)
+	// {
+	// 	if (graph->flow_arr[i] == 2)
+	// 		graph->flow_arr[i] = 1;
+	// 	i++;
+	// }
 	}
 
-/*	int j = 0;
-	printf("flow arr :\t");
-	while (j < graph->size)
-	{
-		printf("%d", graph->flow_arr[j]);
-		j++;
-	}
-	printf("\n");
+	// int j = 0;
+	// printf("flow arr :\t");
+	// while (j < graph->size)
+	// {
+	// 	printf("%d", graph->flow_arr[j]);
+	// 	j++;
+	// }
+	// printf("\n");
 
-*/
+
 	free(visited);
 	return (current_paths);
 }

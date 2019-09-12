@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 06:11:11 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/12 11:08:17 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,21 +100,13 @@ char		*pars_vertices(t_parser_graph *graph)
 			if (line[1] == '#')
 			{
 				if ((command_nb_tmp = add_command(&line[2])) < 2)
-				{
-					if (command_nb < 2)
+					if (command_nb < 2 || !(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
 					{
 						free(line);
 						set_msg(FAILURE, graph, MALLOC_ERROR);
 						return (NULL);
 					}
 					command_nb = command_nb_tmp;
-					if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
-					{
-						free(line);
-						set_msg(FAILURE, graph, MALLOC_ERROR);
-						return (NULL);
-					}
-				}
 			}
 			else if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
 			{
