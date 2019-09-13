@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 14:54:53 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 15:54:58 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ int		index;
 **	bonus.c
 */
 int				fill_option(t_parser_graph *graph, char **av);
-int				set_msg(int return_value, t_parser_graph *graph, char *msg);
-int				ft_break(int return_value, int n, ...);
+int				print_ants_state(t_parser_graph *p_graph, t_buff_printer *buff);
+int				add_nb_lines(t_parser_graph *p_graph, t_buff_printer *buff);
 
 /*
 **	parser.c
@@ -216,5 +216,18 @@ void	error_input(void);
 **	main.c
 */
 int		print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff);
+
+/*
+**	set_msg.c
+*/
+char			*set_null_msg(t_parser_graph *graph, char *msg);
+int				set_msg(int return_value, t_parser_graph *graph, char *msg);
+int				ft_break(int return_value, int n, ...);
+
+/*
+**	set_msg.c
+*/
+void			add_offset(int *offset_arr, int offset);
+int				get_offset(int *offset_arr, int nb);
 
 #endif

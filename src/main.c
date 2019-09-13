@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 15:15:41 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 15:41:42 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int			 	main(int ac, char **av)
 
 	p_graph = init_pars_graph();
 	if (ac >= 1 && fill_option(p_graph, av) == FAILURE)
-		return (ft_break(EXIT_FAILURE, 1, "usage: ./lem-in [-cvnpdm]\n"));
+		return (ft_break(EXIT_FAILURE, 1, "usage: ./lem-in [-cvnpdm]"));
 	if (parser(p_graph) == FAILURE || p_graph->flag[BONUS_M])
 		return (disp_error(p_graph));
 	if (p_graph->flag[BONUS_C])
@@ -108,7 +108,15 @@ int			 	main(int ac, char **av)
 }
 
 // need function -> free all ??????????????
-// suppr all printf + norm code ????????????
+// suppr all printf ????????????
+
+// norm edges_utils ?????????
+// norm max_flow ?????????
+// norm parser ?????????
+// norm parsing_list_utils ??????????
+// norm paths ????????????
+// norm printer ????????
+// norm vertices_utils ???????
 
 // bonus -n number of solution line -> done
 // bonus -v verbose -> done

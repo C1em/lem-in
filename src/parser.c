@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 14:56:19 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 15:34:05 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_parser_graph	*init_pars_graph(void)
 	|| !(graph->start = init_list()))
 	{
 		ft_putendl("Error");
-		exit (0);
+		exit (EXIT_FAILURE);
 	}
 	graph->end = graph->start;
 	graph->parsing_list_end = NULL;

@@ -6,101 +6,14 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 14:56:38 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 15:54:12 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-#include "libft.h"
-#include <unistd.h>
 #include <limits.h>
 #include <stdlib.h>
-
-void				add_str(t_buff_printer *buff, char *str)
-{
-	int	len;
-
-	if ((len = ft_strlen(str)) >= LEM_IN_BUFF_SIZE - buff->index)
-	{
-		write(1, buff->buff, buff->index);
-		buff->index = 0;
-	}
-	ft_strcpy(&buff->buff[buff->index], str);
-	buff->index += len;
-}
-
-char				*get_name(t_vertex_list *list, int vertex)
-{
-	while (vertex--)
-		list = list->next;
-	return (list->vertex.name);
-}
-
-static void			add_offset(int *offset_arr, int offset)
-{
-	while (offset_arr[0] != INT_MAX)
-		offset_arr++;
-	offset_arr[0] = offset;
-	offset_arr[1] = INT_MAX;
-}
-
-static int			get_offset(int *offset_arr, int nb)
-{
-	int i;
-
-	i = 0;
-	while (nb > offset_arr[i])
-		i++;
-	return (i);
-}
-
-static int			add_nb_lines(t_parser_graph *p_graph,
-					t_buff_printer *buff)
-{
-	char	*tmp;
-
-	if (p_graph->flag[BONUS_C])
-		add_str(buff, COLOR_GREEN);
-	add_str(buff, "\nTotal lines: ");
-	if (!(tmp = ft_itoa(p_graph->nb_lines)))
-		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
-	add_str(buff, tmp);
-	free(tmp);
-	add_str(buff, "\n");
-	return (SUCCESS);
-}
-
-static int			print_ants_state(t_parser_graph *p_graph,
-					t_buff_printer *buff)
-{
-	char	*tmp;
-
-	add_str(buff, COLOR_RED);
-	add_str(buff, "Line ");
-	if (!(tmp = ft_itoa(p_graph->nb_lines + 1)))
-		return (FAILURE);
-	add_str(buff, tmp);
-	free(tmp);
-	add_str(buff, " : ");
-	add_str(buff, COLOR_YELLOW);
-	add_str(buff, "ants_waiting ");
-	if (!(tmp = ft_itoa(p_graph->ants - p_graph->ants_on_rooms)))
-		return (FAILURE);
-	add_str(buff, tmp);
-	free(tmp);
-	add_str(buff, ", ants_on ");
-	if (!(tmp = ft_itoa(p_graph->ants_on_rooms - p_graph->ants_at_end)))
-		return (FAILURE);
-	add_str(buff, tmp);
-	free(tmp);
-	add_str(buff, ", ants_end ");
-	if (!(tmp = ft_itoa(p_graph->ants_at_end)))
-		return (FAILURE);
-	add_str(buff, tmp);
-	free(tmp);
-	add_str(buff, "\n");
-	return (SUCCESS);
-}
+#include <unistd.h>
 
 int					print_one_line(t_paths *paths, t_parser_graph *p_graph,
 					t_buff_printer *buff)

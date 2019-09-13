@@ -6,30 +6,12 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:29:22 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/13 15:00:47 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 15:50:50 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-# include <stdarg.h>
-
-int				set_msg(int return_value, t_parser_graph *graph, char *msg)
-{
-	graph->msg = msg;
-	return (return_value);
-}
-
-int				ft_break(int return_value, int n, ...)
-{
-	va_list		msg;
-
-	va_start(msg, n);
-	while (n--)
-		ft_putstr(va_arg(msg, char*));
-	ft_putchar('\n');
-	va_end(msg);
-	return (return_value);
-}
+#include <stdlib.h>
 
 static int		*setup_zero(int *to_init, size_t size, int value)
 {
@@ -79,5 +61,51 @@ int				fill_option(t_parser_graph *graph, char **av)
 		else
 			return (FAILURE);
 	}
+	return (SUCCESS);
+}
+
+int			print_ants_state(t_parser_graph *p_graph, t_buff_printer *buff)
+{
+	char	*tmp;
+
+	add_str(buff, COLOR_RED);
+	add_str(buff, "Line ");
+	if (!(tmp = ft_itoa(p_graph->nb_lines + 1)))
+		return (FAILURE);
+	add_str(buff, tmp);
+	free(tmp);
+	add_str(buff, " : ");
+	add_str(buff, COLOR_YELLOW);
+	add_str(buff, "ants_waiting ");
+	if (!(tmp = ft_itoa(p_graph->ants - p_graph->ants_on_rooms)))
+		return (FAILURE);
+	add_str(buff, tmp);
+	free(tmp);
+	add_str(buff, ", ants_on ");
+	if (!(tmp = ft_itoa(p_graph->ants_on_rooms - p_graph->ants_at_end)))
+		return (FAILURE);
+	add_str(buff, tmp);
+	free(tmp);
+	add_str(buff, ", ants_end ");
+	if (!(tmp = ft_itoa(p_graph->ants_at_end)))
+		return (FAILURE);
+	add_str(buff, tmp);
+	free(tmp);
+	add_str(buff, "\n");
+	return (SUCCESS);
+}
+
+int			add_nb_lines(t_parser_graph *p_graph, t_buff_printer *buff)
+{
+	char	*tmp;
+
+	if (p_graph->flag[BONUS_C])
+		add_str(buff, COLOR_GREEN);
+	add_str(buff, "\nTotal lines: ");
+	if (!(tmp = ft_itoa(p_graph->nb_lines)))
+		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
+	add_str(buff, tmp);
+	free(tmp);
+	add_str(buff, "\n");
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 14:56:32 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 15:37:33 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_paths	get_new_paths(t_graph *graph, int size)
 		{
 			if (!(paths.paths[j] = get_path(graph, next_vertex)).path)
 			{
-				//free paths.paths
+				//free paths
 				return ((t_paths){NULL, 0});
 			}
 			++j;
