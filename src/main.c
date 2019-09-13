@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 15:05:14 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 15:15:41 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,36 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int			print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff)
+static int		print_head_of_paths(t_parser_graph *p_graph, t_buff_printer *buff, int i)
+{
+	char	*tmp;
+
+	if (p_graph->flag[BONUS_C])
+		add_str(buff, COLOR_RED);
+	add_str(buff, "\nPath ");
+	if (!(tmp = ft_itoa(i + 1)))
+		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
+	add_str(buff, tmp);
+	free(tmp);
+	add_str(buff, " :  ");
+	if (p_graph->flag[BONUS_C])
+		add_str(buff, COLOR_YELLOW);
+	add_str(buff, get_name(p_graph->start, 0));
+	add_str(buff, " ");
+	return (SUCCESS);
+}
+
+int				print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff)
 {
 	int		i;
 	int		j;
-	char	*tmp;
+
 	i = 0;
 	while (i < paths.size)
 	{
+		if (print_head_of_paths(p_graph, buff, i) == FAILURE)
+			return (FAILURE);
 		j = 0;
-		if (p_graph->flag[BONUS_C])
-			add_str(buff, COLOR_RED);
-		add_str(buff, "\nPath ");
-		if (!(tmp = ft_itoa(i + 1)))
-			return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
-		add_str(buff, tmp);
-		free(tmp);
-		add_str(buff, " :  ");
-		if (p_graph->flag[BONUS_C])
-			add_str(buff, COLOR_YELLOW);
-		add_str(buff, get_name(p_graph->start, 0));
-		add_str(buff, " ");
 		while (j <= paths.paths[i].len)
 		{
 			add_str(buff, "-> ");
@@ -94,8 +103,7 @@ int			 	main(int ac, char **av)
 		return (disp_error(p_graph));
 	}
 	if (print_res(p_graph, &paths) == FAILURE || p_graph->flag[BONUS_V])
-		return (disp_error(p_graph));//free p_graph
-	//free p_graph
+		return (disp_error(p_graph));
 	return (EXIT_SUCCESS);
 }
 
