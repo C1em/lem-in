@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 18:27:07 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 03:32:57 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,38 @@ static int		print_ants_state(t_parser_graph *p_graph, t_buff_printer *buff)
 	return (SUCCESS);
 }
 
+int		print_one_line(t_paths *paths, t_parser_graph *p_graph)
+{
+	char			*tmp;
+	char			*t_name;
+	int				i;
+	t_buff_printer	buff;
+
+	i = 0;
+	buff.index = 0;
+	t_name = get_name(p_graph->start, p_graph->commands.t);
+	while (i++ < paths->paths->ants_on)
+	{
+		if (!(tmp = ft_itoa(i)))
+			return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
+		add_str(&buff, "L");
+		add_str(&buff, tmp);
+		free(tmp);
+		add_str(&buff, "-");
+		add_str(&buff, t_name);
+		add_str(&buff, " ");
+		p_graph->ants_at_end++;
+	}
+	buff.buff[buff.index - 1] = '\n';
+	p_graph->nb_lines = 1;
+	if (p_graph->flag[BONUS_P] && print_paths(p_graph, *paths, &buff) == FAILURE)
+		return (FAILURE);
+	if (p_graph->flag[BONUS_N] && add_nb_lines(p_graph, &buff) == FAILURE)
+		return (FAILURE);
+	write(1, buff.buff, buff.index);
+	return (SUCCESS);
+}
+
 int		print_res(t_parser_graph *p_graph, t_paths *paths)
 {
 	int i;
@@ -108,12 +140,14 @@ int		print_res(t_parser_graph *p_graph, t_paths *paths)
 	char *tmp;
 	t_buff_printer	buff;
 
-	buff.index = 0;
+	if (paths->paths[0].len == 0)
+		return (print_one_line(paths, p_graph));
 	if (!(offset_arr = (int*)malloc(sizeof(int)
 	* (paths->paths[0].ants_on + paths->paths[0].len + 1)
 	* ((paths->paths[0].ants_on + paths->paths[0].len) >> 1))))
 		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 	offset_arr[0] = INT_MAX;
+	buff.index = 0;
 	i = 0;
 	while (i < paths->paths[0].ants_on + paths->paths[0].len)
 	{
@@ -170,35 +204,4 @@ int		print_res(t_parser_graph *p_graph, t_paths *paths)
 		return (FAILURE);
 	write(1, buff.buff, buff.index);
 	return (SUCCESS);
-//	printf("nb lines for me : %d\n", paths->paths[0].ants_on + paths->paths[0].len);
 }
-
-/*
-[0][0] | [0][1] |t|								9
-[1][0] | [1][1] | [1][2] | [1][3] |t|			7
-[2][0] | [2][1] | [2][2] | [2][3] | [2][4] |t|	6
-
-
-i - k >= paths->paths[0].ants_on
-
-L1-[0][0] L2-[1][0] L3-[2][0]
-L1-[0][1] L2-[1][1] L3-[2][1]	L4-[0][0] L5-[1][0] L6-[2][0]
-L1-[0][t] L2-[1][2] L3-[2][2]	L4-[0][1] L5-[1][1] L6-[2][1]	L7-[0][0] L8-[1][0] L9-[2][0]
-		  L2-[1][3] L3-[2][3]	L4-[0][t] L5-[1][2] L6-[2][2]	L7-[0][1] L8-[1][1] L9-[2][1]	L10-[0][0] L11-[1][0] L12-[2][0]
-		  L2-[1][t] L3-[2][4]			  L5-[1][3] L6-[2][3]	L7-[0][t] L8-[1][2] L9-[2][2]	L10-[0][1] L11-[1][1] L12-[2][1]	L13-[0][0] L14-[1][0] L15-[2][0]
-					L3-[2][t]			  L5-[1][t] L6-[2][4]			  L8-[1][3] L9-[2][3]	L10-[0][t] L11-[1][2] L12-[2][2]	L13-[0][1] L14-[1][1] L15-[2][1]	L16-[0][0] L17-[1][0] L18-[2][0]
-													L6-[2][t]			  L8-[1][t] L9-[2][4]			   L11-[1][3] L12-[2][3]	L13-[0][t] L14-[1][2] L15-[2][2]	L16-[0][1] L17-[1][1] L18-[2][1]
-																					L9-[2][t]			   L11-[1][t] L12-[2][4]			   L14-[1][3] L15-[2][3]	L16-[0][t] L17-[1][2] L18-[2][2]
-																													  L12-[2][t]			   L14-[1][t] L15-[2][4]			   L17-[1][3] L18-[2][3]
-																																						  L15-[2][t]			   L17-[1][t] L18-[2][4]
-																																															  L18-[2][t]
-0|1|t|			1
-
-
-0|1|t|			2
-0|1|2|t|		1
-
-0|1|t|			2
-0|1|t|			2
-0|1|t|			2
-*/
