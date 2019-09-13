@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 14:55:55 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 15:05:14 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,8 @@ int			 	main(int ac, char **av)
 	p_graph = init_pars_graph();
 	if (ac >= 1 && fill_option(p_graph, av) == FAILURE)
 		return (ft_break(EXIT_FAILURE, 1, "usage: ./lem-in [-cvnpdm]\n"));
-	if (parser(p_graph) == FAILURE)
+	if (parser(p_graph) == FAILURE || p_graph->flag[BONUS_M])
 		return (disp_error(p_graph));
-	if (p_graph->flag[BONUS_M])
-		return (EXIT_SUCCESS);
 	if (p_graph->flag[BONUS_C])
 		write(1, COLOR_YELLOW, 8);
 	print_parsing_list(p_graph->parsing_list_start);
@@ -101,10 +99,8 @@ int			 	main(int ac, char **av)
 	return (EXIT_SUCCESS);
 }
 
-// bug -> maps/test_s_direct_3sortie -> 5 lignes distinct au lieu d'une ??????
-
-// need function -> free all
-// suppr tous les printf du programme + norme code ????????????/
+// need function -> free all ??????????????
+// suppr all printf + norm code ????????????
 
 // bonus -n number of solution line -> done
 // bonus -v verbose -> done

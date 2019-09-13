@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: coremart <coremart@student.42.fr>          +#+  +:+       +#+         #
+#    By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 17:33:24 by coremart          #+#    #+#              #
-#    Updated: 2019/09/12 06:24:21 by coremart         ###   ########.fr        #
+#    Updated: 2019/09/13 15:08:17 by cbenoit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LIBA = $(LIB)/libft.a
 SDIR = src
 _SRCS = bonus.c check_duplicates.c edges_utils.c list_utils.c main.c make_graph.c \
 max_flow.c parser.c parsing_list_utils.c paths.c printer.c q_sort_paths.c queue.c \
-vertices_utils.c 
+vertices_utils.c
 SRCS = $(patsubst %,$(SDIR)/%,$(_SRCS))
 
 ## OBJECTS ##
@@ -43,7 +43,7 @@ DEPS = $(patsubst %,$(DDIR)/%,$(_DEPS))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C $(LIB)
+	make -j 8 -C $(LIB)
 	gcc -g -o $(NAME) $(LIBA) $(OBJS) $(CFLAGS)
 
 $(ODIR)/%.o: $(SDIR)/%.c
@@ -52,11 +52,11 @@ $(ODIR)/%.o: $(SDIR)/%.c
 -include $(DEPS)
 
 clean:
-	@make -C $(LIB) clean
+	@make -j 8 -C $(LIB) clean
 	@rm -f $(OBJS)
 
 fclean: clean
-	@make -C $(LIB) fclean
+	@make -j 8 -C $(LIB) fclean
 	@rm -f $(NAME)
 
 re: fclean all

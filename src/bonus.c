@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:29:22 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/13 14:54:21 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 15:00:47 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int				set_msg(int return_value, t_parser_graph *graph, char *msg)
 	return (return_value);
 }
 
-int		ft_break(int return_value, int n, ...)
+int				ft_break(int return_value, int n, ...)
 {
 	va_list		msg;
 
@@ -33,7 +33,7 @@ int		ft_break(int return_value, int n, ...)
 
 static int		*setup_zero(int *to_init, size_t size, int value)
 {
-	size_t i;
+	size_t		i;
 
 	i = 0;
 	while (i < size)
@@ -41,12 +41,31 @@ static int		*setup_zero(int *to_init, size_t size, int value)
 	return (to_init);
 }
 
+static int		fill_flag(t_parser_graph *graph, int caracter)
+{
+	if (caracter == 'c')
+		graph->flag[BONUS_C] = 1;
+	else if (caracter == 'v')
+		graph->flag[BONUS_V] = 1;
+	else if (caracter == 'n')
+		graph->flag[BONUS_N] = 1;
+	else if (caracter == 'p')
+		graph->flag[BONUS_P] = 1;
+	else if (caracter == 'd')
+		graph->flag[BONUS_D] = 1;
+	else if (caracter == 'm')
+		graph->flag[BONUS_M] = 1;
+	else
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 int				fill_option(t_parser_graph *graph, char **av)
 {
 	int		i;
 	int		j;
 
-	setup_zero(graph->flag, 6, 0); //verif size
+	setup_zero(graph->flag, 6, 0);
 	i = 0;
 	while (++i < 4 && av[i])
 	{
@@ -54,22 +73,8 @@ int				fill_option(t_parser_graph *graph, char **av)
 		{
 			j = 0;
 			while (av[i][++j])
-			{
-				if (av[i][j] == 'c')
-					graph->flag[BONUS_C] = 1;
-				else if (av[i][j] == 'v')
-					graph->flag[BONUS_V] = 1;
-				else if (av[i][j] == 'n')
-					graph->flag[BONUS_N] = 1;
-				else if (av[i][j] == 'p')
-					graph->flag[BONUS_P] = 1;
-				else if (av[i][j] == 'd')
-					graph->flag[BONUS_D] = 1;
-				else if (av[i][j] == 'm')
-					graph->flag[BONUS_M] = 1;
-				else
+				if (fill_flag(graph, av[i][j]) == FAILURE)
 					return (FAILURE);
-			}
 		}
 		else
 			return (FAILURE);
