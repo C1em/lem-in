@@ -3,67 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 18:28:27 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 03:42:48 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 // #include <stdio.h>
 // #include <stdlib.h>
-
-void	print_path(t_graph *graph, int cur_vertex, int t)
-{
-	int i;
-
-	printf("vertex :%d -> ", cur_vertex);
-	while (cur_vertex != t)
-	{
-		i = 0;
-		while (graph->adj_matrix[cur_vertex][get_next_vertex(graph->adj_matrix[cur_vertex], i)] == NO_FLOW)
-			i++;
-		cur_vertex = get_next_vertex(graph->adj_matrix[cur_vertex], i);
-		printf("vertex :%d -> ", cur_vertex);
-	}
-}
-
-
-int		print_graph(t_parser_graph *p_graph, t_graph *graph, int cur_vertex)
-{
-	t_queue_ptr	queue;
-	int			i;
-	int			cur_level;
-	int			next_vertex;
-
-	if (init_queue(&queue, cur_vertex) == FAILURE)
-		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
-	cur_level = graph->level_arr[cur_vertex];
-	while (queue.start != NULL)
-	{
-		cur_vertex = dequeue(&queue);
-		i = 0;
-		if (graph->level_arr[cur_vertex] == cur_level + 1)
-		{
-			printf("\n");
-			++cur_level;
-		}
-		while (i < graph->adj_edges_arr[cur_vertex])
-		{
-			next_vertex = get_next_vertex(graph->adj_matrix[cur_vertex], i);
-			if (graph->level_arr[next_vertex] == cur_level + 1)
-			{
-					printf("|%d", next_vertex);
-				if (enqueue(&queue, next_vertex) == FAILURE)
-					return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
-			}
-			++i;
-		}
-	}
-	free_queue(&queue);
-	return (SUCCESS);
-}
 
 int			print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff)
 {
@@ -96,7 +45,6 @@ int			print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff)
 			add_str(buff, " ");
 			++j;
 		}
-		// printf("\tants on it : %d, path size :%d\n", paths.paths[i].ants_on, paths.paths[i].len);
 		++i;
 	}
 	add_str(buff, "\n");
@@ -146,46 +94,16 @@ int			 	main(int ac, char **av)
 			p_graph->msg = "Error : there's no valid path";
 		return (disp_error(p_graph));
 	}
-	// t_buff_printer buff;
-	// buff.index = 0;
-
-	// add the case where paths.paths[0].size == 0 (send all the ants in one line)
 	if (print_res(p_graph, &paths) == FAILURE || p_graph->flag[BONUS_V])
 		return (disp_error(p_graph));//free p_graph
-//	free_graph(&graph);
-
 	//free p_graph
 	return (EXIT_SUCCESS);
-}
-
-void	print_matrix(int **matrix, int size)
-{
-	int i;
-	int j;
-
-	i = 0;
-	printf("\t| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11| 12|\n\n");
-	while (i < size)
-	{
-		j = 0;
-		printf("%d\t| ", i);
-		while (j < size)
-		{
-			printf("%d | ", matrix[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-	printf("\n\n");
 }
 
 // bug -> maps/test_s_direct_3sortie -> 5 lignes distinct au lieu d'une ??????
 
 // need function -> free all
 // suppr tous les printf du programme + norme code ????????????/
-
-// check hardly ????????
 
 // bonus -n number of solution line -> done
 // bonus -v verbose -> done

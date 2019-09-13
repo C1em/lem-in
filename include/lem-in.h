@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 18:26:58 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 03:39:44 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@
 # define COLOR_GREEN "\033[0;32m"
 # define COLOR_YELLOW "\033[0;33m"
 # define COLOR_RESET "\033[0m"
-
-void	print_matrix(int **matrix, int size); // del when project is over ?????
-
 
 typedef struct	s_source_end
 {

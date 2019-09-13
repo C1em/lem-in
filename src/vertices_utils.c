@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertices_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 16:10:20 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 03:45:35 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,5 @@ char		*pars_vertices(t_parser_graph *graph)
 	}
 	if (!line)
 		set_msg(FAILURE, graph, "Error : there's no edge");
-	// else if (gnl_ret == 0)
-//		add_elem(&graph->end, "");
 	return (line);
 }

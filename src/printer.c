@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 03:32:57 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/13 03:44:49 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 void	add_str(t_buff_printer *buff, char *str)
 {
 	int	len;
-//	printf("%s", str);
 	if ((len = ft_strlen(str)) >= LEM_IN_BUFF_SIZE - buff->index)
 	{
 		write(1, buff->buff, buff->index);

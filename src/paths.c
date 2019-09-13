@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 11:15:27 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/13 03:44:44 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static t_path	get_path(t_graph *graph, int cur_vertex)
 		[(next_vertex = get_next_vertex(graph->adj_matrix[cur_vertex], i))]
 		== NO_FLOW)
 			i++;
-	//	printf("cur vertex :%d\n", cur_vertex);
 		cur_vertex = next_vertex;
 	}
 	return (path);
@@ -56,7 +55,6 @@ t_paths	get_new_paths(t_graph *graph, int size)
 		if (graph->adj_matrix[graph->s_t.s]
 		[(next_vertex = get_next_vertex(graph->adj_matrix[graph->s_t.s], i))] == FLOW)
 		{
-//			printf("WAW !!! next vertex : %d\n", next_vertex);
 			if (!(paths.paths[j] = get_path(graph, next_vertex)).path)
 			{
 				//free paths.paths
@@ -67,7 +65,6 @@ t_paths	get_new_paths(t_graph *graph, int size)
 		++i;
 	}
 	q_sort_paths(paths);
-//	printf("path len :%d\n", paths.paths[0].len);
 	return (paths);
 }
 
@@ -117,7 +114,6 @@ int		is_worse_path(t_paths cur_paths,t_paths new_paths)
 		return (0);
 	if (cur_paths.paths[0].len == 0)
 		return (1);
-//	printf("cur op :%d, new op :%d\n", cur_paths.paths[0].len + cur_paths.paths[0].ants_on, new_paths.paths[0].len + new_paths.paths[0].ants_on);
 	if (cur_paths.paths[0].len + cur_paths.paths[0].ants_on
 	<= new_paths.paths[0].len + new_paths.paths[0].ants_on)
 		return (1);

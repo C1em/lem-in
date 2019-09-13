@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 11:19:12 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/13 03:44:10 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	dfs(t_graph *graph, int cur_vertex, int *visited)
 {
 	int		next_vertex;
 
-	if (cur_vertex == graph->s_t.t/* && printf("good path !!\n")*/)
+	if (cur_vertex == graph->s_t.t)
 		return (1);
 	while (visited[cur_vertex] < graph->adj_edges_arr[cur_vertex])
 	{
@@ -145,7 +145,7 @@ t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 		p_graph->msg = MALLOC_ERROR;
 		return (current_paths);
 	}
-	while (bfs(graph)/* && printf("still a path !\n")*/)
+	while (bfs(graph))
 	{
 		ft_bzero(visited, sizeof(int) * graph->size);
 		while (dfs(graph, graph->s_t.s, visited))
@@ -157,21 +157,13 @@ t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 			return (new_paths);
 		}
 		dispatch_ants(new_paths, graph->ants);
-		if (is_worse_path(current_paths, new_paths)/* && printf("\nStop, best paths found\n\n")*/)
+		if (is_worse_path(current_paths, new_paths))
 		{
 			free_paths(new_paths);
 			break;
 		}
 		free_paths(current_paths);
 		current_paths = new_paths;
-
-	// int i = 0;
-	// while (i < graph->size)
-	// {
-	// 	if (graph->flow_arr[i] == 2)
-	// 		graph->flow_arr[i] = 1;
-	// 	i++;
-	// }
 	}
 	free(visited);
 	return (current_paths);
