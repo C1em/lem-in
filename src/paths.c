@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 15:37:33 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 16:12:29 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_path	get_path(t_graph *graph, int cur_vertex)
 	return (path);
 }
 
-t_paths	get_new_paths(t_graph *graph, int size)
+t_paths			get_new_paths(t_graph *graph, int size)
 {
 	t_paths	paths;
 	int		i;
@@ -69,10 +69,28 @@ t_paths	get_new_paths(t_graph *graph, int size)
 }
 
 
-void	dispatch_ants(t_paths paths, const int ants)
+static void		fill_path(t_paths *paths, int ants_tmp, int i)
+{
+	int	remainder;
+
+	remainder = ants_tmp % paths->size;
+	ants_tmp /= paths->size;
+	while (--i)
+	{
+		paths->paths[i].ants_on = ants_tmp;
+		ants_tmp += paths->paths[i].len - paths->paths[i - 1].len;
+	}
+	paths->paths[i].ants_on = ants_tmp;
+	while (remainder--)
+	{
+		++paths->paths[i].ants_on;
+		++i;
+	}
+}
+
+void			dispatch_ants(t_paths paths, const int ants)
 {
 	int	i;
-	int	remainder;
 	int	ants_tmp;
 
 	if (paths.size == 0)
@@ -93,19 +111,7 @@ void	dispatch_ants(t_paths paths, const int ants)
 			return (dispatch_ants(paths, ants));
 		}
 	}
-	remainder = ants_tmp % paths.size;
-	ants_tmp /= paths.size;
-	while (--i)
-	{
-		paths.paths[i].ants_on = ants_tmp;
-		ants_tmp += paths.paths[i].len - paths.paths[i - 1].len;
-	}
-	paths.paths[i].ants_on = ants_tmp;
-	while (remainder--)
-	{
-		++paths.paths[i].ants_on;
-		++i;
-	}
+	fill_path(&paths, ants_tmp, i);
 }
 
 int		is_worse_path(t_paths cur_paths,t_paths new_paths)
@@ -118,13 +124,4 @@ int		is_worse_path(t_paths cur_paths,t_paths new_paths)
 	<= new_paths.paths[0].len + new_paths.paths[0].ants_on)
 		return (1);
 	return  (0);
-}
-
-void	free_paths(t_paths paths)
-{
-	if (paths.paths == NULL)
-		return ;
-	while (paths.size--)
-		free(paths.paths[paths.size].path);
-	free(paths.paths);
 }

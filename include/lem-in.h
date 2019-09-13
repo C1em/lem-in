@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 15:54:58 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 16:07:10 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,6 @@ void			free_queue(t_queue_ptr *queue);
 t_paths	get_new_paths(t_graph *graph, int size);
 void	dispatch_ants(t_paths paths, int ants);
 int		is_worse_path(t_paths cur_paths,t_paths new_paths);
-void	free_paths(t_paths paths);
 
 /*
 **	make_graph.c
@@ -216,6 +215,7 @@ void	error_input(void);
 **	main.c
 */
 int		print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff);
+void	free_paths(t_paths paths);
 
 /*
 **	set_msg.c

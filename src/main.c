@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 16:02:38 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 16:06:57 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,15 @@ int				print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff)
 	return (SUCCESS);
 }
 
+void	free_paths(t_paths paths)
+{
+	if (paths.paths == NULL)
+		return ;
+	while (paths.size--)
+		free(paths.paths[paths.size].path);
+	free(paths.paths);
+}
+
 static int		disp_error(t_parser_graph *p_graph)
 {
 	if (p_graph->flag[BONUS_C])
@@ -110,7 +119,6 @@ int			 	main(int ac, char **av)
 // need function -> free all ??????????????
 // suppr all printf ????????????
 
-// norm edges_utils ?????????
 // norm max_flow ?????????
 // norm parser ?????????
 // norm paths ????????????
