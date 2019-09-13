@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 15:34:05 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 15:58:31 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static int			init_pars_arrays(t_parser_graph *p_graph)
 	int		size;
 
 	if ((size = p_graph->end->vertex.nb) <= 0)
-		return (set_msg(FAILURE, p_graph, "Error : no room set")); //<- change this error msg
+		return (set_msg(FAILURE, p_graph, "Error : no room set")); //<- change this error msg?????????????
 	if (!(p_graph->matrix = (int**)malloc(sizeof(int*) * size)))
 		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 	if (!(p_graph->adj_edges_count = (int*)malloc(sizeof(int) * size)))

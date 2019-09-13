@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 15:41:42 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 16:02:38 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,7 @@ int			 	main(int ac, char **av)
 // norm edges_utils ?????????
 // norm max_flow ?????????
 // norm parser ?????????
-// norm parsing_list_utils ??????????
 // norm paths ????????????
-// norm printer ????????
 // norm vertices_utils ???????
 
 // bonus -n number of solution line -> done
