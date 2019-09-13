@@ -6,7 +6,7 @@
 #    By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 17:33:24 by coremart          #+#    #+#              #
-#    Updated: 2019/09/13 15:50:27 by cbenoit          ###   ########.fr        #
+#    Updated: 2019/09/13 16:15:33 by cbenoit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LIBA = $(LIB)/libft.a
 SDIR = src
 _SRCS = bonus.c check_duplicates.c edges_utils.c list_utils.c main.c make_graph.c \
 max_flow.c parser.c parsing_list_utils.c paths.c printer.c q_sort_paths.c queue.c \
-vertices_utils.c set_msg.c printer_tools.c
+vertices_utils.c set_msg.c printer_tools.c parse_vertices.c
 SRCS = $(patsubst %,$(SDIR)/%,$(_SRCS))
 
 ## OBJECTS ##

@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 16:06:57 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 16:35:49 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,9 @@ int			 	main(int ac, char **av)
 }
 
 // need function -> free all ??????????????
-// suppr all printf ????????????
 
 // norm max_flow ?????????
 // norm parser ?????????
-// norm paths ????????????
-// norm vertices_utils ???????
 
 // bonus -n number of solution line -> done
 // bonus -v verbose -> done
