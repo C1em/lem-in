@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 03:39:44 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/13 05:56:21 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,9 @@ typedef struct	s_parser_graph
 	int				nb_lines;
 	int				ants_on_rooms;
 	int				ants_at_end;
+	int				cur_vertex;
+	int				line;
+	int				cur_path;
 }				t_parser_graph;
 
 typedef struct	s_buff_printer
