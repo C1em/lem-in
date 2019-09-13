@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 15:58:31 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 18:10:29 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,47 @@ static int		parse_graph(t_parser_graph *graph)
 	return (FAILURE);
 }
 
+static int		treat_instructions(t_parser_graph *graph, char *line)
+{
+	if (line[1] != '#')
+	{
+		if (graph->parsing_list_start == NULL)
+		{
+			if (!(graph->parsing_list_start = init_pars_list(line)))
+				return (set_msg(FAILURE, graph, MALLOC_ERROR));
+			graph->parsing_list_end = graph->parsing_list_start;
+		}
+		else if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
+			return (set_msg(FAILURE, graph, MALLOC_ERROR));
+	}
+	return (SUCCESS);
+}
+
+static int		pars_ants_body(t_parser_graph *graph, char *line)
+{
+	int		i;
+
+	i = 0;
+	while (ft_isdigit(line[i]))
+		i++;
+	if (line[i] != '\0')
+		return (set_msg(FAILURE, graph, "Error : invalid position"));
+	if ((graph->ants = ft_atoi(line)) < 0)
+		return (set_msg(FAILURE, graph, "Error : wrong ant number"));
+	if (graph->parsing_list_start == NULL)
+	{
+		if (!(graph->parsing_list_start = init_pars_list(line)))
+			return (set_msg(FAILURE, graph, MALLOC_ERROR));
+		graph->parsing_list_end = graph->parsing_list_start;
+	}
+	else if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
+		return (set_msg(FAILURE, graph, MALLOC_ERROR));
+	return (SUCCESS);
+}
 static int		pars_ants(t_parser_graph *graph)
 {
 	char	*line;
 	int		gnl_ret;
-	int		i;
 
 	while (graph->ants < 0)
 	{
@@ -41,36 +77,11 @@ static int		pars_ants(t_parser_graph *graph)
 			return (set_msg(FAILURE, graph, "Error : ants not set"));
 		if (line[0] == '#')
 		{
-			if (line[1] != '#')
-			{
-				if (graph->parsing_list_start == NULL)
-				{
-					if (!(graph->parsing_list_start = init_pars_list(line)))
-						return (set_msg(FAILURE, graph, MALLOC_ERROR));
-					graph->parsing_list_end = graph->parsing_list_start;
-				}
-				else if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
-					return (set_msg(FAILURE, graph, MALLOC_ERROR));
-			}
+			if (treat_instructions(graph, line) == FAILURE)
+				return (FAILURE);
 		}
-		else
-		{
-			i = 0;
-			while (ft_isdigit(line[i]))
-				i++;
-			if (line[i] != '\0')
-				return (set_msg(FAILURE, graph, "Error : invalid position"));
-			if ((graph->ants = ft_atoi(line)) < 0)
-				return (set_msg(FAILURE, graph, "Error : wrong ant number"));
-			if (graph->parsing_list_start == NULL)
-			{
-				if (!(graph->parsing_list_start = init_pars_list(line)))
-					return (set_msg(FAILURE, graph, MALLOC_ERROR));
-				graph->parsing_list_end = graph->parsing_list_start;
-			}
-			else if (!(graph->parsing_list_end = add_pars_elem(graph->parsing_list_end, line)))
-				return (set_msg(FAILURE, graph, MALLOC_ERROR));
-		}
+		else if (pars_ants_body(graph, line) == FAILURE)
+			return (FAILURE);
 		free(line);
 	}
 	return (SUCCESS);
