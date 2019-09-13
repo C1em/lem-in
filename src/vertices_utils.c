@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vertices_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 03:45:35 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/13 14:57:02 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-// #include "libft.h"
-// #include <stdlib.h>
+#include "libft.h"
+#include <stdlib.h>
 
 static int				add_command(char line[])
 {

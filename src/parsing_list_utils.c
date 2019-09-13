@@ -6,15 +6,15 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 03:19:29 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 16:54:17 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 14:56:26 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-// #include "libft.h"
-// #include <stdlib.h>
-// #include <libft.h>
-// #include <unistd.h>
+#include "libft.h"
+#include <stdlib.h>
+#include <libft.h>
+#include <unistd.h>
 
 t_parsing_list	*init_pars_list(char *line)
 {

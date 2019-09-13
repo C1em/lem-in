@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 06:31:02 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/13 14:56:38 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-// #include "libft.h"
-// #include <unistd.h>
-// #include <limits.h>
-// #include <stdlib.h>
+#include "libft.h"
+#include <unistd.h>
+#include <limits.h>
+#include <stdlib.h>
 
 void				add_str(t_buff_printer *buff, char *str)
 {

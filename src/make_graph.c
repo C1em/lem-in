@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   make_graph.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 07:51:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 04:35:40 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/13 14:56:07 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-// #include "libft.h"
-// #include <stdlib.h>
+#include "libft.h"
+#include <stdlib.h>
 
 t_graph		*make_graph(t_parser_graph *p_graph)
 {

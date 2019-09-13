@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   max_flow.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 03:44:10 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/13 14:56:13 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-// #include "libft.h"
-// #include <stdlib.h>
-// #include <stdio.h>
+#include "libft.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 int				get_next_vertex(int *vertex_arr, int index)
 {

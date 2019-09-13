@@ -6,12 +6,12 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:29:22 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/11 13:02:27 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 14:54:21 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-# include <stdarg.h> //transfer on lem-in.h ?
+# include <stdarg.h>
 
 int				set_msg(int return_value, t_parser_graph *graph, char *msg)
 {

@@ -6,12 +6,12 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:56:06 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/11 16:30:56 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 14:55:26 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-// #include <stdlib.h>
+#include <stdlib.h>
 
 t_vertex_list	*init_list(void)
 {

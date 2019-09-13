@@ -6,13 +6,13 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/12 18:11:05 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/13 14:56:19 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-// #include "libft.h"
-// #include <stdlib.h>
+#include "libft.h"
+#include <stdlib.h>
 
 static int		parse_graph(t_parser_graph *graph)
 {
