@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 16:12:29 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/14 13:22:18 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 static t_path	get_path(t_graph *graph, int cur_vertex)
 {
@@ -88,30 +87,30 @@ static void		fill_path(t_paths *paths, int ants_tmp, int i)
 	}
 }
 
-void			dispatch_ants(t_paths paths, const int ants)
+void			dispatch_ants(t_paths *paths, const int ants)
 {
 	int	i;
 	int	ants_tmp;
 
-	if (paths.size == 0)
+	if (paths->size == 0)
 		return ;
-	if (paths.paths[0].len == 0)
+	if (paths->paths[0].len == 0)
 	{
-		paths.paths[0].ants_on = ants;
+		paths->paths[0].ants_on = ants;
 		return ;
 	}
 	i = 0;
 	ants_tmp = ants;
-	while (++i < paths.size)
+	while (++i < paths->size)
 	{
-		if ((ants_tmp -= (paths.paths[i].len - paths.paths[i - 1].len) * i) < paths.size)
+		if ((ants_tmp -= (paths->paths[i].len - paths->paths[i - 1].len) * i) < paths->size)
 		{
 			// free the paths from i + 1 to paths.size - 1 ????
-			paths.size = i;
+			paths->size = i;
 			return (dispatch_ants(paths, ants));
 		}
 	}
-	fill_path(&paths, ants_tmp, i);
+	fill_path(paths, ants_tmp, i);
 }
 
 int		is_worse_path(t_paths cur_paths,t_paths new_paths)

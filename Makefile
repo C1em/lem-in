@@ -6,14 +6,17 @@
 #    By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 17:33:24 by coremart          #+#    #+#              #
-#    Updated: 2019/09/13 16:15:33 by cbenoit          ###   ########.fr        #
+#    Updated: 2019/09/14 10:01:25 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ##COMPILATION ##
 NAME = lem-in
-CFLAGS = -Werror -Wall -Wextra
+ASANFLAGS = -fsanitize=address -fno-omit-frame-pointer -Wno-format-security -fsanitize=undefined
+CFLAGS = -g -Werror -Wall -Wextra
 DFLAGS = -MT $@ -MMD -MP -MF $(DDIR)/$*.d
+AFLAGS =
+ASAN =
 
 ## INCLUDES ##
 LIB = libft
@@ -25,7 +28,7 @@ LIBA = $(LIB)/libft.a
 SDIR = src
 _SRCS = bonus.c check_duplicates.c edges_utils.c list_utils.c main.c make_graph.c \
 max_flow.c parser.c parsing_list_utils.c paths.c printer.c q_sort_paths.c queue.c \
-vertices_utils.c set_msg.c printer_tools.c parse_vertices.c
+vertices_utils.c set_msg.c printer_tools.c parse_vertices.c free_all.c
 SRCS = $(patsubst %,$(SDIR)/%,$(_SRCS))
 
 ## OBJECTS ##
@@ -43,11 +46,16 @@ DEPS = $(patsubst %,$(DDIR)/%,$(_DEPS))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -j 8 -C $(LIB)
-	gcc -g -o $(NAME) $(LIBA) $(OBJS) $(CFLAGS)
+	@if [ "$(AFLAGS)" == "" ];\
+	then\
+		make -j 8 -C $(LIB);\
+	else\
+		make -j 8 -C $(LIB) asan;\
+	fi
+	gcc -o $(NAME) $(LIBA) $(OBJS) $(CFLAGS) $(AFLAGS)
 
 $(ODIR)/%.o: $(SDIR)/%.c
-	gcc $(CFLAGS) -g $(DFLAGS) -o $@ -c $< -I $(HDIR) -I $(LIBH)
+	gcc $(CFLAGS) $(DFLAGS) -o $@ -c $< -I $(HDIR) -I $(LIBH) $(AFLAGS)
 
 -include $(DEPS)
 
@@ -58,8 +66,15 @@ clean:
 fclean: clean
 	@make -j 8 -C $(LIB) fclean
 	@rm -f $(NAME)
+	@rm -rf $(NAME).dSYM
 
 re: fclean all
+
+asan: AFLAGS = $(ASANFLAGS)
+asan: all
+
+reasan: AFLAGS = $(ASANFLAGS)
+reasan: re
 
 .PRECIOUS: $(DDIR)/%.d
 .PHONY: all clean fclean re $(NAME)

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 10:18:56 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/25 19:41:15 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/14 09:56:35 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,5 @@ void			ft_quicksort(int *arr, int size);
 int				ft_ceil(float nb);
 int				ft_isspace(const char c);
 void			*ft_realloc(void *ptr, size_t initial_size, size_t final_size);
-
+int				ft_isint(const char *str);
 #endif

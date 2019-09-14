@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 16:38:41 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/14 13:21:35 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -113,6 +112,7 @@ int			 	main(int ac, char **av)
 	}
 	if (print_res(p_graph, &paths) == FAILURE || p_graph->flag[BONUS_V])
 		return (disp_error(p_graph));
+	free_all(p_graph, graph);
 	return (EXIT_SUCCESS);
 }
 

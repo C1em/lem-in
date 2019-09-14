@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 16:07:10 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/14 13:13:16 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # define FLOW 2
 # define NO_FLOW 1
-# define EDGE 0x3
+# define EDGE 3
 # define STDIN 0
 # define SAME 0
 # define LEM_IN_BUFF_SIZE 2048
@@ -172,7 +172,7 @@ void			free_queue(t_queue_ptr *queue);
 **	paths.c
 */
 t_paths	get_new_paths(t_graph *graph, int size);
-void	dispatch_ants(t_paths paths, int ants);
+void	dispatch_ants(t_paths *paths, int ants);
 int		is_worse_path(t_paths cur_paths,t_paths new_paths);
 
 /*
@@ -229,5 +229,10 @@ int				ft_break(int return_value, int n, ...);
 */
 void			add_offset(int *offset_arr, int offset);
 int				get_offset(int *offset_arr, int nb);
+
+/*
+**	free_all.c
+*/
+void		free_all(t_parser_graph *p_graph, t_graph *graph);
 
 #endif

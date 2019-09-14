@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   max_flow.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 15:31:59 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/14 13:21:45 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 #include "libft.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 int				get_next_vertex(int *vertex_arr, int index)
 {
@@ -148,7 +147,7 @@ t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 	while (bfs(graph))
 	{
 		ft_bzero(visited, sizeof(int) * graph->size);
-		while (dfs(graph, graph->s_t.s, visited))
+		if (dfs(graph, graph->s_t.s, visited))
 			max_flow++;
 		if (!(new_paths = get_new_paths(graph, max_flow)).paths)
 		{
@@ -156,7 +155,7 @@ t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 			free(visited);
 			return (new_paths);
 		}
-		dispatch_ants(new_paths, graph->ants);
+		dispatch_ants(&new_paths, graph->ants);
 		if (is_worse_path(current_paths, new_paths))
 		{
 			free_paths(new_paths);
@@ -164,6 +163,8 @@ t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 		}
 		free_paths(current_paths);
 		current_paths = new_paths;
+		t_buff_printer buff;
+		buff.index = 0;
 	}
 	free(visited);
 	return (current_paths);

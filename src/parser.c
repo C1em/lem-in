@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 18:10:29 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/14 09:58:14 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int		pars_ants_body(t_parser_graph *graph, char *line)
 		i++;
 	if (line[i] != '\0')
 		return (set_msg(FAILURE, graph, "Error : invalid position"));
-	if ((graph->ants = ft_atoi(line)) < 0)
+	if (!ft_isint(line) || (graph->ants = ft_atoi(line)) < 0)
 		return (set_msg(FAILURE, graph, "Error : wrong ant number"));
 	if (graph->parsing_list_start == NULL)
 	{

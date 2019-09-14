@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 15:54:12 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/14 10:43:02 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ static int			print_cur_vertex(t_paths *paths, int *offset_arr,
 	while (++p_graph->cur_path < paths->size)
 	{
 		if (p_graph->cur_vertex > paths->paths[p_graph->cur_path].len)
-			continue ;
-		if (p_graph->line - p_graph->cur_vertex
+			;
+		else if (p_graph->line - p_graph->cur_vertex
 		>= paths->paths[p_graph->cur_path].ants_on)
 		{
 			if (p_graph->cur_vertex == 0)
-				add_offset(offset_arr, paths->size *
-				(p_graph->line - p_graph->cur_vertex) + p_graph->cur_path);
+				add_offset(offset_arr, paths->size
+				* (p_graph->line - p_graph->cur_vertex) + p_graph->cur_path);
 		}
 		else if (add_op(paths, offset_arr, p_graph, buff) == FAILURE)
 			return (FAILURE);
