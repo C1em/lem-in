@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 17:29:19 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/14 18:11:22 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,16 @@ t_paths			get_new_paths(t_graph *graph, int size)
 	if (!(paths.paths = (t_path*)malloc(sizeof(t_path) * size)))
 		return ((t_paths){NULL, 0});
 	paths.size = size;
-	i = 0;
-	j = 0;
-	while (i < graph->adj_edges_arr[graph->s_t.s])
-	{
+	i = -1;
+	j = -1;
+	while (++i < graph->adj_edges_arr[graph->s_t.s])
 		if (graph->adj_matrix[graph->s_t.s]
 		[(next_vertex = get_next_vertex(graph->adj_matrix[graph->s_t.s], i))] == FLOW)
-		{
-			if (!(paths.paths[j] = get_path(graph, next_vertex)).path)
+			if (!(paths.paths[++j] = get_path(graph, next_vertex)).path)
 			{
-				//free paths
+				free_paths(paths);
 				return ((t_paths){NULL, 0});
 			}
-			++j;
-		}
-		++i;
-	}
 	q_sort_paths(paths);
 	return (paths);
 }

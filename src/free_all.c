@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 03:28:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 10:06:46 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/14 18:09:12 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void		free_parser_graph(t_parser_graph *p_graph)
 		return ;
 	if (p_graph->adj_edges_count)
 		free(p_graph->adj_edges_count);
-	// free(p_graph->msg) ???????????
 	free_vertex_list(p_graph->start);
 	free_pars_list(p_graph->parsing_list_start);
 	free(p_graph);

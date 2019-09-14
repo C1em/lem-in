@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 17:23:49 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/14 17:49:08 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +156,9 @@ int				pars_edges(t_parser_graph *p_graph, char *line);
 /*
 **	get_max_flow.c
 */
-t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph);
+t_paths			get_max_flow(t_parser_graph *p_graph, t_graph *graph);
 int				get_next_vertex(int *vertex_arr, int index);
+int				get_incoming_flow_vertex(int **matrix, int vertex);
 
 /*
 **	queue.c
@@ -235,9 +236,19 @@ int				get_offset(int *offset_arr, int nb);
 void			free_all(t_parser_graph *p_graph, t_graph *graph);
 
 /*
-**	free_all.c
+**	init_utils.c
 */
 int				init_pars_arrays(t_parser_graph *p_graph);
 t_parser_graph	*init_pars_graph(void);
+
+/*
+**	bfs.c
+*/
+int				bfs(t_graph *graph, t_parser_graph *p_graph);
+
+/*
+**	dfs.c
+*/
+int				dfs(t_graph *graph, int cur_vertex, int *visited);
 
 #endif

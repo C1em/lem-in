@@ -6,7 +6,7 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 17:30:49 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/14 18:11:56 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char				*pars_name(char *line)
 int				get_vertex(char *str, t_vertex_list *start)
 {
 
-	while (start->vertex.name && ft_strcmp(start->vertex.name, str) != SAME)
+	while (start->vertex.name
+			&& ft_strcmp(start->vertex.name, str) != SAME)
 		start = start->next;
 	if (start->vertex.name == NULL)
 		return (-1);
