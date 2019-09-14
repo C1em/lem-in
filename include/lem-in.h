@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 13:13:16 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/14 17:23:49 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ int				add_nb_lines(t_parser_graph *p_graph, t_buff_printer *buff);
 **	parser.c
 */
 int				parser(t_parser_graph *graph);
-t_parser_graph	*init_pars_graph(void);
 
 /*
 **	vertices_utils.c
@@ -233,6 +232,12 @@ int				get_offset(int *offset_arr, int nb);
 /*
 **	free_all.c
 */
-void		free_all(t_parser_graph *p_graph, t_graph *graph);
+void			free_all(t_parser_graph *p_graph, t_graph *graph);
+
+/*
+**	free_all.c
+*/
+int				init_pars_arrays(t_parser_graph *p_graph);
+t_parser_graph	*init_pars_graph(void);
 
 #endif

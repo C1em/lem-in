@@ -6,12 +6,11 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:54:26 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 16:05:11 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/14 17:26:22 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-#include "libft.h"
 #include <stdlib.h>
 
 static int		add_edge(t_parser_graph *p_graph, char *line)
@@ -44,7 +43,8 @@ static int		parse_edges_body(t_parser_graph *p_graph, char *line)
 {
 	if (line[0] == '#')
 	{
-		if (line[1] != '#' && !(p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line)))
+		if (line[1] != '#' && !(p_graph->parsing_list_end =
+			add_pars_elem(p_graph->parsing_list_end, line)))
 		{
 			free(line);
 			return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
@@ -52,7 +52,8 @@ static int		parse_edges_body(t_parser_graph *p_graph, char *line)
 	}
 	else if (add_edge(p_graph, line))
 	{
-		if (!(p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line)))
+		if (!(p_graph->parsing_list_end =
+		add_pars_elem(p_graph->parsing_list_end, line)))
 		{
 			free(line);
 			return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
@@ -78,7 +79,8 @@ int				pars_edges(t_parser_graph *p_graph, char *line)
 		free(line);
 		return (SUCCESS);
 	}
-	if (!(p_graph->parsing_list_end = add_pars_elem(p_graph->parsing_list_end, line)))
+	if (!(p_graph->parsing_list_end =
+		add_pars_elem(p_graph->parsing_list_end, line)))
 		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 	free(line);
 	while ((gnl_ret = get_next_line(STDIN, &line) == 1))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 13:21:35 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/14 17:24:38 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static int		print_head_of_paths(t_parser_graph *p_graph, t_buff_printer *buff, int i)
+static int		print_head_of_paths(t_parser_graph *p_graph,
+				t_buff_printer *buff, int i)
 {
 	char	*tmp;
 
@@ -33,7 +34,8 @@ static int		print_head_of_paths(t_parser_graph *p_graph, t_buff_printer *buff, i
 	return (SUCCESS);
 }
 
-int				print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff)
+int				print_paths(t_parser_graph *p_graph, t_paths paths,
+				t_buff_printer *buff)
 {
 	int		i;
 	int		j;
@@ -70,7 +72,7 @@ void	free_paths(t_paths paths)
 	free(paths.paths);
 }
 
-static int		disp_error(t_parser_graph *p_graph)
+static int		disp_error(t_parser_graph *p_graph, t_graph *graph)
 {
 	if (p_graph->flag[BONUS_C])
 		write(1, COLOR_LIGHT_RED, 8);
@@ -78,6 +80,7 @@ static int		disp_error(t_parser_graph *p_graph)
 	{
 		ft_putendl("OK");
 		write(1, COLOR_RESET, 5);
+		free_all(p_graph, graph);
 		return (EXIT_SUCCESS);
 	}
 	else if (p_graph->flag[BONUS_V])
@@ -85,6 +88,7 @@ static int		disp_error(t_parser_graph *p_graph)
 	else
 		ft_putendl("Error");
 	write(1, COLOR_RESET, 5);
+	free_all(p_graph, graph);
 	return (EXIT_FAILURE);
 }
 
@@ -94,32 +98,28 @@ int			 	main(int ac, char **av)
 	t_graph			*graph;
 	t_parser_graph	*p_graph;
 
+	graph = NULL;
 	p_graph = init_pars_graph();
 	if (ac >= 1 && fill_option(p_graph, av) == FAILURE)
 		return (ft_break(EXIT_FAILURE, 1, "usage: ./lem-in [-cvnpdm]"));
 	if (parser(p_graph) == FAILURE || p_graph->flag[BONUS_M])
-		return (disp_error(p_graph));
+		return (disp_error(p_graph, graph));
 	if (p_graph->flag[BONUS_C])
 		write(1, COLOR_YELLOW, 8);
 	print_parsing_list(p_graph->parsing_list_start);
 	if (!(graph = make_graph(p_graph)))
-		return (disp_error(p_graph));
+		return (disp_error(p_graph, graph));
 	if ((paths = get_max_flow(p_graph, graph)).paths == NULL)
 	{
 		if (ft_strcmp("OK", p_graph->msg) == SAME)
 			p_graph->msg = "Error : there's no valid path";
-		return (disp_error(p_graph));
+		return (disp_error(p_graph, graph));
 	}
 	if (print_res(p_graph, &paths) == FAILURE || p_graph->flag[BONUS_V])
-		return (disp_error(p_graph));
+		return (disp_error(p_graph, graph));
 	free_all(p_graph, graph);
 	return (EXIT_SUCCESS);
 }
-
-// need function -> free all ??????????????
-
-// norm max_flow ?????????
-// norm parser ?????????
 
 // bonus -n number of solution line -> done
 // bonus -v verbose -> done

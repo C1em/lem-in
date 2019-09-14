@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   max_flow.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 13:21:45 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/14 17:26:50 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-#include "libft.h"
 #include <stdlib.h>
 
 int				get_next_vertex(int *vertex_arr, int index)
@@ -39,13 +38,7 @@ static int			get_incoming_flow_vertex(int **matrix, int vertex)
 	return (i);
 }
 
-/*
-**	construct the level graph, a edge is'nt considered part of the graph if
-**	it's at its max flow.
-**
-**	return 1 if t i reached else return 0.
-*/
-static int			bfs(t_graph *graph)
+static int			bfs(t_graph *graph, t_parser_graph *p_graph)
 {
 	int			i;
 	int			cur_vertex;
@@ -54,7 +47,8 @@ static int			bfs(t_graph *graph)
 
 	ft_memset(graph->level_arr, -1, sizeof(int) * graph->size);
 	graph->level_arr[graph->s_t.s] = 0;
-	init_queue(&queue, graph->s_t.s); //<- gerer valeur retour if == failure -> sortir du bfs et retourner au main
+	if (init_queue(&queue, graph->s_t.s) == FAILURE)
+		return (set_msg(0, p_graph, MALLOC_ERROR));
 	while (queue.start != NULL)
 	{
 		cur_vertex = dequeue(&queue);
@@ -74,7 +68,8 @@ static int			bfs(t_graph *graph)
 				if (graph->flow_arr[next_vertex] == 1 && graph->adj_matrix[next_vertex][cur_vertex] == NO_FLOW && cur_vertex != graph->s_t.s)
 					graph->flow_arr[next_vertex] = 2;
 				graph->level_arr[next_vertex] = graph->level_arr[cur_vertex] + 1;
-				enqueue(&queue, next_vertex); // idem gerer valeur retour if == failure -> sortir du bfs et retourner au main
+				if (enqueue(&queue, next_vertex) == FAILURE)
+					return (set_msg(0, p_graph, MALLOC_ERROR));
 			}
 		}
 	}
@@ -121,13 +116,9 @@ static int	dfs(t_graph *graph, int cur_vertex, int *visited)
 		}
 		visited[cur_vertex]++;
 	}
-//	printf("bad path !!\n");
 	return (0);
 }
 
-/*
-**	custom Dinic's algo
-*/
 t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 {
 	int		max_flow;
@@ -144,7 +135,7 @@ t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 		p_graph->msg = MALLOC_ERROR;
 		return (current_paths);
 	}
-	while (bfs(graph))
+	while (bfs(graph, p_graph))
 	{
 		ft_bzero(visited, sizeof(int) * graph->size);
 		if (dfs(graph, graph->s_t.s, visited))

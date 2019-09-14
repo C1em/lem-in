@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 14:05:20 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/14 17:29:19 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void			dispatch_ants(t_paths *paths, const int ants)
 	i = 0;
 	ants_tmp = ants;
 	while (++i < paths->size)
-	{
 		if ((ants_tmp -= (paths->paths[i].len - paths->paths[i - 1].len) * i) < paths->size)
 		{
 			tmp_i = i - 1;
@@ -112,7 +111,6 @@ void			dispatch_ants(t_paths *paths, const int ants)
 			paths->size = i;
 			return (dispatch_ants(paths, ants));
 		}
-	}
 	fill_path(paths, ants_tmp, i);
 }
 

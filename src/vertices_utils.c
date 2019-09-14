@@ -6,17 +6,16 @@
 /*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 16:31:13 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/14 17:30:49 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-#include "libft.h"
 
 char				*pars_name(char *line)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (line[i] && line[i] != ' ')
