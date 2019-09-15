@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 17:21:12 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/15 12:00:13 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 13:51:28 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ t_parser_graph	*init_pars_graph(void)
 	graph->nb_lines = 0;
 	graph->ants_on_rooms = 0;
 	graph->ants_at_end = 0;
+	graph->adj_edges_count = NULL;
+	graph->matrix = NULL;
 	return (graph);
 }
 

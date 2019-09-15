@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bonus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <cbenoit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:29:22 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/15 12:19:38 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 12:23:40 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static int	print_ants_at_ends(t_parser_graph *p_graph, t_buff_printer *buff)
 		return (FAILURE);
 	add_str(buff, tmp);
 	free(tmp);
+	return (SUCCESS);
 }
 
 int			print_ants_state(t_parser_graph *p_graph, t_buff_printer *buff)
@@ -98,7 +99,8 @@ int			print_ants_state(t_parser_graph *p_graph, t_buff_printer *buff)
 	add_str(buff, tmp);
 	free(tmp);
 	add_str(buff, ", ants_end ");
-	print_ants_next(p_graph, buff);
+	if (print_ants_at_ends(p_graph, buff) == FAILURE)
+		return (FAILURE);
 	add_str(buff, "\n");
 	return (SUCCESS);
 }

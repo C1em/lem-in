@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printer_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <cbenoit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 15:46:06 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/15 12:20:21 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 12:24:04 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "lem_in.h"
 #include <limits.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 void		add_str(t_buff_printer *buff, char *str)
 {

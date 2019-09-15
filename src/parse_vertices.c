@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:15:43 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/15 12:00:07 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 14:13:08 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,8 @@ char			*pars_vertices(t_parser_graph *graph)
 			return (NULL);
 		line = NULL;
 	}
+	if (graph->end->vertex.name)
+		free(graph->end->vertex.name);
+	graph->end->vertex.name = NULL;
 	return (vertices_error(graph, gnl_ret, line));
 }

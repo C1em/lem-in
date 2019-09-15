@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 03:28:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 11:54:49 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 13:58:08 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	free_vertex_list(t_vertex_list *start)
 
 	if (!start)
 		return ;
+//	start->vertex.name = NULL;
 	while (start->vertex.name)
 	{
 		tmp = start;
