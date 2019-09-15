@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:47:00 by coremart          #+#    #+#             */
-/*   Updated: 2019/07/04 19:59:43 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 06:26:35 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	if (uc_src > uc_dst && uc_dst + len > uc_src)
 	{
 		i = 0;
-		while(i < len)
+		while (i < len)
 		{
 			uc_dst[i] = uc_src[i];
 			i++;

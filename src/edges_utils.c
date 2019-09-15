@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edges_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:54:26 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 17:26:22 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 06:03:12 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int				pars_edges(t_parser_graph *p_graph, char *line)
 		add_pars_elem(p_graph->parsing_list_end, line)))
 		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 	free(line);
-	while ((gnl_ret = get_next_line(STDIN, &line) == 1))
+	while ((gnl_ret = get_next_line(STDIN, &line)) == 1)
 		if (parse_edges_body(p_graph, line) == FAILURE)
 			return (FAILURE);
 	if (gnl_ret == -1)
