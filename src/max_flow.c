@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   max_flow.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:35:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 18:07:50 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 06:47:16 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 #include <stdlib.h>
 
-int				get_next_vertex(int *vertex_arr, int index)
+int			get_next_vertex(int *vertex_arr, int index)
 {
 	int i;
 
@@ -38,7 +38,7 @@ int			get_incoming_flow_vertex(int **matrix, int vertex)
 	return (i);
 }
 
-static int			get_max_flow_setup(t_parser_graph *p_graph, t_graph *graph,
+static int	get_max_flow_setup(t_parser_graph *p_graph, t_graph *graph,
 					t_paths *current_paths, int **visited)
 {
 	*current_paths = (t_paths){NULL, 0};
@@ -51,7 +51,8 @@ static int			get_max_flow_setup(t_parser_graph *p_graph, t_graph *graph,
 	return (FAILURE);
 }
 
-static int			get_max_flow_body(t_graph *graph, t_paths *current_paths, t_paths new_paths)
+static int	get_max_flow_body(t_graph *graph, t_paths *current_paths,
+			t_paths new_paths)
 {
 	dispatch_ants(&new_paths, graph->ants);
 	if (is_worse_path(*current_paths, new_paths))
@@ -64,7 +65,7 @@ static int			get_max_flow_body(t_graph *graph, t_paths *current_paths, t_paths n
 	return (0);
 }
 
-t_paths				get_max_flow(t_parser_graph *p_graph, t_graph *graph)
+t_paths		get_max_flow(t_parser_graph *p_graph, t_graph *graph)
 {
 	int		max_flow;
 	int		*visited;

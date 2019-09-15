@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 18:11:22 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 06:53:59 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,15 @@ t_paths			get_new_paths(t_graph *graph, int size)
 	j = -1;
 	while (++i < graph->adj_edges_arr[graph->s_t.s])
 		if (graph->adj_matrix[graph->s_t.s]
-		[(next_vertex = get_next_vertex(graph->adj_matrix[graph->s_t.s], i))] == FLOW)
-			if (!(paths.paths[++j] = get_path(graph, next_vertex)).path)
-			{
-				free_paths(paths);
-				return ((t_paths){NULL, 0});
-			}
+		[(next_vertex = get_next_vertex(graph->adj_matrix[graph->s_t.s], i))]
+		== FLOW && !(paths.paths[++j] = get_path(graph, next_vertex)).path)
+		{
+			free_paths(paths);
+			return ((t_paths){NULL, 0});
+		}
 	q_sort_paths(paths);
 	return (paths);
 }
-
 
 static void		fill_path(t_paths *paths, int ants_tmp, int i)
 {
@@ -97,7 +96,8 @@ void			dispatch_ants(t_paths *paths, const int ants)
 	i = 0;
 	ants_tmp = ants;
 	while (++i < paths->size)
-		if ((ants_tmp -= (paths->paths[i].len - paths->paths[i - 1].len) * i) < paths->size)
+		if ((ants_tmp -= (paths->paths[i].len - paths->paths[i - 1].len) * i)
+		< paths->size)
 		{
 			tmp_i = i - 1;
 			while (++tmp_i < paths->size)
@@ -108,7 +108,7 @@ void			dispatch_ants(t_paths *paths, const int ants)
 	fill_path(paths, ants_tmp, i);
 }
 
-int		is_worse_path(t_paths cur_paths,t_paths new_paths)
+int				is_worse_path(t_paths cur_paths, t_paths new_paths)
 {
 	if (cur_paths.paths == NULL)
 		return (0);
@@ -117,5 +117,5 @@ int		is_worse_path(t_paths cur_paths,t_paths new_paths)
 	if (cur_paths.paths[0].len + cur_paths.paths[0].ants_on
 	<= new_paths.paths[0].len + new_paths.paths[0].ants_on)
 		return (1);
-	return  (0);
+	return (0);
 }

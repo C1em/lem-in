@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   bonus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:29:22 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/13 15:50:50 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 06:42:04 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 #include <stdlib.h>
 
-static int		*setup_zero(int *to_init, size_t size, int value)
+static int	*setup_zero(int *to_init, size_t size, int value)
 {
 	size_t		i;
 
@@ -23,7 +23,7 @@ static int		*setup_zero(int *to_init, size_t size, int value)
 	return (to_init);
 }
 
-static int		fill_flag(t_parser_graph *graph, int caracter)
+static int	fill_flag(t_parser_graph *graph, int caracter)
 {
 	if (caracter == 'c')
 		graph->flag[BONUS_C] = 1;
@@ -42,7 +42,7 @@ static int		fill_flag(t_parser_graph *graph, int caracter)
 	return (SUCCESS);
 }
 
-int				fill_option(t_parser_graph *graph, char **av)
+int			fill_option(t_parser_graph *graph, char **av)
 {
 	int		i;
 	int		j;

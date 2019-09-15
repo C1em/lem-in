@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   queue.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:34:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 14:56:56 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 06:54:58 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 #include <stdlib.h>
 
-int			init_queue(t_queue_ptr *queue, int vertex)
+int		init_queue(t_queue_ptr *queue, int vertex)
 {
 	t_queue *queue_elem;
 
@@ -26,7 +26,7 @@ int			init_queue(t_queue_ptr *queue, int vertex)
 	return (SUCCESS);
 }
 
-int				enqueue(t_queue_ptr *queue, int vertex)
+int		enqueue(t_queue_ptr *queue, int vertex)
 {
 	t_queue *queue_elem;
 
@@ -42,10 +42,10 @@ int				enqueue(t_queue_ptr *queue, int vertex)
 	return (SUCCESS);
 }
 
-int				dequeue(t_queue_ptr *queue)
+int		dequeue(t_queue_ptr *queue)
 {
-	int	value;
-	t_queue			*tmp;
+	int		value;
+	t_queue	*tmp;
 
 	value = queue->start->value;
 	tmp = queue->start;
@@ -54,7 +54,7 @@ int				dequeue(t_queue_ptr *queue)
 	return (value);
 }
 
-void			free_queue(t_queue_ptr *queue)
+void	free_queue(t_queue_ptr *queue)
 {
 	t_queue	*tmp;
 

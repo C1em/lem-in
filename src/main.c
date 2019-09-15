@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 05:12:56 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 06:45:19 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static int		print_head_of_paths(t_parser_graph *p_graph,
-				t_buff_printer *buff, int i)
+static int	print_head_of_paths(t_parser_graph *p_graph, t_buff_printer *buff,
+			int i)
 {
 	char	*tmp;
 
@@ -34,8 +34,8 @@ static int		print_head_of_paths(t_parser_graph *p_graph,
 	return (SUCCESS);
 }
 
-int				print_paths(t_parser_graph *p_graph, t_paths paths,
-				t_buff_printer *buff)
+int			print_paths(t_parser_graph *p_graph, t_paths paths,
+			t_buff_printer *buff)
 {
 	int		i;
 	int		j;
@@ -63,7 +63,7 @@ int				print_paths(t_parser_graph *p_graph, t_paths paths,
 	return (SUCCESS);
 }
 
-void	free_paths(t_paths paths)
+void		free_paths(t_paths paths)
 {
 	if (paths.paths == NULL)
 		return ;
@@ -72,7 +72,7 @@ void	free_paths(t_paths paths)
 	free(paths.paths);
 }
 
-static int		disp_error(t_parser_graph *p_graph, t_graph *graph)
+static int	disp_error(t_parser_graph *p_graph, t_graph *graph)
 {
 	if (p_graph->flag[BONUS_C])
 		write(1, COLOR_LIGHT_RED, 8);
@@ -92,7 +92,7 @@ static int		disp_error(t_parser_graph *p_graph, t_graph *graph)
 	return (EXIT_FAILURE);
 }
 
-int			 	main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_paths			paths;
 	t_graph			*graph;
@@ -121,10 +121,3 @@ int			 	main(int ac, char **av)
 	free_all(p_graph, graph);
 	return (EXIT_SUCCESS);
 }
-
-// bonus -n number of solution line -> done
-// bonus -v verbose -> done
-// bonus -m map checker -> done
-// bonus -p path used -> done
-// bonus -c color -> done
-// bonus -d -> done

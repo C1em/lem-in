@@ -6,13 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 21:46:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 03:45:04 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 06:54:32 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-static void		qsort_paths(t_path paths[], int end)
+static void	qsort_paths(t_path paths[], int end)
 {
 	unsigned int	swapable;
 	unsigned int	i;

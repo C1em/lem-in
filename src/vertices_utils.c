@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vertices_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:57:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 18:11:56 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 06:55:53 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-char				*pars_name(char *line)
+char	*pars_name(char *line)
 {
 	int		i;
 	int		j;
@@ -36,9 +36,8 @@ char				*pars_name(char *line)
 	return (ft_strndup(line, i));
 }
 
-int				get_vertex(char *str, t_vertex_list *start)
+int		get_vertex(char *str, t_vertex_list *start)
 {
-
 	while (start->vertex.name
 			&& ft_strcmp(start->vertex.name, str) != SAME)
 		start = start->next;

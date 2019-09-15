@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 17:25:19 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 06:51:38 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 #include <stdlib.h>
 
-static int		parse_graph(t_parser_graph *graph)
+static int	parse_graph(t_parser_graph *graph)
 {
 	if (graph->ants <= 0)
 		graph->msg = "Error : wrong ant number";
@@ -26,7 +26,7 @@ static int		parse_graph(t_parser_graph *graph)
 	return (FAILURE);
 }
 
-static int		treat_instructions(t_parser_graph *graph, char *line)
+static int	treat_instructions(t_parser_graph *graph, char *line)
 {
 	if (line[1] != '#')
 	{
@@ -43,7 +43,7 @@ static int		treat_instructions(t_parser_graph *graph, char *line)
 	return (SUCCESS);
 }
 
-static int		pars_ants_body(t_parser_graph *graph, char *line)
+static int	pars_ants_body(t_parser_graph *graph, char *line)
 {
 	int		i;
 
@@ -66,7 +66,7 @@ static int		pars_ants_body(t_parser_graph *graph, char *line)
 	return (SUCCESS);
 }
 
-static int		pars_ants(t_parser_graph *graph)
+static int	pars_ants(t_parser_graph *graph)
 {
 	char	*line;
 	int		gnl_ret;

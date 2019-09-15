@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 17:21:12 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/14 17:23:07 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 06:43:38 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_parser_graph	*init_pars_graph(void)
 	|| !(graph->start = init_list()))
 	{
 		ft_putendl("Error");
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	graph->end = graph->start;
 	graph->parsing_list_end = NULL;
@@ -36,12 +36,14 @@ t_parser_graph	*init_pars_graph(void)
 	return (graph);
 }
 
-int			init_pars_arrays(t_parser_graph *p_graph)
+int				init_pars_arrays(t_parser_graph *p_graph)
 {
 	int		size;
 
 	if ((size = p_graph->end->vertex.nb) <= 0)
-		return (set_msg(FAILURE, p_graph, "Error : room_parser")); //<- change this error msg?????????????
+		return (set_msg(FAILURE, p_graph, "Error : room_parser"));
+		//^
+		//| change this error msg?????????????
 	if (!(p_graph->matrix = (int**)malloc(sizeof(int*) * size)))
 		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 	if (!(p_graph->adj_edges_count = (int*)malloc(sizeof(int) * size)))
