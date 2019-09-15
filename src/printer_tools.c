@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   printer_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 15:46:06 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/13 15:56:50 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 12:00:01 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "libft.h"
+#include "lem_in.h"
 #include <limits.h>
 #include <unistd.h>
 

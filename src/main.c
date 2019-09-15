@@ -6,11 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 06:45:19 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 11:58:52 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "libft.h"
+#include "lem_in.h"
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -98,12 +99,11 @@ int			main(int ac, char **av)
 	t_graph			*graph;
 	t_parser_graph	*p_graph;
 
-	graph = NULL;
 	p_graph = init_pars_graph();
 	if (ac >= 1 && fill_option(p_graph, av) == FAILURE)
 		return (ft_break(EXIT_FAILURE, 1, "usage: ./lem-in [-cvnpdm]"));
 	if (parser(p_graph) == FAILURE || p_graph->flag[BONUS_M])
-		return (disp_error(p_graph, graph));
+		return (disp_error(p_graph, NULL));
 	if (p_graph->flag[BONUS_C])
 		write(1, COLOR_YELLOW, 8);
 	print_parsing_list(p_graph->parsing_list_start);

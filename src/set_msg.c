@@ -6,11 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 15:26:05 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/15 06:55:10 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 11:59:54 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "libft.h"
+#include "lem_in.h"
 #include <stdarg.h>
 
 int				set_msg(int return_value, t_parser_graph *graph, char *msg)

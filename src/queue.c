@@ -6,11 +6,11 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:34:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 06:54:58 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 11:56:21 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "lem_in.h"
 #include <stdlib.h>
 
 int		init_queue(t_queue_ptr *queue, int vertex)

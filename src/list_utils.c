@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:56:06 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/13 14:55:26 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 11:54:59 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "lem_in.h"
 #include <stdlib.h>
 
 t_vertex_list	*init_list(void)

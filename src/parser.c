@@ -6,11 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 06:51:38 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 11:59:15 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "libft.h"
+#include "lem_in.h"
 #include <stdlib.h>
 
 static int	parse_graph(t_parser_graph *graph)

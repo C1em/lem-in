@@ -6,11 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:29:22 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/15 06:42:04 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 11:58:12 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "lem_in.h"
+#include "libft.h"
 #include <stdlib.h>
 
 static int	*setup_zero(int *to_init, size_t size, int value)

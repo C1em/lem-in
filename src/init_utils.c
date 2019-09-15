@@ -6,11 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 17:21:12 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/15 06:43:38 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 12:00:13 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "libft.h"
+#include "lem_in.h"
 #include <stdlib.h>
 
 t_parser_graph	*init_pars_graph(void)
@@ -42,8 +43,6 @@ int				init_pars_arrays(t_parser_graph *p_graph)
 
 	if ((size = p_graph->end->vertex.nb) <= 0)
 		return (set_msg(FAILURE, p_graph, "Error : room_parser"));
-		//^
-		//| change this error msg?????????????
 	if (!(p_graph->matrix = (int**)malloc(sizeof(int*) * size)))
 		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
 	if (!(p_graph->adj_edges_count = (int*)malloc(sizeof(int) * size)))

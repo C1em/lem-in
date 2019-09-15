@@ -6,11 +6,11 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 06:53:59 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 11:55:56 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "lem_in.h"
 #include <stdlib.h>
 
 static t_path	get_path(t_graph *graph, int cur_vertex)

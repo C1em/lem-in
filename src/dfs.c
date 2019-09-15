@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 17:44:39 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/14 17:50:05 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 11:54:37 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "lem_in.h"
 
 static int		dfs_body(t_graph *graph, int cur_vertex, int next_vertex)
 {

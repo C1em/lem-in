@@ -6,11 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:54:26 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 06:03:12 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 11:58:41 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "lem_in.h"
+#include "libft.h"
 #include <stdlib.h>
 
 static int		add_edge(t_parser_graph *p_graph, char *line)

@@ -6,11 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 10:43:02 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 11:59:36 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "libft.h"
+#include "lem_in.h"
 #include <limits.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -62,11 +63,9 @@ static int			add_op(t_paths *paths, int *offset_arr,
 	add_str(buff, tmp);
 	free(tmp);
 	add_str(buff, "-");
-	if (p_graph->cur_vertex == paths->paths[p_graph->cur_path].len)
-	{
+	if (p_graph->cur_vertex == paths->paths[p_graph->cur_path].len
+	&& ++p_graph->ants_at_end)
 		add_str(buff, get_name(p_graph->start, p_graph->commands.t));
-		p_graph->ants_at_end++;
-	}
 	else
 		add_str(buff, get_name(p_graph->start,
 		paths->paths[p_graph->cur_path].path[p_graph->cur_vertex]));

@@ -6,11 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:15:43 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/15 06:50:54 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 12:00:07 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "libft.h"
+#include "lem_in.h"
 #include <stdlib.h>
 
 static int		add_command(char line[])

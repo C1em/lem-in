@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem-in.h                                           :+:      :+:    :+:   */
+/*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:42:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 17:49:08 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 11:53:53 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
-
-#include "../libft/include/libft.h"
 
 # define FLOW 2
 # define NO_FLOW 1
@@ -44,7 +42,7 @@ typedef struct	s_source_end
 
 typedef struct	s_graph
 {
-	int				*flow_arr; //0:no flow, 1:flow, 2:blocking flow
+	int				*flow_arr;
 	int				*adj_edges_arr;
 	int				*level_arr;
 	int				**adj_matrix;
@@ -74,13 +72,13 @@ typedef struct	s_path
 
 typedef struct	s_paths
 {
-	t_path			*paths;
-	int	size;
+	t_path	*paths;
+	int		size;
 }				t_paths;
 
 typedef struct	s_parser_vertex
 {
-	char*	name;
+	char	*name;
 	int		nb;
 }				t_parser_vertex;
 
@@ -118,10 +116,9 @@ typedef struct	s_parser_graph
 
 typedef struct	s_buff_printer
 {
-char	buff[LEM_IN_BUFF_SIZE];
-int		index;
+	char	buff[LEM_IN_BUFF_SIZE];
+	int		index;
 }				t_buff_printer;
-
 
 /*
 **	bonus.c
@@ -171,27 +168,26 @@ void			free_queue(t_queue_ptr *queue);
 /*
 **	paths.c
 */
-t_paths	get_new_paths(t_graph *graph, int size);
-void	dispatch_ants(t_paths *paths, int ants);
-int		is_worse_path(t_paths cur_paths,t_paths new_paths);
+t_paths			get_new_paths(t_graph *graph, int size);
+void			dispatch_ants(t_paths *paths, int ants);
+int				is_worse_path(t_paths cur_paths, t_paths new_paths);
 
 /*
 **	make_graph.c
 */
-t_graph		*make_graph(t_parser_graph *p_graph);
+t_graph			*make_graph(t_parser_graph *p_graph);
 
 /*
 **	q_sort_paths.c
 */
-void		q_sort_paths(t_paths paths);
+void			q_sort_paths(t_paths paths);
 
 /*
 **	printer.c
 */
-int		print_res(t_parser_graph *p_graph, t_paths *paths);
-char	*get_name(t_vertex_list *list, int vertex);
-void	add_str(t_buff_printer *buff, char *str);
-
+int				print_res(t_parser_graph *p_graph, t_paths *paths);
+char			*get_name(t_vertex_list *list, int vertex);
+void			add_str(t_buff_printer *buff, char *str);
 
 /*
 **	parsing_list_utils.c
@@ -203,19 +199,20 @@ void			print_parsing_list(t_parsing_list *list);
 /*
 **	check_duplicates.c
 */
-int		check_vertex_dup(t_vertex_list *list, char *last);
+int				check_vertex_dup(t_vertex_list *list, char *last);
 
 /*
 **	error.c
 */
-void	error_sys(void);
-void	error_input(void);
+void			error_sys(void);
+void			error_input(void);
 
 /*
 **	main.c
 */
-int		print_paths(t_parser_graph *p_graph, t_paths paths, t_buff_printer *buff);
-void	free_paths(t_paths paths);
+int				print_paths(t_parser_graph *p_graph, t_paths paths,
+				t_buff_printer *buff);
+void			free_paths(t_paths paths);
 
 /*
 **	set_msg.c

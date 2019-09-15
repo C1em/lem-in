@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_list_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 03:19:29 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 17:25:54 by cbenoit          ###   ########.fr       */
+/*   Updated: 2019/09/15 11:59:23 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "libft.h"
+#include "lem_in.h"
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -61,8 +62,7 @@ void			print_parsing_list(t_parsing_list *list)
 		ft_strcpy(&str[index], list->line);
 		index += len;
 		list = list->next;
-		ft_strcpy(&str[index], "\n");
-		index++;
+		ft_strcpy(&str[index++], "\n");
 	}
 	if (1 >= LEM_IN_BUFF_SIZE - index)
 	{
@@ -70,6 +70,5 @@ void			print_parsing_list(t_parsing_list *list)
 		index = 0;
 	}
 	ft_strcpy(&str[index], "\n");
-	index++;
-	write(1, str, index);
+	write(1, str, index + 1);
 }
