@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bonus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <cbenoit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:29:22 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/15 11:58:12 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 12:19:38 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,16 @@ int			fill_option(t_parser_graph *graph, char **av)
 	return (SUCCESS);
 }
 
+static int	print_ants_at_ends(t_parser_graph *p_graph, t_buff_printer *buff)
+{
+	char	*tmp;
+
+	if (!(tmp = ft_itoa(p_graph->ants_at_end)))
+		return (FAILURE);
+	add_str(buff, tmp);
+	free(tmp);
+}
+
 int			print_ants_state(t_parser_graph *p_graph, t_buff_printer *buff)
 {
 	char	*tmp;
@@ -88,25 +98,7 @@ int			print_ants_state(t_parser_graph *p_graph, t_buff_printer *buff)
 	add_str(buff, tmp);
 	free(tmp);
 	add_str(buff, ", ants_end ");
-	if (!(tmp = ft_itoa(p_graph->ants_at_end)))
-		return (FAILURE);
-	add_str(buff, tmp);
-	free(tmp);
-	add_str(buff, "\n");
-	return (SUCCESS);
-}
-
-int			add_nb_lines(t_parser_graph *p_graph, t_buff_printer *buff)
-{
-	char	*tmp;
-
-	if (p_graph->flag[BONUS_C])
-		add_str(buff, COLOR_GREEN);
-	add_str(buff, "\nTotal lines: ");
-	if (!(tmp = ft_itoa(p_graph->nb_lines)))
-		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
-	add_str(buff, tmp);
-	free(tmp);
+	print_ants_next(p_graph, buff);
 	add_str(buff, "\n");
 	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printer_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbenoit <cbenoit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 15:46:06 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/15 12:00:01 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/15 12:20:21 by cbenoit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,19 @@ int			get_offset(int *offset_arr, int nb)
 	while (nb > offset_arr[i])
 		i++;
 	return (i);
+}
+
+int			add_nb_lines(t_parser_graph *p_graph, t_buff_printer *buff)
+{
+	char	*tmp;
+
+	if (p_graph->flag[BONUS_C])
+		add_str(buff, COLOR_GREEN);
+	add_str(buff, "\nTotal lines: ");
+	if (!(tmp = ft_itoa(p_graph->nb_lines)))
+		return (set_msg(FAILURE, p_graph, MALLOC_ERROR));
+	add_str(buff, tmp);
+	free(tmp);
+	add_str(buff, "\n");
+	return (SUCCESS);
 }
