@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 21:54:26 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 11:58:41 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:12:05 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int		parse_edges_body(t_parser_graph *p_graph, char *line)
 	else
 	{
 		free(line);
-		return (SUCCESS);
+		return (set_msg(FAILURE, p_graph, "Error : edge parsing"));
 	}
 	free(line);
 	return (SUCCESS);

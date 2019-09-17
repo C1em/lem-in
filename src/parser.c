@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:19:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 11:59:15 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/17 16:15:50 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,16 @@ static int	pars_ants(t_parser_graph *graph)
 		if (line[0] == '#')
 		{
 			if (treat_instructions(graph, line) == FAILURE)
+			{
+				free(line);
 				return (FAILURE);
+			}
 		}
 		else if (pars_ants_body(graph, line) == FAILURE)
+		{
+			free(line);
 			return (FAILURE);
+		}
 		free(line);
 	}
 	return (SUCCESS);
@@ -99,7 +105,10 @@ int			parser(t_parser_graph *graph)
 	if (!(line_tmp = pars_vertices(graph)))
 		return (FAILURE);
 	if (init_pars_arrays(graph) == FAILURE)
+	{
+		ft_strdel(&line_tmp);
 		return (FAILURE);
+	}
 	if (pars_edges(graph, line_tmp) == FAILURE)
 		return (FAILURE);
 	if (parse_graph(graph) == FAILURE)

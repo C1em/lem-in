@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 15:26:05 by cbenoit           #+#    #+#             */
-/*   Updated: 2019/09/15 11:59:54 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/17 13:00:05 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 
 int				set_msg(int return_value, t_parser_graph *graph, char *msg)
 {
-	graph->msg = msg;
+	if (ft_strcmp(graph->msg, "OK") == SAME)
+		graph->msg = msg;
 	return (return_value);
 }
 
 char			*set_null_msg(t_parser_graph *graph, char *msg)
 {
-	graph->msg = msg;
+	if (ft_strcmp(graph->msg, "OK") == SAME)
+		graph->msg = msg;
 	return (NULL);
 }
 

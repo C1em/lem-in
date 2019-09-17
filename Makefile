@@ -6,14 +6,14 @@
 #    By: cbenoit <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 17:33:24 by coremart          #+#    #+#              #
-#    Updated: 2019/09/14 17:45:00 by cbenoit          ###   ########.fr        #
+#    Updated: 2019/09/17 12:19:54 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ##COMPILATION ##
 NAME = lem-in
 ASANFLAGS = -fsanitize=address -fno-omit-frame-pointer -Wno-format-security -fsanitize=undefined
-CFLAGS = -g -Werror -Wall -Wextra
+CFLAGS = -g -Werror -Wall -Wextra -pedantic-errors
 DFLAGS = -MT $@ -MMD -MP -MF $(DDIR)/$*.d
 AFLAGS =
 ASAN =

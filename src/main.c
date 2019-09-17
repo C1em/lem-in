@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 11:58:52 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/17 17:49:32 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,9 @@ static int	disp_error(t_parser_graph *p_graph, t_graph *graph)
 	else if (p_graph->flag[BONUS_V])
 		ft_putendl(p_graph->msg);
 	else
-		ft_putendl("Error");
-	write(1, COLOR_RESET, 5);
+		ft_putendl("ERROR");
+	if (p_graph->flag[BONUS_C])
+		write(1, COLOR_RESET, 5);
 	free_all(p_graph, graph);
 	return (EXIT_FAILURE);
 }
@@ -109,12 +110,7 @@ int			main(int ac, char **av)
 	print_parsing_list(p_graph->parsing_list_start);
 	if (!(graph = make_graph(p_graph)))
 		return (disp_error(p_graph, graph));
-	if ((paths = get_max_flow(p_graph, graph)).paths == NULL)
-	{
-		if (ft_strcmp("OK", p_graph->msg) == SAME)
-			p_graph->msg = "Error : there's no valid path";
-		return (disp_error(p_graph, graph));
-	}
+	paths = get_max_flow(p_graph, graph);
 	if (print_res(p_graph, &paths) == FAILURE || p_graph->flag[BONUS_V])
 		return (disp_error(p_graph, graph));
 	free_paths(paths);

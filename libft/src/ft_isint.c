@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isint.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 09:50:56 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/14 09:55:30 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/17 13:04:10 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_isint(const char *str)
 	int i;
 	int sign;
 
-	if (str == NULL)
+	if (str == NULL || str[0] == '\0')
 		return (0);
 	i = 0;
 	if ((sign = (str[0] == '-')))

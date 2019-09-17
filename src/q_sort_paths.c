@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 21:46:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 11:56:14 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/17 12:23:22 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ static void	qsort_paths(t_path paths[], int end)
 
 void		q_sort_paths(t_paths paths)
 {
-	return (qsort_paths(paths.paths, paths.size - 1));
+	qsort_paths(paths.paths, paths.size - 1);
+	return ;
 }

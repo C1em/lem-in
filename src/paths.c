@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:23:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 11:55:56 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/17 12:22:56 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ void			dispatch_ants(t_paths *paths, const int ants)
 			while (++tmp_i < paths->size)
 				free(paths->paths[tmp_i].path);
 			paths->size = i;
-			return (dispatch_ants(paths, ants));
+			dispatch_ants(paths, ants);
+			return ;
 		}
 	fill_path(paths, ants_tmp, i);
 }

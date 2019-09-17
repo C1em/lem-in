@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 11:59:36 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/17 12:24:56 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ int					print_res(t_parser_graph *p_graph, t_paths *paths)
 	t_buff_printer	buff;
 
 	buff.index = 0;
+	if (!paths || !paths->paths)
+		return (SUCCESS);
 	if (paths->paths[0].len == 0)
 		return (print_one_line(paths, p_graph, &buff));
 	if (!(offset_arr = (int*)malloc(sizeof(int)
