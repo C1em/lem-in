@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 02:16:35 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/17 12:24:56 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/25 16:31:38 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int					print_res(t_parser_graph *p_graph, t_paths *paths)
 	offset_arr[0] = INT_MAX;
 	p_graph->line = -1;
 	while (++p_graph->line < paths->paths[0].ants_on + paths->paths[0].len)
-		if (print_line(p_graph, offset_arr, &buff, paths) != SUCCESS)
+		if (print_line(p_graph, offset_arr, &buff, paths) == FAILURE)
 			return (FAILURE);
 	free(offset_arr);
 	if (p_graph->flag[BONUS_P] && print_paths(p_graph, *paths, &buff)

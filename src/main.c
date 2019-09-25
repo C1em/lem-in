@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:52:16 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/17 17:49:32 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/25 15:15:30 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int			print_paths(t_parser_graph *p_graph, t_paths paths,
 		++i;
 	}
 	add_str(buff, "\n");
-	write(1, buff->buff, buff->index);
 	return (SUCCESS);
 }
 
