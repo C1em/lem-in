@@ -6,7 +6,7 @@
 /*   By: coremart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 15:16:55 by coremart          #+#    #+#             */
-/*   Updated: 2019/10/31 21:08:25 by coremart         ###   ########.fr       */
+/*   Updated: 2019/10/31 23:33:14 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	unsigned char *s2;
+	size_t i;
 
-	s2 = (unsigned char *)s;
-	while (n)
+	i = 0;
+	while (i < n)
 	{
-		*s2 = 0;
-		s2++;
-		n--;
+		((unsigned char*)s)[i] = 0;
+		i++;
 	}
 }
