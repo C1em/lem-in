@@ -10,9 +10,10 @@ for example :
   [start]
   /  |        For one or two ants, the most optimal path is the middle one.
 [3] [1]--[5]
- |   |    |   For more than two ants, the best way is to send half of the ants on the left path and the other half on the right way
-[4]--[2] [6]  Sending all the ants on the middle way will cause them to wait for the node to be left by the ant actually on it,
-      | /     So only one ant by turn will reach the end.
+ |   |    |   For more than two ants, the best way is to send half of the ants on the left path and the other half on the
+ |   |    |   right way.
+[4]--[2] [6]  Sending all the ants on the middle way will cause them to wait for the node to be left by the ant actually on
+      | /     it, so only one ant by turn will reach the end.
     [end]     Whereas by sending on the wings ways, you can send 2 ants by turn and make 2 others reach the end.
 
          
