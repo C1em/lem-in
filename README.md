@@ -2,8 +2,8 @@
 
 lem-in is graph theory project.
 
-the program take a anteater and a number of ants and output the most optimal way to make all the ants go from start to end.
-Each node can containe only one ant (unless for start and end).
+the program take a anteater and a number of ants and output the most optimal way to make all the ants go from start to end. 
+Each node can containe only one ant (unless for start and end). 
 
 for example : 
 
@@ -69,4 +69,4 @@ if you have you own anteater:
 $./lem-in < anteater
 
 if you want to use the generator:
-$./generator [--flow-one | --flow-ten | --flow-thousand | --big | --big-superposition]> anteater && ./lem-in < anteater
+$./generator [--flow-one | --flow-ten | --flow-thousand | --big | --big-superposition] > anteater && ./lem-in < anteater
