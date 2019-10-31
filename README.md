@@ -13,8 +13,8 @@ for example :
 &nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|   For more than two ants, the best way is to send half of the ants on the left path  
 &nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|   and the other half on the right way.  
 [4]--[2]&nbsp;[6]  Sending all the ants on the middle way will cause them to wait for the node to be left  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;/     by the ant actually on it, so only one ant by turn will reach the end.  
-&nbsp;&nbsp;&nbsp;&nbsp;[end]     Whereas by sending on the wings ways, you can send 2 ants by turn and make 2 others reach the end.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;/     by the ant actually on it, so only one ant by turn will reach the end.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[end]     Whereas by sending on the wings ways, you can send 2 ants by turn and make 2 others reach the end.  
 
          
 The input file need to be formted like follow :  
