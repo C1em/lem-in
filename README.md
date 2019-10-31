@@ -2,8 +2,7 @@
 
 lem-in is graph theory project.
 
-the program take a anteater and a number of ants and output the most optimal way to make all the ants go from 
-start to end.
+the program take a anteater and a number of ants and output the most optimal way to make all the ants go from start to end.\n
 Each node can containe only one ant (unless for start and end). 
 
 for example : 
