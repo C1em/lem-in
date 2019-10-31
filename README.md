@@ -70,5 +70,3 @@ $./lem-in < anteater
 
 if you want to use the generator:
 $./generator [--flow-one | --flow-ten | --flow-thousand | --big | --big-superposition]> anteater && ./lem-in < anteater
-
-
