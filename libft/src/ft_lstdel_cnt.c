@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_lstdel_cnt.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tlamart <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 15:16:55 by coremart          #+#    #+#             */
-/*   Updated: 2019/10/31 21:08:25 by coremart         ###   ########.fr       */
+/*   Created: 2018/11/26 16:52:08 by tlamart           #+#    #+#             */
+/*   Updated: 2019/10/24 19:19:51 by tlamart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_lstdel_cnt(void *content, size_t content_size)
 {
-	unsigned char *s2;
-
-	s2 = (unsigned char *)s;
-	while (n)
-	{
-		*s2 = 0;
-		s2++;
-		n--;
-	}
+	if (!content)
+		return ;
+	ft_bzero(content, content_size);
+	ft_memdel(&content);
 }

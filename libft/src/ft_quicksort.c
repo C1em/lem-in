@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 01:31:18 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/03 22:24:27 by coremart         ###   ########.fr       */
+/*   Updated: 2019/10/31 21:10:55 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ void		ft_qsort(int arr[], int low, int high)
 
 void		ft_quicksort(int *arr, int size)
 {
-	return (ft_qsort(arr, 0, size - 1));
+	ft_qsort(arr, 0, size - 1);
 }

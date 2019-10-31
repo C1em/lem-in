@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 09:50:56 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/17 13:04:10 by coremart         ###   ########.fr       */
+/*   Updated: 2019/10/11 11:50:28 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,19 @@ int		ft_isint(const char *str)
 	i = 0;
 	if ((sign = (str[0] == '-')))
 		str++;
+	while (str[0] == '0')
+		str++;
 	while (ft_isdigit(str[i]))
 		i++;
 	if (str[i] != '\0' || !ft_isdigit(str[i - 1]) || i > 10)
 		return (0);
 	if (i < 10)
 		return (1);
-	if (str[0] > '2' || str[1] > '1' || str[2] > '4' || str[3] > '7'
-	|| str[4] > '4' || str[5] > '8' || str[6] > '3' || str[7] > '6'
-	|| str[8] > '4' || str[9] > '7' + sign)
+	if ((i = ft_strncmp(str, "214748364", 9)) > 0)
 		return (0);
-	return (1);
+	if (i < 0)
+		return (1);
+	if (str[9] <= '7' + sign)
+		return (1);
+	return (0);
 }

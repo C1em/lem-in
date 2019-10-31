@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: coremart <coremart@student.42.fr>          +#+  +:+       +#+         #
+#    By: cbenoit <cbenoit@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/08 11:46:04 by coremart          #+#    #+#              #
-#    Updated: 2019/09/14 09:56:55 by coremart         ###   ########.fr        #
+#    Updated: 2019/10/31 21:06:39 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ## COMPILATION ##
 NAME = libft.a
 ASANFLAGS = -fsanitize=address -fno-omit-frame-pointer -Wno-format-security -fsanitize=undefined
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror -pedantic-errors -std=c99
 DFLAGS = -MT $@ -MMD -MP -MF $(DDIR)/$*.d
 ASAN =
 
@@ -36,7 +36,8 @@ ft_lstlen.c ft_lstdup.c ft_lstprint.c ft_strdiff.c ft_strndup.c ft_min.c \
 ft_strclen.c ft_count_digit.c ft_memdup.c ft_absolute.c ft_memswap.c \
 get_next_line.c ft_count_digitbase.c ft_print_byte.c ft_putbfloat.c \
 ft_putnchar.c ft_putnstr.c ft_pwr.c ft_quicksort.c ft_ceil.c ft_isspace.c \
-ft_isint.c
+ft_isint.c ft_atoibase.c ft_convert_base.c ft_itoabase.c ft_ctabdel.c \
+ft_lstappend.c ft_lstdel_cnt.c
 SRCS = $(patsubst %,$(SDIR)/%,$(_SRCS))
 
 ## OBJECTS ##
@@ -45,7 +46,7 @@ _OBJS = $(_SRCS:.c=.o)
 OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
 
 ## DEPENDENCIES ##
-DDIR = deps
+DDIR = dep
 _DEPS = $(_OBJS:.o=.d)
 DEPS = $(patsubst %,$(DDIR)/%,$(_DEPS))
 

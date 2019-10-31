@@ -6,14 +6,14 @@
 #    By: coremart <coremart@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 17:33:24 by coremart          #+#    #+#              #
-#    Updated: 2019/09/25 14:44:50 by coremart         ###   ########.fr        #
+#    Updated: 2019/10/31 21:05:09 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ##COMPILATION ##
 NAME = lem-in
 ASANFLAGS = -fsanitize=address -fno-omit-frame-pointer -Wno-format-security -fsanitize=undefined
-CFLAGS = -g -Werror -Wall -Wextra -pedantic-errors
+CFLAGS = -g -Werror -Wall -Wextra -pedantic-errors -std=c99
 DFLAGS = -MT $@ -MMD -MP -MF $(DDIR)/$*.d
 AFLAGS =
 ASAN =
@@ -38,7 +38,7 @@ _OBJS = $(_SRCS:.c=.o)
 OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
 
 ## DEPENDENCIES ##
-DDIR = deps
+DDIR = dep
 _DEPS = $(_OBJS:.o=.d)
 DEPS = $(patsubst %,$(DDIR)/%,$(_DEPS))
 

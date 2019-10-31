@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memccpy.c                                       :+:      :+:    :+:   */
+/*   ft_ctabdel.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tlamart <tlamart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 16:35:19 by coremart          #+#    #+#             */
-/*   Updated: 2019/10/31 21:09:11 by coremart         ###   ########.fr       */
+/*   Created: 2019/08/21 12:25:47 by tlamart           #+#    #+#             */
+/*   Updated: 2019/08/21 14:55:10 by tlamart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+void	ft_ctabdel(char **tab)
 {
-	size_t i;
+	int		i;
 
 	i = 0;
-	while (i < n)
+	while ((tab[i]))
 	{
-		*((unsigned char*)dst + i) = *((unsigned char*)src + i);
-		if (*((unsigned char*)src + i) == (unsigned char)c)
-			return (&((unsigned char *)dst)[i + 1]);
+		free((tab[i]));
+		(tab[i]) = NULL;
 		i++;
 	}
-	return (NULL);
+	free(tab);
 }

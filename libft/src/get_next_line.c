@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:20:49 by coremart          #+#    #+#             */
-/*   Updated: 2019/09/15 06:25:16 by coremart         ###   ########.fr       */
+/*   Updated: 2019/09/10 07:58:42 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ static t_fd		*ft_fdnew(char *content, int fd)
 	if (!(new = (t_fd*)malloc(sizeof(t_fd))))
 		return (NULL);
 	if (!(new->content = ft_strdup(content)))
-	{
-		free(new);
 		return (NULL);
-	}
 	new->fd = fd;
 	new->next = NULL;
 	return (new);
@@ -39,13 +36,13 @@ static t_fd		*ft_get_fd(t_fd **lst, const int fd)
 	tmp = *lst;
 	if (!*lst)
 		return ((*lst = ft_fdnew("\0", fd)));
-	if (tmp->fd == fd)
-		return (tmp);
-	while (tmp->next)
+	while (1)
 	{
-		tmp = tmp->next;
 		if (tmp->fd == fd)
 			return (tmp);
+		if (!tmp->next)
+			break ;
+		tmp = tmp->next;
 	}
 	return ((tmp->next = ft_fdnew("\0", fd)));
 }
@@ -72,7 +69,7 @@ char			*ft_join_n_free(char *s1, const char *s2)
 	char	*tmp;
 
 	tmp = s1;
-	if (!(s1 = ft_strjoin(s1, s2)))
+	if (!(s1 = ft_strjoin(tmp, s2)))
 		return (NULL);
 	free(tmp);
 	return (s1);
@@ -80,14 +77,15 @@ char			*ft_join_n_free(char *s1, const char *s2)
 
 int				get_next_line(const int fd, char **line)
 {
-	static t_fd	*lst;
-	t_fd		*cur;
-	char		buff[BUFF_SIZE + 1];
-	ssize_t		rd;
+	static t_fd		*lst;
+	t_fd			*cur;
+	char			buff[BUFF_SIZE + 1];
+	ssize_t			rd;
 
 	if (fd < 0 || !line || BUFF_SIZE < 0 || read(fd, buff, 0) < 0)
 		return (-1);
-	if (!(cur = ft_get_fd(&lst, fd))->content)
+	cur = ft_get_fd(&lst, fd);
+	if (!(cur->content))
 		return (0);
 	while (!ft_strchr(cur->content, '\n') && (rd = read(fd, buff, BUFF_SIZE)))
 	{
@@ -95,11 +93,8 @@ int				get_next_line(const int fd, char **line)
 		if (!(cur->content = ft_join_n_free(cur->content, buff)))
 			return (-1);
 	}
-	if (cur->content[0] == '\0')
-	{
-		ft_strdel(&cur->content);
+	if (!cur->content[0])
 		return (0);
-	}
 	if (!(*line = ft_strndup(cur->content, ft_strclen(cur->content, '\n'))))
 		return (-1);
 	if (!(cur->content = ft_cpyfromcr(cur->content)))
