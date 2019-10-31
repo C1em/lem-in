@@ -7,7 +7,7 @@ Each node can containe only one ant (unless for start and end).
 
 for example : 
 
-  [start]  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  [start]  
   /  |        For one or two ants, the most optimal path is the middle one.  
 [3] [1]--[5]  
  |   |    |   For more than two ants, the best way is to send half of the ants on the left path  
