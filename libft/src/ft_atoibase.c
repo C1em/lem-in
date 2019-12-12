@@ -51,7 +51,7 @@ static long		get_value_from_base(char c, const char *base)
 	int	i;
 
 	i = 0;
-	if (c == '+' | c == '-')
+	if ((c == '+') | (c == '-'))
 		return (-1);
 	while (*base)
 	{

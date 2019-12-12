@@ -11,6 +11,7 @@
 # **************************************************************************** #
 
 ##COMPILATION ##
+CC ?= gcc
 NAME = lem-in
 ASANFLAGS = -fsanitize=address -fno-omit-frame-pointer -Wno-format-security -fsanitize=undefined
 CFLAGS = -g -Werror -Wall -Wextra -pedantic-errors -std=c99
@@ -47,16 +48,16 @@ DEPS = $(patsubst %,$(DDIR)/%,$(_DEPS))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@if [ "$(AFLAGS)" == "" ];\
-	then\
+	@if [ "$(AFLAGS)" = "" ];\
+	then \
 		make -j 8 -C $(LIB);\
-	else\
+	else \
 		make -j 8 -C $(LIB) asan;\
 	fi
-	gcc -o $(NAME) $(LIBA) $(OBJS) $(CFLAGS) $(AFLAGS)
+	$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(AFLAGS) $(LIBA)
 
 $(ODIR)/%.o: $(SDIR)/%.c
-	gcc $(CFLAGS) $(DFLAGS) -o $@ -c $< -I $(HDIR) -I $(LIBH) $(AFLAGS)
+	$(CC) $(CFLAGS) $(DFLAGS) -o $@ -c $< -I $(HDIR) -I $(LIBH) $(AFLAGS)
 
 -include $(DEPS)
 
