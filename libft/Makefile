@@ -11,6 +11,7 @@
 # **************************************************************************** #
 
 ## COMPILATION ##
+CC ?= gcc
 NAME = libft.a
 ASANFLAGS = -fsanitize=address -fno-omit-frame-pointer -Wno-format-security -fsanitize=undefined
 CFLAGS = -g -Wall -Wextra -Werror -pedantic-errors -std=c99
@@ -58,7 +59,7 @@ $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 $(ODIR)/%.o: $(SDIR)/%.c
-	gcc $(CFLAGS) $(DFLAGS) -o $@ -c $< -I $(HDIR) $(ASAN)
+	$(CC) $(CFLAGS) $(DFLAGS) -o $@ -c $< -I $(HDIR) $(ASAN)
 
 -include $(DEPS)
 
